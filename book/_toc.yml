@@ -6,4 +6,5 @@ root: intro
 chapters:
 - file: chapter1-1
 - file: chapter1-2
+- file: chapter1-3
 
