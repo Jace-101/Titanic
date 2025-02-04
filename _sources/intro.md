@@ -1,11 +1,10 @@
-# Welcome to your Jupyter Book
+# 타이타닉 생존자 예측하기 with ChatGPT
 
-This is a small sample book to give you a feel for how book content is
-structured.
-It shows off a few of the major file types, as well as some sample content.
-It does not go in-depth into any particular topic - check out [the Jupyter Book documentation](https://jupyterbook.org) for more information.
+*(언젠가 수정 예정. 아마도 책 표지 추가??)*
 
-Check out the content pages bundled with this sample book to see more..
+*(일단은 표지 대신 목차를 추가)*
+
+
 
 ```{tableofcontents}
 ```
