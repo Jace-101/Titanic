@@ -1,8 +1,2 @@
-# 타이타닉 생존자 예측하기 with ChatGPT
+![책 표지](images/Titanic_Book_Cover.png)
 
-![Blue and Golden Vintage Picturesque Illustrative Novel Story Book Cover](C:\Users\mlee\Downloads\Blue and Golden Vintage Picturesque Illustrative Novel Story Book Cover.png)
-
-
-
-```{tableofcontents}
-```
