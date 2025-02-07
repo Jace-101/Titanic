@@ -2,5 +2,5 @@
 
 
 
-![책 표지](images/Titanic_Book_Cover.png)
+![책 표지](Titanic_Book_Cover.png)
 

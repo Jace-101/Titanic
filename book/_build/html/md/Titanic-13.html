@@ -1,0 +1,1263 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>3. 모델 학습과 예측 &#8212; Predicting Titanic Survivors with ChatGPT</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'md/Titanic-13';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="1. 성별을 추가한다면 생존자 예측에 얼마나 도움이 될까?" href="Titanic-21.html" />
+    <link rel="prev" title="2. 데이터 이해하기: 수치형 특성과 생존률의 관계" href="Titanic-12.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Predicting Titanic Survivors with ChatGPT - Home"/>
+    <img src="../_static/logo.png" class="logo__image only-dark pst-js-only" alt="Predicting Titanic Survivors with ChatGPT - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    타이타닉 생존자 예측
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Titanic-11.html">1. 타이타닉 생존자 예측: 첫걸음 떼기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Titanic-12.html">2. 데이터 이해하기: 수치형 특성과 생존률의 관계</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">3. 모델 학습과 예측</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Titanic-21.html">1. 성별을 추가한다면 생존자 예측에 얼마나 도움이 될까?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Titanic-22.html">2. 출발지의 비밀: 두 승객의 미스터리</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fmd/Titanic-13.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/md/Titanic-13.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>3. 모델 학습과 예측</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">학습 과정 개요</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">학습에 사용할 변수 선택</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">데이터 분할</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">모델 학습</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">생존 여부 예측</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>3. 모델 학습과 예측<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<p>이제 데이터 분석을 마치고 실제 학습 단계로 들어가 보겠습니다. 이 섹션에서는 다소 복잡해 보이는 코드들이 등장하는데요, 처음 보시는 분들은 당황하실 수 있습니다. 하지만 걱정하지 마세요! 지금 당장 이 코드들을 모두 이해할 필요는 없습니다.</p>
+<section id="id2">
+<h2>학습 과정 개요<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>이번 섹션에서는 크게 다음과 같은 작업을 수행합니다:</p>
+<ol class="arabic simple">
+<li><p>학습에 사용할 변수 선택</p>
+<ul class="simple">
+<li><p>‘Pclass’: 좌석 등급</p></li>
+<li><p>‘Age’: 나이</p></li>
+<li><p>‘SibSp’: 동승한 형제/배우자 수</p></li>
+<li><p>‘Parch’: 동승한 부모/자녀 수</p></li>
+<li><p>‘Fare’: 요금</p></li>
+</ul>
+</li>
+<li><p>데이터 분할 (8:2 비율)</p>
+<ul class="simple">
+<li><p>학습용 데이터 (80%)</p></li>
+<li><p>검증용 데이터 (20%)</p></li>
+</ul>
+</li>
+<li><p>모델 학습</p></li>
+<li><p>생존 여부 예측</p></li>
+</ol>
+<div class="admonition-more-info admonition">
+<p class="admonition-title">More Info</p>
+<p><strong>왜 이 섹션이 필요한가요?</strong></p>
+<p>이 섹션의 내용이 기술적으로 복잡해 보일 수 있지만, 실제 예측 결과를 얻기 위해서는 반드시 필요한 과정입니다. 마치 맛있는 요리를 만들기 위해 복잡한 재료 손질 과정을 건너뛸 수 없는 것처럼요.</p>
+<p>지금은 이 코드들이 생소하고 어렵게 느껴지시더라도 걱정하지 마세요. 이것은 아주 자연스러운 것입니다. 지금은 “아, 이런 과정을 통해 컴퓨터가 학습을 하는구나” 정도로 이해하시면 충분합니다.</p>
+<p>책의 뒷부분에서 이러한 코드들이 어떤 의미인지, 각각의 설정값들은 무엇을 의미하는지 자세히 다룰 예정입니다. 그때가 되면 지금은 복잡해 보이는 코드들이 훨씬 이해하기 쉬워질 것입니다.</p>
+<p>차근차근 앞으로 나아가면서 하나씩 이해해 나가시면 됩니다. 지금 당장 모든 것을 이해하려고 하지 마시고, 이런 과정이 있다는 것만 기억해 두세요!</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>사전 준비</strong></p>
+<p>아래에 있는 <strong>준비 코드</strong>는 이번 섹션의 학습을 위해 필요한 이전 섹션의 코드입니다. 새로운 내용은 없으니 그대로 실행해주시면 됩니다.</p>
+<p>이는 마치 요리 책에서 ‘이전 단계에서 준비해둔 반죽을 사용하여…’와 같은 설명과 비슷한 역할을 합니다. 학습의 연속성을 위해 필요한 과정이니 부담 없이 진행해주세요.</p>
+</div>
+<p>💻 <strong>준비 코드</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./train.csv&#39;</span><span class="p">)</span>
+<span class="n">test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./test.csv&#39;</span><span class="p">)</span>
+<span class="n">submission</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./gender_submission.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h2>학습에 사용할 변수 선택<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>먼저 생존 여부를 예측하기 위해 어떤 정보들을 사용할지 선택해야 합니다. 이번 섹션에서는 5가지 숫자형(Numeric) 피쳐만 사용하겠습니다. 문자형(Object) 피쳐는 추가적인 전처리 과정이 필요하기 때문에 일단 제외하고, 아래 5개의 숫자형 피쳐만 사용하여 첫 번째 모델을 만들어보겠습니다.</p>
+<ul class="simple">
+<li><p>Pclass: 좌석 등급 (1등석, 2등석, 3등석)</p></li>
+<li><p>Age: 승객의 나이</p></li>
+<li><p>SibSp: 함께 탑승한 형제자매, 배우자의 수</p></li>
+<li><p>Parch: 함께 탑승한 부모, 자녀의 수</p></li>
+<li><p>Fare: 티켓 요금</p></li>
+</ul>
+<p>📝 <strong>프롬프트</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;Pclass&#39;</span><span class="p">,</span> <span class="s1">&#39;Age&#39;</span><span class="p">,</span> <span class="s1">&#39;SibSp&#39;</span><span class="p">,</span> <span class="s1">&#39;Parch&#39;</span><span class="p">,</span> <span class="s1">&#39;Fare&#39;</span><span class="n">를</span> <span class="n">inc_fts</span> <span class="n">변수에</span> <span class="n">저장해</span> <span class="n">줘</span>
+</pre></div>
+</div>
+<p>💻 <strong>코드 &amp; 실행결과</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">inc_fts</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Pclass&#39;</span><span class="p">,</span> <span class="s1">&#39;Age&#39;</span><span class="p">,</span> <span class="s1">&#39;SibSp&#39;</span><span class="p">,</span> <span class="s1">&#39;Parch&#39;</span><span class="p">,</span> <span class="s1">&#39;Fare&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>이 숫자형 피쳐들은 승객의 생존과 관련이 있을 것으로 예상되어 추가했습니다. 예를 들어, 좌석 등급은 구명보트 탑승 우선순위와 관련이 있을 수 있고, 나이나 가족 관계는 비상 상황에서의 대처 능력이나 도움을 받을 수 있는 가능성과 연관될 수 있습니다.</p>
+<p>그 다음 코드들은 선택한 이 정보들을 컴퓨터가 학습할 수 있는 형태로 준비하는 과정입니다. 지금 단계에서는 이 부분을 자세히 이해할 필요는 없습니다. 이런 형태로 데이터를 준비한다는 것만 알아두시면 됩니다.</p>
+<p>📝 <strong>프롬프트</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">inc_fts에</span> <span class="n">저장한</span> <span class="n">피쳐들을</span> <span class="n">대상으로</span> <span class="n">train</span> <span class="n">데이터를</span> <span class="n">X와</span> <span class="n">y로</span> <span class="n">분리해줘</span>
+<span class="o">-</span> <span class="n">test</span> <span class="n">데이터는</span> <span class="n">X_test로</span> <span class="n">저장해줘</span>
+<span class="o">-</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">X_test의</span> <span class="n">행과</span> <span class="n">열을</span> <span class="n">출력해줘</span>
+</pre></div>
+</div>
+<p>💻 <strong>코드 &amp; 실행결과</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="n">inc_fts</span><span class="p">]</span>     <span class="c1"># 선택한 정보들</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="s1">&#39;Survived&#39;</span><span class="p">]</span>  <span class="c1"># 실제 생존 여부</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">test</span><span class="p">[</span><span class="n">inc_fts</span><span class="p">]</span> <span class="c1"># 예측해야 할 데이터의 정보들</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="c1"># 행과 열 출력 </span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(891, 5) (891,) (418, 5)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h2>데이터 분할<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>이제 데이터를 두 그룹으로 나누어 보겠습니다. 전체 데이터의 80%는 학습용으로, 20%는 검증용으로 사용할 것입니다.</p>
+<p>이렇게 데이터를 나누는 이유는 무엇일까요? 간단한 비유를 들어보겠습니다. 영어 시험을 준비한다고 생각해봅시다. 여러분은 문제집의 모든 문제를 외워버리는 대신, 일부 문제로 공부를 하고 나머지 문제로 자신의 실력을 테스트해볼 것입니다. 이렇게 해야 실제 시험에서도 좋은 성적을 낼 수 있겠죠?</p>
+<p>머신러닝도 마찬가지입니다:</p>
+<ul class="simple">
+<li><p>학습용 데이터(80%): 컴퓨터가 패턴을 학습하는데 사용</p></li>
+<li><p>검증용 데이터(20%): 학습한 내용을 테스트해보는데 사용</p></li>
+</ul>
+<p>📝 <strong>프롬프트</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X와</span> <span class="n">y를</span> <span class="mi">8</span><span class="p">:</span><span class="mi">2</span> <span class="n">비율로</span> <span class="n">나누어서</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">X_valid</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_valid로</span> <span class="n">저장해줘</span>
+</pre></div>
+</div>
+<p>💻 <strong>코드 &amp; 실행결과</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_valid</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_valid</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">X_valid</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>((712, 5), (179, 5))
+</pre></div>
+</div>
+</div>
+</div>
+<p>이 코드는 데이터를 8:2로 나누는 작업을 수행합니다. 코드의 세부적인 내용은 지금 단계에서는 이해하실 필요가 없습니다. 데이터를 학습용과 검증용으로 나누어 준다는 점만 기억해 주세요.</p>
+</section>
+<section id="id5">
+<h2>모델 학습<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p>이제 본격적으로 컴퓨터에게 데이터를 학습시켜 보겠습니다. 여기서는 ‘Random Forest’라는 머신러닝 알고리즘을 사용할 것입니다.</p>
+<p>Random Forest는 여러 개의 의사결정 나무를 만들어 이들의 ‘투표’ 결과로 최종 예측을 하는 방법입니다. 마치 어려운 결정을 해야 할 때 여러 전문가의 의견을 종합하는 것과 비슷하다고 생각하시면 됩니다.</p>
+<p>📝 <strong>프롬프트</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Random</span> <span class="n">Forest</span> <span class="n">모델로</span> <span class="n">X_train과</span> <span class="n">y_train을</span> <span class="n">학습시켜줘</span>
+</pre></div>
+</div>
+<p>💻 <strong>코드 &amp; 실행결과</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>#sk-container-id-1 {
+  /* Definition of color scheme common for light and dark mode */
+  --sklearn-color-text: black;
+  --sklearn-color-line: gray;
+  /* Definition of color scheme for unfitted estimators */
+  --sklearn-color-unfitted-level-0: #fff5e6;
+  --sklearn-color-unfitted-level-1: #f6e4d2;
+  --sklearn-color-unfitted-level-2: #ffe0b3;
+  --sklearn-color-unfitted-level-3: chocolate;
+  /* Definition of color scheme for fitted estimators */
+  --sklearn-color-fitted-level-0: #f0f8ff;
+  --sklearn-color-fitted-level-1: #d4ebff;
+  --sklearn-color-fitted-level-2: #b3dbfd;
+  --sklearn-color-fitted-level-3: cornflowerblue;
+
+  /* Specific color for light theme */
+  --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+  --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, white)));
+  --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+  --sklearn-color-icon: #696969;
+
+  @media (prefers-color-scheme: dark) {
+    /* Redefinition of color scheme for dark theme */
+    --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
+    --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, #111)));
+    --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
+    --sklearn-color-icon: #878787;
+  }
+}
+
+#sk-container-id-1 {
+  color: var(--sklearn-color-text);
+}
+
+#sk-container-id-1 pre {
+  padding: 0;
+}
+
+#sk-container-id-1 input.sk-hidden--visually {
+  border: 0;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+#sk-container-id-1 div.sk-dashed-wrapped {
+  border: 1px dashed var(--sklearn-color-line);
+  margin: 0 0.4em 0.5em 0.4em;
+  box-sizing: border-box;
+  padding-bottom: 0.4em;
+  background-color: var(--sklearn-color-background);
+}
+
+#sk-container-id-1 div.sk-container {
+  /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
+     but bootstrap.min.css set `[hidden] { display: none !important; }`
+     so we also need the `!important` here to be able to override the
+     default hidden behavior on the sphinx rendered scikit-learn.org.
+     See: https://github.com/scikit-learn/scikit-learn/issues/21755 */
+  display: inline-block !important;
+  position: relative;
+}
+
+#sk-container-id-1 div.sk-text-repr-fallback {
+  display: none;
+}
+
+div.sk-parallel-item,
+div.sk-serial,
+div.sk-item {
+  /* draw centered vertical line to link estimators */
+  background-image: linear-gradient(var(--sklearn-color-text-on-default-background), var(--sklearn-color-text-on-default-background));
+  background-size: 2px 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+/* Parallel-specific style estimator block */
+
+#sk-container-id-1 div.sk-parallel-item::after {
+  content: "";
+  width: 100%;
+  border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
+  flex-grow: 1;
+}
+
+#sk-container-id-1 div.sk-parallel {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  background-color: var(--sklearn-color-background);
+  position: relative;
+}
+
+#sk-container-id-1 div.sk-parallel-item {
+  display: flex;
+  flex-direction: column;
+}
+
+#sk-container-id-1 div.sk-parallel-item:first-child::after {
+  align-self: flex-end;
+  width: 50%;
+}
+
+#sk-container-id-1 div.sk-parallel-item:last-child::after {
+  align-self: flex-start;
+  width: 50%;
+}
+
+#sk-container-id-1 div.sk-parallel-item:only-child::after {
+  width: 0;
+}
+
+/* Serial-specific style estimator block */
+
+#sk-container-id-1 div.sk-serial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--sklearn-color-background);
+  padding-right: 1em;
+  padding-left: 1em;
+}
+
+
+/* Toggleable style: style used for estimator/Pipeline/ColumnTransformer box that is
+clickable and can be expanded/collapsed.
+- Pipeline and ColumnTransformer use this feature and define the default style
+- Estimators will overwrite some part of the style using the `sk-estimator` class
+*/
+
+/* Pipeline and ColumnTransformer style (default) */
+
+#sk-container-id-1 div.sk-toggleable {
+  /* Default theme specific background. It is overwritten whether we have a
+  specific estimator or a Pipeline/ColumnTransformer */
+  background-color: var(--sklearn-color-background);
+}
+
+/* Toggleable label */
+#sk-container-id-1 label.sk-toggleable__label {
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  margin-bottom: 0;
+  padding: 0.5em;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+#sk-container-id-1 label.sk-toggleable__label-arrow:before {
+  /* Arrow on the left of the label */
+  content: "▸";
+  float: left;
+  margin-right: 0.25em;
+  color: var(--sklearn-color-icon);
+}
+
+#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {
+  color: var(--sklearn-color-text);
+}
+
+/* Toggleable content - dropdown */
+
+#sk-container-id-1 div.sk-toggleable__content {
+  max-height: 0;
+  max-width: 0;
+  overflow: hidden;
+  text-align: left;
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-1 div.sk-toggleable__content.fitted {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+#sk-container-id-1 div.sk-toggleable__content pre {
+  margin: 0.2em;
+  border-radius: 0.25em;
+  color: var(--sklearn-color-text);
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-1 div.sk-toggleable__content.fitted pre {
+  /* unfitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+  /* Expand drop-down */
+  max-height: 200px;
+  max-width: 100%;
+  overflow: auto;
+}
+
+#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+  content: "▾";
+}
+
+/* Pipeline/ColumnTransformer-specific style */
+
+#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-1 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Estimator-specific style */
+
+/* Colorize estimator box */
+#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-1 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+#sk-container-id-1 div.sk-label label.sk-toggleable__label,
+#sk-container-id-1 div.sk-label label {
+  /* The background is the default theme color */
+  color: var(--sklearn-color-text-on-default-background);
+}
+
+/* On hover, darken the color of the background */
+#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+/* Label box, darken color on hover, fitted */
+#sk-container-id-1 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Estimator label */
+
+#sk-container-id-1 div.sk-label label {
+  font-family: monospace;
+  font-weight: bold;
+  display: inline-block;
+  line-height: 1.2em;
+}
+
+#sk-container-id-1 div.sk-label-container {
+  text-align: center;
+}
+
+/* Estimator-specific */
+#sk-container-id-1 div.sk-estimator {
+  font-family: monospace;
+  border: 1px dotted var(--sklearn-color-border-box);
+  border-radius: 0.25em;
+  box-sizing: border-box;
+  margin-bottom: 0.5em;
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-1 div.sk-estimator.fitted {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+/* on hover */
+#sk-container-id-1 div.sk-estimator:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-1 div.sk-estimator.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Specification for estimator info (e.g. "i" and "?") */
+
+/* Common style for "i" and "?" */
+
+.sk-estimator-doc-link,
+a:link.sk-estimator-doc-link,
+a:visited.sk-estimator-doc-link {
+  float: right;
+  font-size: smaller;
+  line-height: 1em;
+  font-family: monospace;
+  background-color: var(--sklearn-color-background);
+  border-radius: 1em;
+  height: 1em;
+  width: 1em;
+  text-decoration: none !important;
+  margin-left: 1ex;
+  /* unfitted */
+  border: var(--sklearn-color-unfitted-level-1) 1pt solid;
+  color: var(--sklearn-color-unfitted-level-1);
+}
+
+.sk-estimator-doc-link.fitted,
+a:link.sk-estimator-doc-link.fitted,
+a:visited.sk-estimator-doc-link.fitted {
+  /* fitted */
+  border: var(--sklearn-color-fitted-level-1) 1pt solid;
+  color: var(--sklearn-color-fitted-level-1);
+}
+
+/* On hover */
+div.sk-estimator:hover .sk-estimator-doc-link:hover,
+.sk-estimator-doc-link:hover,
+div.sk-label-container:hover .sk-estimator-doc-link:hover,
+.sk-estimator-doc-link:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+div.sk-estimator.fitted:hover .sk-estimator-doc-link.fitted:hover,
+.sk-estimator-doc-link.fitted:hover,
+div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
+.sk-estimator-doc-link.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+/* Span, style for the box shown on hovering the info icon */
+.sk-estimator-doc-link span {
+  display: none;
+  z-index: 9999;
+  position: relative;
+  font-weight: normal;
+  right: .2ex;
+  padding: .5ex;
+  margin: .5ex;
+  width: min-content;
+  min-width: 20ex;
+  max-width: 50ex;
+  color: var(--sklearn-color-text);
+  box-shadow: 2pt 2pt 4pt #999;
+  /* unfitted */
+  background: var(--sklearn-color-unfitted-level-0);
+  border: .5pt solid var(--sklearn-color-unfitted-level-3);
+}
+
+.sk-estimator-doc-link.fitted span {
+  /* fitted */
+  background: var(--sklearn-color-fitted-level-0);
+  border: var(--sklearn-color-fitted-level-3);
+}
+
+.sk-estimator-doc-link:hover span {
+  display: block;
+}
+
+/* "?"-specific style due to the `<a>` HTML tag */
+
+#sk-container-id-1 a.estimator_doc_link {
+  float: right;
+  font-size: 1rem;
+  line-height: 1em;
+  font-family: monospace;
+  background-color: var(--sklearn-color-background);
+  border-radius: 1rem;
+  height: 1rem;
+  width: 1rem;
+  text-decoration: none;
+  /* unfitted */
+  color: var(--sklearn-color-unfitted-level-1);
+  border: var(--sklearn-color-unfitted-level-1) 1pt solid;
+}
+
+#sk-container-id-1 a.estimator_doc_link.fitted {
+  /* fitted */
+  border: var(--sklearn-color-fitted-level-1) 1pt solid;
+  color: var(--sklearn-color-fitted-level-1);
+}
+
+/* On hover */
+#sk-container-id-1 a.estimator_doc_link:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+#sk-container-id-1 a.estimator_doc_link.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-3);
+}
+</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>RandomForestClassifier(random_state=42)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;&nbsp;RandomForestClassifier<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.ensemble.RandomForestClassifier.html">?<span>Documentation for RandomForestClassifier</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>RandomForestClassifier(random_state=42)</pre></div> </div></div></div></div></div></div>
+</div>
+<p>이 코드는 Random Forest 모델을 생성하고 학습하는 과정입니다. <code class="docutils literal notranslate"><span class="pre">random_state=42</span></code>는 실험을 반복해도 같은 결과가 나오도록 하는 설정이며, 꼭 42가 아니어도 됩니다.</p>
+<p>지금 단계에서는 이 코드의 세부적인 내용을 이해하실 필요는 없습니다. Random Forest라는 방법으로 컴퓨터가 데이터를 학습한다는 것만 기억해 주세요. 이후에 Random Forest를 포함한 여러 머신러닝 알고리즘에 대해 더 자세히 다루게 될 것입니다.</p>
+<p>이제 학습된 모델이 실제로 얼마나 잘 예측하는지 테스트해볼 차례입니다. 앞서 우리는 전체 데이터의 20%를 검증용으로 따로 보관해두었습니다. 이 데이터들의 생존 여부를 모델이 예측하도록 하는 것이죠. 이것은 마치 학생이 모의고사를 보는 것과 비슷합니다. 공부한 내용을 바탕으로 처음 보는 문제를 풀어보는 거죠.</p>
+<p>📝 <strong>프롬프트</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X_valid를</span> <span class="n">예측해서</span> <span class="n">y_pred에</span> <span class="n">저장해줘</span>
+</pre></div>
+</div>
+<p>💻 <strong>코드 &amp; 실행결과</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_valid</span><span class="p">)</span>
+<span class="n">y_pred</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1,
+       0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+       0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 1,
+       0, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1,
+       0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,
+       0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 0,
+       0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0,
+       0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0,
+       0, 0, 1], dtype=int64)
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">y_pred</span></code>에는 모델이 예측한 결과가 저장됩니다. 각 승객에 대해 0(사망) 또는 1(생존)의 값이 저장되어 있습니다. 이제 이 예측 결과가 실제 결과와 얼마나 일치하는지 확인해볼 차례입니다.</p>
+<p>📝 <strong>프롬프트</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">y_valid와</span> <span class="n">y_pred를</span> <span class="n">비교해</span> <span class="n">accuracy를</span> <span class="n">계산하고</span><span class="p">,</span> <span class="n">소수점</span> <span class="n">다섯째</span> <span class="n">자리까지</span> <span class="n">출력해줘</span>
+<span class="o">-</span> <span class="n">Validation</span> <span class="n">Score라는</span> <span class="n">문구를</span> <span class="n">포함시켜줘</span>
+</pre></div>
+</div>
+<p>💻 <strong>코드 &amp; 실행결과</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+
+<span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Validation Score: </span><span class="si">{</span><span class="n">accuracy</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Validation Score: 0.73184
+</pre></div>
+</div>
+</div>
+</div>
+<p>이 코드는 모델의 정확도를 계산합니다. 정확도는 전체 예측 중 맞은 예측의 비율을 의미합니다.</p>
+<p>우리 모델의 정확도는 73.184%로 나왔습니다. 이는 모델이 100명의 승객 중 약 73명의 생존 여부를 올바르게 예측했다는 의미입니다. 이때 accuracy_score 함수는 실제 값(y_valid)과 예측 값(y_pred)을 비교하여 이 비율을 계산해줍니다.</p>
+<p>정확도는 0에서 1 사이의 값을 가지며, 1에 가까울수록 예측이 정확하다는 뜻입니다:</p>
+<ul class="simple">
+<li><p>1.0: 완벽한 예측 (100% 정확)</p></li>
+<li><p>0.0: 완전히 틀린 예측 (0% 정확)</p></li>
+</ul>
+<p>지금은 정확도라는 간단한 평가 지표만 사용했지만, 나중에는 다양한 평가 방법에 대해 배우게 될 것입니다.</p>
+</section>
+<section id="id6">
+<h2>생존 여부 예측<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<p>이제 진짜 예측을 해볼 차례입니다. 앞서 검증용 데이터로 모델의 성능을 확인해봤다면, 이번에는 실제 테스트 데이터에 대해 예측을 수행합니다.</p>
+<p>📝 <strong>프롬프트</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X_test에</span> <span class="n">대해</span> <span class="n">예측해서</span> <span class="n">y_test_pred에</span> <span class="n">저장해줘</span>
+</pre></div>
+</div>
+<p>💻 <strong>코드 &amp; 실행결과</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_test_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">y_test_pred</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0,
+       0, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0,
+       1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0,
+       0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0,
+       0, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+       1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0,
+       0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0,
+       0, 0, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1,
+       1, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0,
+       0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0,
+       0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0,
+       1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1,
+       1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0,
+       0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1,
+       0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0,
+       0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0,
+       0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 0, 1,
+       0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1,
+       0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1],
+      dtype=int64)
+</pre></div>
+</div>
+</div>
+</div>
+<p>이전에 했던 검증용 데이터(X_valid)에 대한 예측과 이번 테스트 데이터(X_test)에 대한 예측은 의미가 조금 다릅니다:</p>
+<ul class="simple">
+<li><p>검증용 데이터: 실제 답을 알고 있는 데이터로, 모델의 성능을 평가하기 위해 사용</p></li>
+<li><p>테스트 데이터: 실제 답을 모르는 데이터로, 캐글에 제출할 최종 예측값을 얻기 위해 사용</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">y_test_pred</span></code>에는 각 승객의 생존 여부 예측값(0: 사망, 1: 생존)이 저장됩니다. 이 결과를 캐글에 제출하기 위한 형식으로 만드는 작업이 다음 단계가 되겠네요.</p>
+<p>이제 마지막 단계입니다. 예측 결과를 캐글에 제출할 수 있는 형태의 파일로 만들어보겠습니다.</p>
+<p>📝 <strong>프롬프트</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">submission</span> <span class="n">데이터의</span> <span class="s1">&#39;Survived&#39;</span> <span class="n">컬럼에</span> <span class="n">y_test_pred</span> <span class="n">값을</span> <span class="n">저장해줘</span>
+<span class="o">-</span> <span class="n">titanic_pred</span><span class="o">.</span><span class="n">csv</span> <span class="n">파일에</span> <span class="n">저장하고</span><span class="p">,</span> <span class="n">첫</span> <span class="mi">5</span><span class="n">줄을</span> <span class="n">출력해줘</span>
+</pre></div>
+</div>
+<p>💻 <strong>코드 &amp; 실행결과</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">submission</span><span class="p">[</span><span class="s1">&#39;Survived&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_test_pred</span>
+<span class="n">submission</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;titanic_pred.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">submission</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PassengerId</th>
+      <th>Survived</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>892</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>893</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>894</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>895</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>896</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>이 코드는 두 가지 작업을 수행합니다:</p>
+<ol class="arabic simple">
+<li><p>우리가 예측한 생존 여부(y_test_pred)를 submission 데이터프레임의 ‘Survived’ 열에 저장합니다.</p></li>
+<li><p>이 결과를 ‘titanic_pred.csv’라는 이름의 파일로 저장합니다.</p></li>
+</ol>
+<p>생성된 파일은 승객 ID(PassengerId)와 예측된 생존 여부(Survived)를 포함하고 있습니다.  이 파일을 캐글에 제출한 결과, 0.63397의 점수를 받았습니다. 이는 테스트 데이터 418명 중 약 265명(418 × 0.63397 ≈ 265)의 생존 여부를 정확하게 예측했다는 의미입니다.</p>
+<figure class="align-default" id="id7">
+<a class="reference internal image-reference" href="md/images/13-1.png"><img alt="md/images/13-1.png" src="md/images/13-1.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text">결과파일 제출</span><a class="headerlink" href="#id7" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>이 점수는 이전 섹션에서 봤던 성별 기반 예측(gender_submission)의 점수보다는 낮습니다. 그 이유는 현재 모델이 숫자형(Numeric) 변수들만을 사용했기 때문입니다. 성별(Sex)과 같은 중요한 정보들이 문자형(Object) 변수라서 아직 활용하지 못했죠.</p>
+<p>하지만 걱정하지 마세요! 이것은 우리의 첫 번째 시도일 뿐입니다. 앞으로 다음과 같은 방법들을 통해 점수를 높여갈 것입니다:</p>
+<ol class="arabic simple">
+<li><p>문자형 변수들을 활용하는 방법 배우기</p></li>
+<li><p>결측치를 더 효과적으로 처리하기</p></li>
+<li><p>변수들간의 관계를 활용하기</p></li>
+<li><p>다양한 머신러닝 알고리즘 시도해보기</p></li>
+</ol>
+<p>이렇게 하나씩 개선해가면서, 모델의 성능이 어떻게 향상되는지 함께 확인해보도록 하겠습니다.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./md"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Titanic-12.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">2. 데이터 이해하기: 수치형 특성과 생존률의 관계</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Titanic-21.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">1. 성별을 추가한다면 생존자 예측에 얼마나 도움이 될까?</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">학습 과정 개요</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">학습에 사용할 변수 선택</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">데이터 분할</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">모델 학습</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">생존 여부 예측</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jace Lee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

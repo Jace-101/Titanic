@@ -3,9 +3,16 @@
 
 format: jb-book
 root: intro
+
 chapters:
-- file: Titanic-11
-- file: Titanic-12
-- file: Titanic-13
-- file: Titanic-21
+- file: docs/Titanic-10
+  sections:
+  - file: docs/Titanic-11
+  - file: docs/Titanic-12
+  - file: docs/Titanic-13
+
+- file: docs/Titanic-20
+  sections:
+  - file: docs/Titanic-21
+  - file: docs/Titanic-22
 
