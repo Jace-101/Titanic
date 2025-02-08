@@ -3,6 +3,7 @@
 
 title: Predicting Titanic Survivors with ChatGPT
 author: Jace Lee
+copyright: "2025"
 logo: logo.png
 
 # Force re-execution of notebooks on each build.
