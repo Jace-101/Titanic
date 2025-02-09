@@ -1,0 +1,58 @@
+Traceback (most recent call last):
+  File "C:\Users\mlee\anaconda3\Lib\site-packages\jupyter_cache\executors\utils.py", line 58, in single_nb_execution
+    executenb(
+  File "C:\Users\mlee\anaconda3\Lib\site-packages\nbclient\client.py", line 1305, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mlee\anaconda3\Lib\site-packages\jupyter_core\utils\__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mlee\anaconda3\Lib\asyncio\base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\mlee\anaconda3\Lib\site-packages\nbclient\client.py", line 705, in async_execute
+    await self.async_execute_cell(
+  File "C:\Users\mlee\anaconda3\Lib\site-packages\nbclient\client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "C:\Users\mlee\anaconda3\Lib\site-packages\nbclient\client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# Pclass별 생존률 계산
+survival_rates = train.groupby("Pclass")["Survived"].mean().reset_index()
+
+# Plotly를 사용한 막대 그래프 생성
+fig = px.bar(
+    survival_rates,
+    x="Pclass",
+    y="Survived",
+    title="Pclass별 생존률",
+    labels={"Pclass": "객실 등급", "Survived": "생존률"},
+    text=survival_rates["Survived"].round(2),  # 막대 위에 생존률 표시
+    color="Pclass"  # 색상을 Pclass별로 구분
+)
+
+# 그래프 표시
+fig.show()
+------------------
+
+
+[1;31m---------------------------------------------------------------------------[0m
+[1;31mNameError[0m                                 Traceback (most recent call last)
+Cell [1;32mIn[7], line 5[0m
+[0;32m      2[0m survival_rates [38;5;241m=[39m train[38;5;241m.[39mgroupby([38;5;124m"[39m[38;5;124mPclass[39m[38;5;124m"[39m)[[38;5;124m"[39m[38;5;124mSurvived[39m[38;5;124m"[39m][38;5;241m.[39mmean()[38;5;241m.[39mreset_index()
+[0;32m      4[0m [38;5;66;03m# Plotly를 사용한 막대 그래프 생성[39;00m
+[1;32m----> 5[0m fig [38;5;241m=[39m px[38;5;241m.[39mbar(
+[0;32m      6[0m     survival_rates,
+[0;32m      7[0m     x[38;5;241m=[39m[38;5;124m"[39m[38;5;124mPclass[39m[38;5;124m"[39m,
+[0;32m      8[0m     y[38;5;241m=[39m[38;5;124m"[39m[38;5;124mSurvived[39m[38;5;124m"[39m,
+[0;32m      9[0m     title[38;5;241m=[39m[38;5;124m"[39m[38;5;124mPclass별 생존률[39m[38;5;124m"[39m,
+[0;32m     10[0m     labels[38;5;241m=[39m{[38;5;124m"[39m[38;5;124mPclass[39m[38;5;124m"[39m: [38;5;124m"[39m[38;5;124m객실 등급[39m[38;5;124m"[39m, [38;5;124m"[39m[38;5;124mSurvived[39m[38;5;124m"[39m: [38;5;124m"[39m[38;5;124m생존률[39m[38;5;124m"[39m},
+[0;32m     11[0m     text[38;5;241m=[39msurvival_rates[[38;5;124m"[39m[38;5;124mSurvived[39m[38;5;124m"[39m][38;5;241m.[39mround([38;5;241m2[39m),  [38;5;66;03m# 막대 위에 생존률 표시[39;00m
+[0;32m     12[0m     color[38;5;241m=[39m[38;5;124m"[39m[38;5;124mPclass[39m[38;5;124m"[39m  [38;5;66;03m# 색상을 Pclass별로 구분[39;00m
+[0;32m     13[0m )
+[0;32m     15[0m [38;5;66;03m# 그래프 표시[39;00m
+[0;32m     16[0m fig[38;5;241m.[39mshow()
+
+[1;31mNameError[0m: name 'px' is not defined
+
