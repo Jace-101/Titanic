@@ -20,21 +20,33 @@ kernelspec:
 
 Embarked 피쳐는 승객이 탑승한 항구를 나타내는 카테고리형 변수입니다. 총 세 개의 항구가 있습니다:
 
-- C = Cherbourg, 프랑스
-- Q = Queenstown, 아일랜드
 - S = Southampton, 영국
+
+- C = Cherbourg, 프랑스
+
+- Q = Queenstown, 아일랜드
+
+  
 
 ## 타이타닉호의 항로
 
 타이타닉호는 영국 Southampton에서 출발하여 프랑스 Cherbourg, 아일랜드 Queenstown을 거쳐 미국 뉴욕으로 향했습니다. 각 항구에서 승객들이 탑승했으며, 이는 당시 대서양 횡단의 일반적인 항로였습니다.
 
-[여기에 항로를 보여주는 시각화 추가 예정]
+```{figure} ./images/22-1.png
+---
+width: 600px
+---
+```
+
+
 
 ## Embarked 결측치 분석
 
 훈련 데이터셋에는 2명의 승객에 대한 Embarked 정보가 누락되어 있습니다. 이 승객들의 특성을 살펴보고, 어떤 항구에서 탑승했을지 추정해보겠습니다.
 
 [결측치 승객 정보 분석 추가 예정]
+
+
 
 ## 결측치 처리
 
