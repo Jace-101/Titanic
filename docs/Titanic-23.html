@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>3. 요금(Fare) 항목이 결측치인 사람은 무료로 탑승했을까? &#8212; Predicting Titanic Survivors with ChatGPT</title>
+    <title>3. 사라진 요금(Fare)을 찾아서: 숫자형 결측치는 어떻게 채워야 할까? &#8212; Predicting Titanic Survivors with ChatGPT</title>
   
   
   
@@ -64,8 +64,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4. 나이(Age)는 상관계수가 낮던데, 생존자 예측에 얼마나 도움이 될까?" href="Titanic-24.html" />
-    <link rel="prev" title="2. 출발지(Embarked)가 비어있는 두 승객엔 어떤 비밀이 있을까?" href="Titanic-22.html" />
+    <link rel="next" title="4. 설마 공짜로 탄 거야? 요금 결측치에 숨겨진 비밀" href="Titanic-24.html" />
+    <link rel="prev" title="2. 탑승 항구(Embarked)가 비어있는 두 승객엔 어떤 비밀이 있을까?" href="Titanic-22.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -178,10 +178,10 @@
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="Titanic-20.html">II. 더 깊은 바다로: 카테고리형 데이터와 결측치 처리</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="Titanic-21.html">1. 성별(Sex)을 추가하면 생존 예측의 정확도가 얼마나 올라갈까?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Titanic-22.html">2. 출발지(Embarked)가 비어있는 두 승객엔 어떤 비밀이 있을까?</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">3. 요금(Fare) 항목이 결측치인 사람은 무료로 탑승했을까?</a></li>
-
-<li class="toctree-l2"><a class="reference internal" href="Titanic-24.html">4. 나이(Age)는 상관계수가 낮던데, 생존자 예측에 얼마나 도움이 될까?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titanic-22.html">2. 탑승 항구(Embarked)가 비어있는 두 승객엔 어떤 비밀이 있을까?</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">3. 사라진 요금(Fare)을 찾아서: 숫자형 결측치는 어떻게 채워야 할까?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titanic-24.html">4. 설마 공짜로 탄 거야? 요금 결측치에 숨겨진 비밀</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titanic-25.html">5. 나이(Age)는 상관계수가 낮던데, 생존자 예측에 얼마나 도움이 될까?</a></li>
 
 </ul>
 </details></li>
@@ -370,7 +370,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>3. 요금(Fare) 항목이 결측치인 사람은 무료로 탑승했을까?</h1>
+    <h1>3. 사라진 요금(Fare)을 찾아서: 숫자형 결측치는 어떻게 채워야 할까?</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -380,13 +380,12 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">3. 요금(Fare) 항목이 결측치인 사람은 무료로 탑승했을까?</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">섹션 제목</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">소제목</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Fare 결측치 현황 파악</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">결측치 승객 정보 확인</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">등급과 항구별 승객 통계 분석</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">결측치 채우기</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">다른 가능성</a></li>
 </ul>
-</li>
-</ul>
-
             </nav>
         </div>
     </div>
@@ -397,28 +396,376 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="fare">
-<h1>3. 요금(Fare) 항목이 결측치인 사람은 무료로 탑승했을까?<a class="headerlink" href="#fare" title="Link to this heading">#</a></h1>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="id1">
-<h1>섹션 제목<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
-<section id="id2">
-<h2>소제목<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
-<p>본문…</p>
+  <p>💻 <strong>준비 코드</strong></p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./train.csv&#39;</span><span class="p">)</span>
+<span class="n">test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./test.csv&#39;</span><span class="p">)</span>
+<span class="n">submission</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./gender_submission.csv&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="p">[</span><span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">]:</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Gender&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s1">&#39;male&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;female&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">(),</span> <span class="s1">&#39;Embarked&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;S&#39;</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="fare">
+<h1>3. 사라진 요금(Fare)을 찾아서: 숫자형 결측치는 어떻게 채워야 할까?<a class="headerlink" href="#fare" title="Link to this heading">#</a></h1>
+<p>이제 승객들이 지불한 요금(Fare) 데이터를 살펴보겠습니다. 요금은 앞서 사용했던 수치형 변수 중 하나지만, test 데이터에 결측치가 존재하여 추가적인 처리가 필요합니다. 결측치를 어떤 값으로 채워야 할까요?</p>
+<p>생각해보면 요금은 객실 등급(Pclass)과 밀접한 관련이 있을 것 같습니다. 게다가 같은 등급의 객실이라도 탑승 항구(Embarked)에 따라 요금이 달랐을 수 있죠. 이러한 관계들을 분석하여 가장 적절한 값으로 결측치를 채워보도록 하겠습니다.</p>
+<p>준비가 되셨나요? 그럼 Fare 변수를 자세히 들여다보면서, 결측치를 채우기 위한 여정을 시작해보겠습니다.</p>
+<section id="id1">
+<h2>Fare 결측치 현황 파악<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>먼저 train 데이터와 test 데이터에서 Fare 변수의 결측치가 얼마나 있는지 확인해보겠습니다. 결측치의 수를 파악하는 것은 데이터 전처리의 첫 단계입니다.</p>
 <p>📝 <strong>프롬프트</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">train과</span> <span class="n">test</span> <span class="n">데이터의</span> <span class="n">Fare</span> <span class="n">컬럼</span> <span class="n">결측치</span> <span class="n">개수를</span> <span class="n">계산해줘</span>
 </pre></div>
 </div>
 <p>💻 <strong>코드 &amp; 실행결과</strong></p>
-<p>본문….</p>
-<p>Figure 추가</p>
-<figure class="align-default" id="id3">
-<a class="reference internal image-reference" href="../_images/11-1.png"><img alt="../_images/11-1.png" src="../_images/11-1.png" style="width: 600px;" /></a>
-<figcaption>
-<p><span class="caption-number">Fig. 5 </span><span class="caption-text">결과파일 제출</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
-</figcaption>
-</figure>
-<p>본문….</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of missing values in Fare (train): </span><span class="si">{</span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;Fare&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of missing values in Fare (test): </span><span class="si">{</span><span class="n">test</span><span class="p">[</span><span class="s1">&#39;Fare&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of missing values in Fare (train): 0
+Number of missing values in Fare (test): 1
+</pre></div>
+</div>
+</div>
+</div>
+<p>이 코드는 Fare(요금) 컬럼의 결측치 개수를 확인합니다:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">isnull()</span></code>은 각 값이 결측치인지 여부를 확인합니다</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sum()</span></code>은 결측치의 총 개수를 계산합니다</p></li>
+<li><p>f-string을 사용하여 결과를 보기 좋게 출력합니다</p></li>
+</ul>
+<p>실행 결과를 보면, train 데이터에는 Fare 결측치가 없고 test 데이터에는 1개의 결측치가 있음을 알 수 있습니다. test 데이터의 결측치는 비록 하나지만, 정확한 예측을 위해서는 적절한 값으로 채워넣는게 좋습니다.</p>
+</section>
+<section id="id2">
+<h2>결측치 승객 정보 확인<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>요금이 누락된 승객은 어떤 사람일까요? 이 승객의 다른 정보들을 살펴보면 적절한 요금을 추정하는데 도움이 될 수 있습니다.</p>
+<p>📝 <strong>프롬프트</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Fare가</span> <span class="n">결측치인</span> <span class="n">승객의</span> <span class="n">모든</span> <span class="n">정보를</span> <span class="n">보여줘</span>
+</pre></div>
+</div>
+<p>💻 <strong>코드 &amp; 실행결과</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test</span><span class="p">[</span><span class="n">test</span><span class="o">.</span><span class="n">Fare</span><span class="o">.</span><span class="n">isna</span><span class="p">()]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PassengerId</th>
+      <th>Pclass</th>
+      <th>Name</th>
+      <th>Sex</th>
+      <th>Age</th>
+      <th>SibSp</th>
+      <th>Parch</th>
+      <th>Ticket</th>
+      <th>Fare</th>
+      <th>Cabin</th>
+      <th>Embarked</th>
+      <th>Gender</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>152</th>
+      <td>1044</td>
+      <td>3</td>
+      <td>Storey, Mr. Thomas</td>
+      <td>male</td>
+      <td>60.5</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3701</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>S</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>이 코드는 test 데이터에서 Fare가 결측치인 승객 (Storey, Mr. Thomas)의 정보를 조회합니다:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">test.Fare.isna()</span></code>로 Fare가 결측치인 행을 True로 표시합니다</p></li>
+<li><p>이 조건을 test 데이터프레임의 인덱싱에 사용하여 해당하는 행을 선택합니다</p></li>
+</ul>
+<p>실행 결과를 보면 결측치를 가진 승객의 특징을 알 수 있습니다:</p>
+<ul class="simple">
+<li><p>3등석(Pclass=3) 승객입니다</p></li>
+<li><p>남성(Sex=’male’) 승객입니다</p></li>
+<li><p>Southampton(Embarked=’S’)에서 탑승했습니다</p></li>
+<li><p>혼자 탑승했습니다(SibSp=0, Parch=0)</p></li>
+</ul>
+<p>이러한 정보는 결측치를 채울 때 매우 유용할 것 같습니다. 특히 같은 등급, 같은 항구에서 탑승한 다른 승객들의 요금을 참고하면 좋을 것 같네요.</p>
+</section>
+<section id="id3">
+<h2>등급과 항구별 승객 통계 분석<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>결측치를 채우기 위해 좀 더 자세한 통계를 살펴보겠습니다. 객실 등급(Pclass)과 탑승 항구(Embarked)의 각 조합별로 승객 수와 중간 요금을 함께 확인하면, 더 신뢰할 수 있는 참고 값을 얻을 수 있을 것입니다.</p>
+<p>📝 <strong>프롬프트</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">객실</span> <span class="n">등급과</span> <span class="n">탑승</span> <span class="n">항구별로</span> <span class="n">그룹을</span> <span class="n">나누고</span><span class="p">,</span> <span class="n">각</span> <span class="n">그룹의</span> <span class="n">승객</span> <span class="n">수와</span> <span class="n">요금</span> <span class="n">중앙값을</span> <span class="n">계산해줘</span>
+</pre></div>
+</div>
+<p>💻 <strong>코드 &amp; 실행결과</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">passenger_stats</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Pclass&#39;</span><span class="p">,</span> <span class="s1">&#39;Embarked&#39;</span><span class="p">])[</span><span class="s1">&#39;Fare&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="s1">&#39;median&#39;</span><span class="p">])</span>
+<span class="n">passenger_stats</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>count</th>
+      <th>median</th>
+    </tr>
+    <tr>
+      <th>Pclass</th>
+      <th>Embarked</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="3" valign="top">1</th>
+      <th>C</th>
+      <td>85</td>
+      <td>78.2667</td>
+    </tr>
+    <tr>
+      <th>Q</th>
+      <td>2</td>
+      <td>90.0000</td>
+    </tr>
+    <tr>
+      <th>S</th>
+      <td>129</td>
+      <td>52.5542</td>
+    </tr>
+    <tr>
+      <th rowspan="3" valign="top">2</th>
+      <th>C</th>
+      <td>17</td>
+      <td>24.0000</td>
+    </tr>
+    <tr>
+      <th>Q</th>
+      <td>3</td>
+      <td>12.3500</td>
+    </tr>
+    <tr>
+      <th>S</th>
+      <td>164</td>
+      <td>13.5000</td>
+    </tr>
+    <tr>
+      <th rowspan="3" valign="top">3</th>
+      <th>C</th>
+      <td>66</td>
+      <td>7.8958</td>
+    </tr>
+    <tr>
+      <th>Q</th>
+      <td>72</td>
+      <td>7.7500</td>
+    </tr>
+    <tr>
+      <th>S</th>
+      <td>353</td>
+      <td>8.0500</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>이 코드는 다음과 같은 상세 분석을 수행합니다:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">groupby(['Pclass',</span> <span class="pre">'Embarked'])</span></code>로 객실 등급과 탑승 항구 조합별로 그룹을 만듭니다</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">agg(['count',</span> <span class="pre">'median'])</span></code>으로 각 그룹에 대해 두 가지 계산을 수행합니다:</p>
+<ul>
+<li><p>‘count’: 각 그룹의 승객 수를 세어줍니다</p></li>
+<li><p>‘median’: 각 그룹의 요금 중앙값을 계산합니다</p></li>
+</ul>
+</li>
+</ul>
+<p>실행 결과를 보면 각 조합에 대한 상세 정보를 알 수 있습니다:</p>
+<ul class="simple">
+<li><p>승객 수를 통해 각 그룹의 표본 크기를 확인할 수 있습니다</p></li>
+<li><p>특히 3등석 Southampton의 경우 가장 많은 승객 수를 보여 중앙값의 신뢰도가 높을 것으로 예상됩니다</p></li>
+<li><p>중앙값을 보면 같은 등급이라도 탑승 항구에 따라 요금 차이가 있음을 알 수 있습니다</p></li>
+</ul>
+<p>이 통계를 바탕으로 결측치를 채울 적절한 값을 결정할 수 있을 것 같습니다.</p>
+</section>
+<section id="id4">
+<h2>결측치 채우기<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>test 데이터에서 발견된 결측치를 채워보겠습니다. 그런데 잠깐, 여기서 한 가지 의문이 들 수 있습니다.</p>
+<p>“test 데이터의 결측치를 채우는데, 왜 train 데이터의 중앙값을 계산해서 채우지? test 데이터의 중앙값 또는 전체 데이터의 중앙값을 사용해야 되는 것 아냐?”</p>
+<p>이것은 머신러닝에서 매우 중요한 원칙과 관련이 있습니다. 바로 ‘데이터 유출’을 방지하기 위한 것이죠. 자세히 알아볼까요?</p>
+<div class="tip admonition">
+<p class="admonition-title">왜 train 데이터로 결측치를 채워야 할까?</p>
+<p>머신러닝 프로젝트에서는 test 데이터의 결측치를 채울 때 반드시 train 데이터를 기준으로 해야 합니다. 그 이유는 크게 두 가지입니다:</p>
+<ol class="arabic simple">
+<li><p><strong>데이터 유출(Data Leakage) 방지</strong></p>
+<ul class="simple">
+<li><p>데이터 유출이란 모델이 ‘미래의 정보’를 미리 알게 되는 상황을 말합니다</p></li>
+<li><p>예를 들어 봅시다. 여러분이 시험을 준비한다고 가정해볼까요?</p>
+<ul>
+<li><p>올바른 방법: 기출문제(train data)로 공부하고 실제 시험(test data)을 봅니다</p></li>
+<li><p>잘못된 방법: 실제 시험지를 미리 보고 그걸 참고해서 공부합니다</p></li>
+</ul>
+</li>
+<li><p>test 데이터의 정보를 사용하여 결측치를 채우는 것은 두 번째 경우와 같습니다</p></li>
+<li><p>이는 마치 아직 일어나지 않은 미래의 정보를 사용하는 것과 같은 ‘부정행위’입니다</p></li>
+</ul>
+</li>
+<li><p><strong>실전 상황 고려</strong></p>
+<ul class="simple">
+<li><p>실제 서비스 환경을 생각해봅시다</p></li>
+<li><p>예를 들어 내일 타이타닉호에 새로운 승객이 탑승한다면?</p></li>
+<li><p>그 승객의 요금 정보가 누락되었다면?</p></li>
+<li><p>당연히 과거의 데이터(train data)를 참고해서 채워야겠죠</p></li>
+<li><p>test 데이터는 이런 ‘미래의 새로운 승객’을 시뮬레이션하는 것입니다</p></li>
+</ul>
+</li>
+</ol>
+<p>이러한 원칙은 결측치 처리뿐만 아니라 모든 종류의 데이터 전처리 과정에서 지켜져야 합니다. test 데이터는 오직 최종 예측을 위해서만 사용되어야 하며, 어떠한 통계값 계산에도 활용되어서는 안 됩니다.</p>
+</div>
+<p>이제 Fare의 결측치를 채우겠습니다.</p>
+<p>📝 <strong>프롬프트</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">1.</span> <span class="mi">3</span><span class="n">등석이면서</span> <span class="n">Southampton에서</span> <span class="n">탑승한</span> <span class="n">승객들의</span> <span class="n">요금</span> <span class="n">중앙값을</span> <span class="n">구해서</span>
+<span class="mf">2.</span> <span class="n">그</span> <span class="n">값으로</span> <span class="n">결측치를</span> <span class="n">채운</span> <span class="n">후</span>
+<span class="mf">3.</span> <span class="n">해당</span> <span class="n">승객</span><span class="p">(</span><span class="n">PassengerId</span><span class="o">=</span><span class="mi">1044</span><span class="p">)</span><span class="n">의</span> <span class="n">정보를</span> <span class="n">다시</span> <span class="n">출력해줘</span>
+</pre></div>
+</div>
+<p>💻 <strong>코드 &amp; 실행결과</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">median_fare</span> <span class="o">=</span> <span class="n">train</span><span class="p">[(</span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;Pclass&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;S&#39;</span><span class="p">)][</span><span class="s1">&#39;Fare&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+<span class="n">test</span><span class="p">[</span><span class="s1">&#39;Fare&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">test</span><span class="p">[</span><span class="s1">&#39;Fare&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">median_fare</span><span class="p">)</span>
+
+<span class="n">test</span><span class="p">[</span><span class="n">test</span><span class="p">[</span><span class="s1">&#39;PassengerId&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1044</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PassengerId</th>
+      <th>Pclass</th>
+      <th>Name</th>
+      <th>Sex</th>
+      <th>Age</th>
+      <th>SibSp</th>
+      <th>Parch</th>
+      <th>Ticket</th>
+      <th>Fare</th>
+      <th>Cabin</th>
+      <th>Embarked</th>
+      <th>Gender</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>152</th>
+      <td>1044</td>
+      <td>3</td>
+      <td>Storey, Mr. Thomas</td>
+      <td>male</td>
+      <td>60.5</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3701</td>
+      <td>8.05</td>
+      <td>NaN</td>
+      <td>S</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>이 코드는 세 가지 작업을 순차적으로 수행합니다:</p>
+<ol class="arabic simple">
+<li><p>먼저 train 데이터에서 동일 조건(3등석, Southampton)의 승객들의 중간 요금을 계산합니다</p></li>
+<li><p>계산된 중간 요금으로 test 데이터의 결측치를 채웁니다</p></li>
+<li><p>결과를 확인합니다</p></li>
+</ol>
+</section>
+<section id="id5">
+<h2>다른 가능성<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p>여기서 한 가지 더 생각해볼 것이 있겠네요. 우리는 지금까지 Storey의 누락된 요금을 다른 승객들의 중앙값으로 채웠습니다. 하지만 혹시 이 결측치에는 다른 의미가 있는 것은 아닐까요?</p>
+<p>예를 들어, 요금을 지불하지 않은 승객의 경우 0이라고 기록하는 대신 공란으로 남겨두었을 수도 있지 않을까요? 실제로 그런 사례가 있었는지, 있었다면 Storey의 케이스와 어떤 연관이 있을지 궁금해집니다.</p>
+<p>이러한 의문을 가지고 다음 섹션에서는 조금 더 흥미로운 가설을 세워보겠습니다. 무임승객이 실제로 존재했는지, 만약 있었다면 어떤 특징이 있었는지 살펴보면서, Storey의 결측치에 대한 새로운 해석을 시도해보도록 하겠습니다.</p>
 </section>
 </section>
 
@@ -458,7 +805,7 @@
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">2. 출발지(Embarked)가 비어있는 두 승객엔 어떤 비밀이 있을까?</p>
+        <p class="prev-next-title">2. 탑승 항구(Embarked)가 비어있는 두 승객엔 어떤 비밀이 있을까?</p>
       </div>
     </a>
     <a class="right-next"
@@ -466,7 +813,7 @@
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">4. 나이(Age)는 상관계수가 낮던데, 생존자 예측에 얼마나 도움이 될까?</p>
+        <p class="prev-next-title">4. 설마 공짜로 탄 거야? 요금 결측치에 숨겨진 비밀</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -487,13 +834,12 @@
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">3. 요금(Fare) 항목이 결측치인 사람은 무료로 탑승했을까?</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">섹션 제목</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">소제목</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Fare 결측치 현황 파악</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">결측치 승객 정보 확인</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">등급과 항구별 승객 통계 분석</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">결측치 채우기</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">다른 가능성</a></li>
 </ul>
-</li>
-</ul>
-
   </nav></div>
 
 </div></div>

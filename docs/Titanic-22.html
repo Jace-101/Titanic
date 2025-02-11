@@ -64,7 +64,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="3. 요금(Fare) 항목이 결측치인 사람은 무료로 탑승했을까?" href="Titanic-23.html" />
+    <link rel="next" title="3. 사라진 요금(Fare)을 찾아서: 숫자형 결측치는 어떻게 채워야 할까?" href="Titanic-23.html" />
     <link rel="prev" title="1. 성별(Sex)을 추가하면 생존 예측의 정확도가 얼마나 올라갈까?" href="Titanic-21.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -179,9 +179,9 @@
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="Titanic-20.html">II. 더 깊은 바다로: 카테고리형 데이터와 결측치 처리</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="Titanic-21.html">1. 성별(Sex)을 추가하면 생존 예측의 정확도가 얼마나 올라갈까?</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">2. 탑승 항구(Embarked)가 비어있는 두 승객엔 어떤 비밀이 있을까?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Titanic-23.html">3. 요금(Fare) 항목이 결측치인 사람은 무료로 탑승했을까?</a></li>
-
-<li class="toctree-l2"><a class="reference internal" href="Titanic-24.html">4. 나이(Age)는 상관계수가 낮던데, 생존자 예측에 얼마나 도움이 될까?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titanic-23.html">3. 사라진 요금(Fare)을 찾아서: 숫자형 결측치는 어떻게 채워야 할까?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titanic-24.html">4. 설마 공짜로 탄 거야? 요금 결측치에 숨겨진 비밀</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titanic-25.html">5. 나이(Age)는 상관계수가 낮던데, 생존자 예측에 얼마나 도움이 될까?</a></li>
 
 </ul>
 </details></li>
@@ -423,6 +423,9 @@
 </div>
 </details>
 </div>
+<p>train 데이터에는 2명의 승객에 대한 Embarked 정보가 누락되어 있습니다. 단순히 빈 칸으로 남겨두거나 임의의 값으로 채우는 대신, 이 두 승객에 대해 자세히 알아보면서 결측치를 채워보도록 하겠습니다.</p>
+<p>결측치를 채우는 방법에는 여러 가지가 있습니다. 가장 단순한 방법은 최빈값이나 평균값으로 채우는 것이지만, 이번에는 좀 더 세밀한 접근을 시도해보겠습니다. 두 승객의 다른 정보들(객실 등급, 운임, 동승자 등)을 살펴보고, 이를 바탕으로 어느 항구에서 탑승했을지 추론해보는 것입니다.</p>
+<p>타이타닉호는 Southampton, Cherbourg, Queenstown 세 곳의 항구에 정박했습니다. 이 여정을 따라가면서, 우리의 미스터리 승객들이 어디서 탑승했는지 찾아보도록 하겠습니다. 마치 탐정이 되어 단서를 찾아가는 것처럼, 데이터 속에 숨겨진 이야기를 함께 발견해보시죠.</p>
 <section id="id1">
 <h2>Embarked 피쳐 개요<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 <p>📝 <strong>프롬프트</strong></p>
@@ -969,7 +972,7 @@ Name: count, dtype: int64
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">3. 요금(Fare) 항목이 결측치인 사람은 무료로 탑승했을까?</p>
+        <p class="prev-next-title">3. 사라진 요금(Fare)을 찾아서: 숫자형 결측치는 어떻게 채워야 할까?</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

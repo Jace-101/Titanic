@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>4. 나이(Age)는 상관계수가 낮던데, 생존자 예측에 얼마나 도움이 될까? &#8212; Predicting Titanic Survivors with ChatGPT</title>
+    <title>4. 설마 공짜로 탄 거야? 요금 결측치에 숨겨진 비밀 &#8212; Predicting Titanic Survivors with ChatGPT</title>
   
   
   
@@ -64,8 +64,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="III. (예정) 비밀문서 해독: 텍스트 속에 숨겨진 생존의 단서" href="Titanic-30.html" />
-    <link rel="prev" title="3. 요금(Fare) 항목이 결측치인 사람은 무료로 탑승했을까?" href="Titanic-23.html" />
+    <link rel="next" title="4. 나이(Age)는 상관계수가 낮던데, 생존자 예측에 얼마나 도움이 될까?" href="Titanic-25.html" />
+    <link rel="prev" title="3. 사라진 요금(Fare)을 찾아서: 숫자형 결측치는 어떻게 채워야 할까?" href="Titanic-23.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -178,10 +178,10 @@
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="Titanic-20.html">II. 더 깊은 바다로: 카테고리형 데이터와 결측치 처리</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="Titanic-21.html">1. 성별(Sex)을 추가하면 생존 예측의 정확도가 얼마나 올라갈까?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Titanic-22.html">2. 출발지(Embarked)가 비어있는 두 승객엔 어떤 비밀이 있을까?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Titanic-23.html">3. 요금(Fare) 항목이 결측치인 사람은 무료로 탑승했을까?</a></li>
-
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">4. 나이(Age)는 상관계수가 낮던데, 생존자 예측에 얼마나 도움이 될까?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titanic-22.html">2. 탑승 항구(Embarked)가 비어있는 두 승객엔 어떤 비밀이 있을까?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titanic-23.html">3. 사라진 요금(Fare)을 찾아서: 숫자형 결측치는 어떻게 채워야 할까?</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">4. 설마 공짜로 탄 거야? 요금 결측치에 숨겨진 비밀</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titanic-25.html">4. 나이(Age)는 상관계수가 낮던데, 생존자 예측에 얼마나 도움이 될까?</a></li>
 
 </ul>
 </details></li>
@@ -357,9 +357,7 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</button>
+
 </div></div>
       
     </div>
@@ -370,24 +368,11 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>4. 나이(Age)는 상관계수가 낮던데, 생존자 예측에 얼마나 도움이 될까?</h1>
+    <h1>4. 설마 공짜로 탄 거야? 요금 결측치에 숨겨진 비밀</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">4. 나이(Age)는 상관계수가 낮던데, 생존자 예측에 얼마나 도움이 될까?</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">섹션 제목</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">소제목</a></li>
-</ul>
-</li>
-</ul>
-
-            </nav>
         </div>
     </div>
 </div>
@@ -397,14 +382,9 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="age">
-<h1>4. 나이(Age)는 상관계수가 낮던데, 생존자 예측에 얼마나 도움이 될까?<a class="headerlink" href="#age" title="Link to this heading">#</a></h1>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="id1">
-<h1>섹션 제목<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
-<section id="id2">
-<h2>소제목<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
-<p>본문…</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>4. 설마 공짜로 탄 거야? 요금 결측치에 숨겨진 비밀<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<p>이전 섹션에서 우리는 Storey의 누락된 요금을 다른 3등석 Southampton 승객들의 중앙값으로 채웠습니다. 하지만 결측치가 발생한 이유를 다른 관점에서 생각해볼까요? 1912년 타이타닉호는 당시 세계에서 가장 큰 여객선이었고, 최고급 시설을 자랑하는 호화 유람선이었습니다. 그런 배에 무임승객이 있었을까요? 설마 Storey는 공짜로 탑승한 것은 아닐까요? 이런 대담한 가설을 세우고 데이터를 탐구해보는 것도 재미있을 것 같네요. 먼저 train 데이터에서 요금을 지불하지 않은(Fare=0) 승객이 있는지 찾아보면서, 우리의 가설을 검증해보도록 하겠습니다.</p>
 <p>📝 <strong>프롬프트</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
@@ -412,14 +392,13 @@
 <p>💻 <strong>코드 &amp; 실행결과</strong></p>
 <p>본문….</p>
 <p>Figure 추가</p>
-<figure class="align-default" id="id3">
+<figure class="align-default" id="id2">
 <a class="reference internal image-reference" href="../_images/11-1.png"><img alt="../_images/11-1.png" src="../_images/11-1.png" style="width: 600px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 6 </span><span class="caption-text">결과파일 제출</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 5 </span><span class="caption-text">결과파일 제출</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>본문….</p>
-</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -458,15 +437,15 @@
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">3. 요금(Fare) 항목이 결측치인 사람은 무료로 탑승했을까?</p>
+        <p class="prev-next-title">3. 사라진 요금(Fare)을 찾아서: 숫자형 결측치는 어떻게 채워야 할까?</p>
       </div>
     </a>
     <a class="right-next"
-       href="Titanic-30.html"
+       href="Titanic-25.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">III. (예정) 비밀문서 해독: 텍스트 속에 숨겨진 생존의 단서</p>
+        <p class="prev-next-title">4. 나이(Age)는 상관계수가 낮던데, 생존자 예측에 얼마나 도움이 될까?</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -476,27 +455,6 @@
             </div>
             
             
-              
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">4. 나이(Age)는 상관계수가 낮던데, 생존자 예측에 얼마나 도움이 될까?</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">섹션 제목</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">소제목</a></li>
-</ul>
-</li>
-</ul>
-
-  </nav></div>
-
-</div></div>
               
             
           </div>
