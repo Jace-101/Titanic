@@ -32,11 +32,13 @@ width: 600px
 💻 **준비 코드**
 
 ```{code-cell}
+:tags: ["hide-input"]
+
 import pandas as pd
 
-train = pd.read_csv('./train.csv')
-test = pd.read_csv('./test.csv')
-submission = pd.read_csv('./gender_submission.csv')
+train = pd.read_csv('train.csv')
+test = pd.read_csv('test.csv')
+submission = pd.read_csv('gender_submission.csv')
 ```
 
 
