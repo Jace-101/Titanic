@@ -180,8 +180,8 @@
 <li class="toctree-l2"><a class="reference internal" href="Titanic-21.html">1. 성별(Sex)을 추가하면 생존 예측의 정확도가 얼마나 올라갈까?</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">2. 탑승 항구(Embarked)가 비어있는 두 승객엔 어떤 비밀이 있을까?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Titanic-23.html">3. 사라진 요금(Fare)을 찾아서: 숫자형 결측치는 어떻게 채워야 할까?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Titanic-24.html">4. 설마 공짜로 탄 거야? 요금 결측치에 숨겨진 비밀</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Titanic-25.html">5. 나이(Age)는 상관계수가 낮던데, 생존자 예측에 얼마나 도움이 될까?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titanic-24.html">4. (예정) 설마 공짜로 탄 거야? 요금 결측치에 숨겨진 비밀</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titanic-25.html">5. (예정) 나이(Age)는 상관계수가 낮던데, 생존자 예측에 얼마나 도움이 될까?</a></li>
 
 </ul>
 </details></li>
@@ -412,9 +412,9 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="n">train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./train.csv&#39;</span><span class="p">)</span>
-<span class="n">test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./test.csv&#39;</span><span class="p">)</span>
-<span class="n">submission</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./gender_submission.csv&#39;</span><span class="p">)</span>
+<span class="n">train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;train.csv&#39;</span><span class="p">)</span>
+<span class="n">test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;test.csv&#39;</span><span class="p">)</span>
+<span class="n">submission</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;gender_submission.csv&#39;</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="p">[</span><span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">]:</span>
     <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Gender&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s1">&#39;male&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;female&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
