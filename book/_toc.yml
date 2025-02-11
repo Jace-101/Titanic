@@ -15,4 +15,10 @@ chapters:
   sections:
   - file: docs/Titanic-21
   - file: docs/Titanic-22
+  - file: docs/Titanic-23
+  - file: docs/Titanic-24
+
+- file: docs/Titanic-30
+- file: docs/Titanic-40
+- file: docs/Titanic-50
 
