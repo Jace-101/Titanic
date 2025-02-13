@@ -1,0 +1,753 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>3. 사라진 요금(Fare)을 찾아서: 숫자형 결측치는 어떻게 채워야 할까? &#8212; Predicting Titanic Survivors with ChatGPT</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/old/Titanic-23';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Predicting Titanic Survivors with ChatGPT - Home"/>
+    <img src="../../_static/logo.png" class="logo__image only-dark pst-js-only" alt="Predicting Titanic Survivors with ChatGPT - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    타이타닉 생존자 예측
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Titanic-10.html">I. 첫 항해: 수치형 데이터로 시작하는 생존자 예측</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Titanic-11.html">1. 타이타닉 데이터 첫 걸음 떼기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Titanic-12.html">2. 수치형 변수로 시작하는 생존율 분석</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Titanic-13.html">3. 첫 번째 생존자 예측에 도전하기</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Titanic-20.html">II. 더 깊은 바다로: 카테고리형 데이터와 결측치 처리</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Titanic-21.html">1. 성별(Sex)을 추가하면 생존 예측의 정확도가 얼마나 올라갈까?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Titanic-22.html">2. 탑승 항구(Embarked)가 비어있는 두 승객엔 어떤 비밀이 있을까?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Titanic-23.html">3. 사라진 요금(Fare)을 찾아서: 숫자형 결측치는 어떻게 채워야 할까?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Titanic-24.html">4. 설마 공짜로 탄 거야? 요금 결측치에 숨겨진 비밀</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Titanic-25.html">5. 나이(Age)는 상관계수가 낮던데, 생존자 예측에 얼마나 도움이 될까?</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../Titanic-30.html">III. (예정) 비밀문서 해독: 텍스트 속에 숨겨진 생존의 단서</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Titanic-40.html">IV. (예정) 항해 지도 제작: 데이터로 그리는 새로운 관점</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Titanic-50.html">V. (예정) 항해의 기술: 모델 성능 고도화</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fdocs/old/Titanic-23.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/docs/old/Titanic-23.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>3. 사라진 요금(Fare)을 찾아서: 숫자형 결측치는 어떻게 채워야 할까?</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Fare 결측치 현황 파악</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">결측치 승객 정보 확인</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">등급과 항구별 승객 통계 분석</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">결측치 채우기</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">다른 가능성</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <p>💻 <strong>준비 코드</strong></p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;train.csv&#39;</span><span class="p">)</span>
+<span class="n">test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;test.csv&#39;</span><span class="p">)</span>
+<span class="n">submission</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;gender_submission.csv&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="p">[</span><span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">]:</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Gender&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s1">&#39;male&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;female&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">(),</span> <span class="s1">&#39;Embarked&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;S&#39;</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;train.csv&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;test.csv&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">submission</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;gender_submission.csv&#39;</span><span class="p">)</span>
+
+<span class="nn">File ~\anaconda3\Lib\site-packages\pandas\io\parsers\readers.py:1026,</span> in <span class="ni">read_csv</span><span class="nt">(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, date_format, dayfirst, cache_dates, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, encoding_errors, dialect, on_bad_lines, delim_whitespace, low_memory, memory_map, float_precision, storage_options, dtype_backend)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1013</span> <span class="n">kwds_defaults</span> <span class="o">=</span> <span class="n">_refine_defaults_read</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1014</span>     <span class="n">dialect</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1015</span>     <span class="n">delimiter</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1022</span>     <span class="n">dtype_backend</span><span class="o">=</span><span class="n">dtype_backend</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1023</span> <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1024</span> <span class="n">kwds</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwds_defaults</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1026</span> <span class="k">return</span> <span class="n">_read</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="n">kwds</span><span class="p">)</span>
+
+<span class="nn">File ~\anaconda3\Lib\site-packages\pandas\io\parsers\readers.py:620,</span> in <span class="ni">_read</span><span class="nt">(filepath_or_buffer, kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">617</span> <span class="n">_validate_names</span><span class="p">(</span><span class="n">kwds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;names&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">619</span> <span class="c1"># Create the parser.</span>
+<span class="ne">--&gt; </span><span class="mi">620</span> <span class="n">parser</span> <span class="o">=</span> <span class="n">TextFileReader</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">622</span> <span class="k">if</span> <span class="n">chunksize</span> <span class="ow">or</span> <span class="n">iterator</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">623</span>     <span class="k">return</span> <span class="n">parser</span>
+
+<span class="nn">File ~\anaconda3\Lib\site-packages\pandas\io\parsers\readers.py:1620,</span> in <span class="ni">TextFileReader.__init__</span><span class="nt">(self, f, engine, **kwds)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1617</span>     <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s2">&quot;has_index_names&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwds</span><span class="p">[</span><span class="s2">&quot;has_index_names&quot;</span><span class="p">]</span>
+<span class="g g-Whitespace">   </span><span class="mi">1619</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span><span class="p">:</span> <span class="n">IOHandles</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="ne">-&gt; </span><span class="mi">1620</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_engine</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span>
+
+<span class="nn">File ~\anaconda3\Lib\site-packages\pandas\io\parsers\readers.py:1880,</span> in <span class="ni">TextFileReader._make_engine</span><span class="nt">(self, f, engine)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1878</span>     <span class="k">if</span> <span class="s2">&quot;b&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">mode</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1879</span>         <span class="n">mode</span> <span class="o">+=</span> <span class="s2">&quot;b&quot;</span>
+<span class="ne">-&gt; </span><span class="mi">1880</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span> <span class="o">=</span> <span class="n">get_handle</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1881</span>     <span class="n">f</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1882</span>     <span class="n">mode</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1883</span>     <span class="n">encoding</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;encoding&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+<span class="g g-Whitespace">   </span><span class="mi">1884</span>     <span class="n">compression</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;compression&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+<span class="g g-Whitespace">   </span><span class="mi">1885</span>     <span class="n">memory_map</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;memory_map&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+<span class="g g-Whitespace">   </span><span class="mi">1886</span>     <span class="n">is_text</span><span class="o">=</span><span class="n">is_text</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1887</span>     <span class="n">errors</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;encoding_errors&quot;</span><span class="p">,</span> <span class="s2">&quot;strict&quot;</span><span class="p">),</span>
+<span class="g g-Whitespace">   </span><span class="mi">1888</span>     <span class="n">storage_options</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;storage_options&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+<span class="g g-Whitespace">   </span><span class="mi">1889</span> <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1890</span> <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+<span class="g g-Whitespace">   </span><span class="mi">1891</span> <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span><span class="o">.</span><span class="n">handle</span>
+
+<span class="nn">File ~\anaconda3\Lib\site-packages\pandas\io\common.py:873,</span> in <span class="ni">get_handle</span><span class="nt">(path_or_buf, mode, encoding, compression, memory_map, is_text, errors, storage_options)</span>
+<span class="g g-Whitespace">    </span><span class="mi">868</span> <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">869</span>     <span class="c1"># Check whether the filename is to be opened in binary mode.</span>
+<span class="g g-Whitespace">    </span><span class="mi">870</span>     <span class="c1"># Binary mode does not support &#39;encoding&#39; and &#39;newline&#39;.</span>
+<span class="g g-Whitespace">    </span><span class="mi">871</span>     <span class="k">if</span> <span class="n">ioargs</span><span class="o">.</span><span class="n">encoding</span> <span class="ow">and</span> <span class="s2">&quot;b&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ioargs</span><span class="o">.</span><span class="n">mode</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">872</span>         <span class="c1"># Encoding</span>
+<span class="ne">--&gt; </span><span class="mi">873</span>         <span class="n">handle</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">874</span>             <span class="n">handle</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">875</span>             <span class="n">ioargs</span><span class="o">.</span><span class="n">mode</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">876</span>             <span class="n">encoding</span><span class="o">=</span><span class="n">ioargs</span><span class="o">.</span><span class="n">encoding</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">877</span>             <span class="n">errors</span><span class="o">=</span><span class="n">errors</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">878</span>             <span class="n">newline</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">879</span>         <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">880</span>     <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">881</span>         <span class="c1"># Binary mode</span>
+<span class="g g-Whitespace">    </span><span class="mi">882</span>         <span class="n">handle</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">ioargs</span><span class="o">.</span><span class="n">mode</span><span class="p">)</span>
+
+<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;train.csv&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="fare">
+<h1>3. 사라진 요금(Fare)을 찾아서: 숫자형 결측치는 어떻게 채워야 할까?<a class="headerlink" href="#fare" title="Link to this heading">#</a></h1>
+<p>이제 승객들이 지불한 요금(Fare) 데이터를 살펴보겠습니다. 요금은 앞서 사용했던 수치형 변수 중 하나지만, test 데이터에 결측치가 존재하여 추가적인 처리가 필요합니다. 결측치를 어떤 값으로 채워야 할까요?</p>
+<p>생각해보면 요금은 객실 등급(Pclass)과 밀접한 관련이 있을 것 같습니다. 게다가 같은 등급의 객실이라도 탑승 항구(Embarked)에 따라 요금이 달랐을 수 있죠. 이러한 관계들을 분석하여 가장 적절한 값으로 결측치를 채워보도록 하겠습니다.</p>
+<p>준비가 되셨나요? 그럼 Fare 변수를 자세히 들여다보면서, 결측치를 채우기 위한 여정을 시작해보겠습니다.</p>
+<section id="id1">
+<h2>Fare 결측치 현황 파악<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>먼저 train 데이터와 test 데이터에서 Fare 변수의 결측치가 얼마나 있는지 확인해보겠습니다. 결측치의 수를 파악하는 것은 데이터 전처리의 첫 단계입니다.</p>
+<p>📝 <strong>프롬프트</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">train과</span> <span class="n">test</span> <span class="n">데이터의</span> <span class="n">Fare</span> <span class="n">컬럼</span> <span class="n">결측치</span> <span class="n">개수를</span> <span class="n">계산해줘</span>
+</pre></div>
+</div>
+<p>💻 <strong>코드 &amp; 실행결과</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of missing values in Fare (train): </span><span class="si">{</span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;Fare&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of missing values in Fare (test): </span><span class="si">{</span><span class="n">test</span><span class="p">[</span><span class="s1">&#39;Fare&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>이 코드는 Fare(요금) 컬럼의 결측치 개수를 확인합니다:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">isnull()</span></code>은 각 값이 결측치인지 여부를 확인합니다</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sum()</span></code>은 결측치의 총 개수를 계산합니다</p></li>
+<li><p>f-string을 사용하여 결과를 보기 좋게 출력합니다</p></li>
+</ul>
+<p>실행 결과를 보면, train 데이터에는 Fare 결측치가 없고 test 데이터에는 1개의 결측치가 있음을 알 수 있습니다. test 데이터의 결측치는 비록 하나지만, 정확한 예측을 위해서는 적절한 값으로 채워넣는게 좋습니다.</p>
+</section>
+<section id="id2">
+<h2>결측치 승객 정보 확인<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>요금이 누락된 승객은 어떤 사람일까요? 이 승객의 다른 정보들을 살펴보면 적절한 요금을 추정하는데 도움이 될 수 있습니다.</p>
+<p>📝 <strong>프롬프트</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Fare가</span> <span class="n">결측치인</span> <span class="n">승객의</span> <span class="n">모든</span> <span class="n">정보를</span> <span class="n">보여줘</span>
+</pre></div>
+</div>
+<p>💻 <strong>코드 &amp; 실행결과</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test</span><span class="p">[</span><span class="n">test</span><span class="o">.</span><span class="n">Fare</span><span class="o">.</span><span class="n">isna</span><span class="p">()]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>이 코드는 test 데이터에서 Fare가 결측치인 승객 (Storey, Mr. Thomas)의 정보를 조회합니다:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">test.Fare.isna()</span></code>로 Fare가 결측치인 행을 True로 표시합니다</p></li>
+<li><p>이 조건을 test 데이터프레임의 인덱싱에 사용하여 해당하는 행을 선택합니다</p></li>
+</ul>
+<p>실행 결과를 보면 결측치를 가진 승객의 특징을 알 수 있습니다:</p>
+<ul class="simple">
+<li><p>3등석(Pclass=3) 승객입니다</p></li>
+<li><p>남성(Sex=’male’) 승객입니다</p></li>
+<li><p>Southampton(Embarked=’S’)에서 탑승했습니다</p></li>
+<li><p>혼자 탑승했습니다(SibSp=0, Parch=0)</p></li>
+</ul>
+<p>이러한 정보는 결측치를 채울 때 매우 유용할 것 같습니다. 특히 같은 등급, 같은 항구에서 탑승한 다른 승객들의 요금을 참고하면 좋을 것 같네요.</p>
+</section>
+<section id="id3">
+<h2>등급과 항구별 승객 통계 분석<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>결측치를 채우기 위해 좀 더 자세한 통계를 살펴보겠습니다. 객실 등급(Pclass)과 탑승 항구(Embarked)의 각 조합별로 승객 수와 중간 요금을 함께 확인하면, 더 신뢰할 수 있는 참고 값을 얻을 수 있을 것입니다.</p>
+<p>📝 <strong>프롬프트</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">객실</span> <span class="n">등급과</span> <span class="n">탑승</span> <span class="n">항구별로</span> <span class="n">그룹을</span> <span class="n">나누고</span><span class="p">,</span> <span class="n">각</span> <span class="n">그룹의</span> <span class="n">승객</span> <span class="n">수와</span> <span class="n">요금</span> <span class="n">중앙값을</span> <span class="n">계산해줘</span>
+</pre></div>
+</div>
+<p>💻 <strong>코드 &amp; 실행결과</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">passenger_stats</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Pclass&#39;</span><span class="p">,</span> <span class="s1">&#39;Embarked&#39;</span><span class="p">])[</span><span class="s1">&#39;Fare&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="s1">&#39;median&#39;</span><span class="p">])</span>
+<span class="n">passenger_stats</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>이 코드는 다음과 같은 상세 분석을 수행합니다:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">groupby(['Pclass',</span> <span class="pre">'Embarked'])</span></code>로 객실 등급과 탑승 항구 조합별로 그룹을 만듭니다</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">agg(['count',</span> <span class="pre">'median'])</span></code>으로 각 그룹에 대해 두 가지 계산을 수행합니다:</p>
+<ul>
+<li><p>‘count’: 각 그룹의 승객 수를 세어줍니다</p></li>
+<li><p>‘median’: 각 그룹의 요금 중앙값을 계산합니다</p></li>
+</ul>
+</li>
+</ul>
+<p>실행 결과를 보면 각 조합에 대한 상세 정보를 알 수 있습니다:</p>
+<ul class="simple">
+<li><p>승객 수를 통해 각 그룹의 표본 크기를 확인할 수 있습니다</p></li>
+<li><p>특히 3등석 Southampton의 경우 가장 많은 승객 수를 보여 중앙값의 신뢰도가 높을 것으로 예상됩니다</p></li>
+<li><p>중앙값을 보면 같은 등급이라도 탑승 항구에 따라 요금 차이가 있음을 알 수 있습니다</p></li>
+</ul>
+<p>이 통계를 바탕으로 결측치를 채울 적절한 값을 결정할 수 있을 것 같습니다.</p>
+</section>
+<section id="id4">
+<h2>결측치 채우기<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>test 데이터에서 발견된 결측치를 채워보겠습니다. 그런데 잠깐, 여기서 한 가지 의문이 들 수 있습니다.</p>
+<p>“test 데이터의 결측치를 채우는데, 왜 train 데이터의 중앙값을 계산해서 채우지? test 데이터의 중앙값 또는 전체 데이터의 중앙값을 사용해야 되는 것 아냐?”</p>
+<p>이것은 머신러닝에서 매우 중요한 원칙과 관련이 있습니다. 바로 ‘데이터 유출’을 방지하기 위한 것이죠. 자세히 알아볼까요?</p>
+<div class="tip admonition">
+<p class="admonition-title">왜 train 데이터로 결측치를 채워야 할까?</p>
+<p>머신러닝 프로젝트에서는 test 데이터의 결측치를 채울 때 반드시 train 데이터를 기준으로 해야 합니다. 그 이유는 크게 두 가지입니다:</p>
+<ol class="arabic simple">
+<li><p><strong>데이터 유출(Data Leakage) 방지</strong></p>
+<ul class="simple">
+<li><p>데이터 유출이란 모델이 ‘미래의 정보’를 미리 알게 되는 상황을 말합니다</p></li>
+<li><p>예를 들어 봅시다. 여러분이 시험을 준비한다고 가정해볼까요?</p>
+<ul>
+<li><p>올바른 방법: 기출문제(train data)로 공부하고 실제 시험(test data)을 봅니다</p></li>
+<li><p>잘못된 방법: 실제 시험지를 미리 보고 그걸 참고해서 공부합니다</p></li>
+</ul>
+</li>
+<li><p>test 데이터의 정보를 사용하여 결측치를 채우는 것은 두 번째 경우와 같습니다</p></li>
+<li><p>이는 마치 아직 일어나지 않은 미래의 정보를 사용하는 것과 같은 ‘부정행위’입니다</p></li>
+</ul>
+</li>
+<li><p><strong>실전 상황 고려</strong></p>
+<ul class="simple">
+<li><p>실제 서비스 환경을 생각해봅시다</p></li>
+<li><p>예를 들어 내일 타이타닉호에 새로운 승객이 탑승한다면?</p></li>
+<li><p>그 승객의 요금 정보가 누락되었다면?</p></li>
+<li><p>당연히 과거의 데이터(train data)를 참고해서 채워야겠죠</p></li>
+<li><p>test 데이터는 이런 ‘미래의 새로운 승객’을 시뮬레이션하는 것입니다</p></li>
+</ul>
+</li>
+</ol>
+<p>이러한 원칙은 결측치 처리뿐만 아니라 모든 종류의 데이터 전처리 과정에서 지켜져야 합니다. test 데이터는 오직 최종 예측을 위해서만 사용되어야 하며, 어떠한 통계값 계산에도 활용되어서는 안 됩니다.</p>
+</div>
+<p>이제 Fare의 결측치를 채우겠습니다.</p>
+<p>📝 <strong>프롬프트</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">1.</span> <span class="mi">3</span><span class="n">등석이면서</span> <span class="n">Southampton에서</span> <span class="n">탑승한</span> <span class="n">승객들의</span> <span class="n">요금</span> <span class="n">중앙값을</span> <span class="n">구해서</span>
+<span class="mf">2.</span> <span class="n">그</span> <span class="n">값으로</span> <span class="n">결측치를</span> <span class="n">채운</span> <span class="n">후</span>
+<span class="mf">3.</span> <span class="n">해당</span> <span class="n">승객</span><span class="p">(</span><span class="n">PassengerId</span><span class="o">=</span><span class="mi">1044</span><span class="p">)</span><span class="n">의</span> <span class="n">정보를</span> <span class="n">다시</span> <span class="n">출력해줘</span>
+</pre></div>
+</div>
+<p>💻 <strong>코드 &amp; 실행결과</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">median_fare</span> <span class="o">=</span> <span class="n">train</span><span class="p">[(</span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;Pclass&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;S&#39;</span><span class="p">)][</span><span class="s1">&#39;Fare&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+<span class="n">test</span><span class="p">[</span><span class="s1">&#39;Fare&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">test</span><span class="p">[</span><span class="s1">&#39;Fare&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">median_fare</span><span class="p">)</span>
+
+<span class="n">test</span><span class="p">[</span><span class="n">test</span><span class="p">[</span><span class="s1">&#39;PassengerId&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1044</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>이 코드는 세 가지 작업을 순차적으로 수행합니다:</p>
+<ol class="arabic simple">
+<li><p>먼저 train 데이터에서 동일 조건(3등석, Southampton)의 승객들의 중간 요금을 계산합니다</p></li>
+<li><p>계산된 중간 요금으로 test 데이터의 결측치를 채웁니다</p></li>
+<li><p>결과를 확인합니다</p></li>
+</ol>
+</section>
+<section id="id5">
+<h2>다른 가능성<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p>여기서 한 가지 더 생각해볼 것이 있겠네요. 우리는 지금까지 Storey의 누락된 요금을 다른 승객들의 중앙값으로 채웠습니다. 하지만 혹시 이 결측치에는 다른 의미가 있는 것은 아닐까요?</p>
+<p>예를 들어, 요금을 지불하지 않은 승객의 경우 0이라고 기록하는 대신 공란으로 남겨두었을 수도 있지 않을까요? 실제로 그런 사례가 있었는지, 있었다면 Storey의 케이스와 어떤 연관이 있을지 궁금해집니다.</p>
+<p>이러한 의문을 가지고 다음 섹션에서는 조금 더 흥미로운 가설을 세워보겠습니다. 무임승객이 실제로 존재했는지, 만약 있었다면 어떤 특징이 있었는지 살펴보면서, Storey의 결측치에 대한 새로운 해석을 시도해보도록 하겠습니다.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs\old"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Fare 결측치 현황 파악</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">결측치 승객 정보 확인</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">등급과 항구별 승객 통계 분석</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">결측치 채우기</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">다른 가능성</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jace Lee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -19,16 +19,16 @@ kernelspec:
 
 import pandas as pd
 
-train = pd.read_csv('./train.csv')
-test = pd.read_csv('./test.csv')
-submission = pd.read_csv('./gender_submission.csv')
+train = pd.read_csv('train.csv')
+test = pd.read_csv('test.csv')
+submission = pd.read_csv('gender_submission.csv')
 
 for df in [train, test]:
     df['Gender'] = df['Sex'].map({'male': 0, 'female': 1})
     df.loc[df['Embarked'].isnull(), 'Embarked'] = 'S'
 ```
 
-
+ 
 
 # 4. 설마 공짜로 탄 거야? 요금 결측치에 숨겨진 비밀
 
@@ -74,7 +74,7 @@ test[test['Fare'] == 0]
 
 이는 매우 중요한 발견입니다. train 데이터와 test 데이터 모두에서 요금이 0인 승객들이 발견된다는 것은, 이것이 단순한 데이터 오류가 아닐 가능성을 시사합니다. 즉, 어떤 특별한 이유로 일부 승객들은 실제로 요금을 지불하지 않았을 수 있다는 것입니다. 
 
-이제 이 승객들의 공통된 특징을 더 자세히 분석해볼 필요가 있겠네요. 특히 이들의 객실 등급, 탑승 항구, 직위 등을 살펴보면 요금이 0인 이유를 추측해볼 수 있을 것 같습니다.
+이제 이 승객들의 공통된 특징을 더 자세히 분석해볼 필요가 있겠네요. 특히 이들의 객실 등급, 탑승 항구 등을 살펴보면 요금이 0인 이유를 추측해볼 수 있을 것 같습니다.
 
 
 
@@ -94,13 +94,13 @@ Ismay는 영화에서도 중요한 인물로 등장합니다. 특히 아래 장�
 
 [구명보트 탈출 장면](https://www.youtube.com/watch?v=Xg5DUt1Ym7M)
 
-Ismay의 요금이 0으로 기록된 것은 아마도 자신의 회사 배에 탑승했기 때문일 것입니다. 마치 항공사 CEO가 자사 항공편을 무료로 이용하는 것처럼요. 이를 통해 우리는 Fare=0이 단순한 데이터 오류가 아니라 실제 존재했던 특별한 경우임을 확인할 수 있습니다. 
+Ismay의 요금이 0으로 기록된 것은 아마도 자신의 회사 배에 탑승했기 때문일 것입니다. 이를 통해 우리는 Fare=0이 단순한 데이터 오류가 아니라 실제 존재했던 특별한 경우임을 확인할 수 있습니다. 
 
 
 
 그렇다면 train 데이터에도 이런 특별한 인물이 있는지 살펴볼까요? 요금이 0인 승객들 중에서 혹시 눈에 익은 이름이 있나요? 
 
-아, 여기 'Andrews, Mr Thomas Jr'라는 이름이 보입니다. 타이타닉 영화의 팬이라면 이 이름 역시 낯설지 않을 것입니다. Thomas Andrews는 타이타닉호의 설계자였죠. 
+아, 13번째에 'Andrews, Mr Thomas Jr'라는 이름이 보입니다. 타이타닉 영화의 팬이라면 이 이름 역시 낯설지 않을 것입니다. Thomas Andrews는 타이타닉호의 설계자였죠. 
 
 ```{figure} ./images/24-2.png
 ---
@@ -175,6 +175,8 @@ test[test['PassengerId'] == 1044]
 
 이처럼 어떤 평가지표를 사용하느냐에 따라 같은 예측 결과도 다르게 해석될 수 있습니다. 우리가 사용하는 도구가 결과를 어떻게 평가하는지 이해하는 것도 중요하겠죠?
 :::
+
+
 
 
 

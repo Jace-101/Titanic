@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -180,9 +180,8 @@
 <li class="toctree-l2"><a class="reference internal" href="Titanic-21.html">1. 성별(Sex)을 추가하면 생존 예측의 정확도가 얼마나 올라갈까?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Titanic-22.html">2. 탑승 항구(Embarked)가 비어있는 두 승객엔 어떤 비밀이 있을까?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Titanic-23.html">3. 사라진 요금(Fare)을 찾아서: 숫자형 결측치는 어떻게 채워야 할까?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Titanic-24.html">4. (예정) 설마 공짜로 탄 거야? 요금 결측치에 숨겨진 비밀</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Titanic-25.html">5. (예정) 나이(Age)는 상관계수가 낮던데, 생존자 예측에 얼마나 도움이 될까?</a></li>
-
+<li class="toctree-l2"><a class="reference internal" href="Titanic-24.html">4. 설마 공짜로 탄 거야? 요금 결측치에 숨겨진 비밀</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titanic-25.html">5. 나이(Age)는 상관계수가 낮던데, 생존자 예측에 얼마나 도움이 될까?</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="Titanic-30.html">III. (예정) 비밀문서 해독: 텍스트 속에 숨겨진 생존의 단서</a></li>
@@ -381,8 +380,8 @@
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">데이터 파일 이해하기</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">데이터 들여다보기</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">결과 제출해보기</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">판다스로 데이터 살펴보기</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">결과 제출하기</a></li>
 </ul>
             </nav>
         </div>
@@ -396,34 +395,65 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="id1">
 <h1>1. 타이타닉 데이터 첫 걸음 떼기<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<p>타이타닉 생존자 예측이라는 흥미진진한 여정을 시작합니다. 이 첫 번째 섹션에서는 데이터 분석의 기초를 다지면서, 앞으로 사용하게 될 데이터를 탐색해보겠습니다. 마치 항해를 시작하기 전에 배와 항해 도구들을 점검하는 것처럼, 우리도 데이터와 분석 도구들을 하나씩 살펴볼 것입니다.</p>
+<p>이 섹션을 통해 여러분은:</p>
+<ul class="simple">
+<li><p>데이터 파일들의 역할과 구조를 이해하고</p></li>
+<li><p>판다스(Pandas)를 사용하여 데이터를 읽고 살펴보는 방법을 배우며</p></li>
+<li><p>캐글에 첫 예측 결과를 제출하는 방법을 익히게 됩니다</p></li>
+</ul>
+<figure class="align-default" id="data-structure">
+<a class="reference internal image-reference" href="../_images/11-data_structure.svg"><img alt="../_images/11-data_structure.svg" src="../_images/11-data_structure.svg" width="600px" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">타이타닉 데이터 파일의 구조</span><a class="headerlink" href="#data-structure" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 <section id="id2">
 <h2>데이터 파일 이해하기<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
-<p>데이터 분석 프로젝트를 시작할 때, 가장 먼저 마주하게 되는 것이 바로 데이터 파일들입니다. 타이타닉 생존자 예측 프로젝트에서는 세 가지 파일이 필요합니다. 이 파일들은 캐글(Kaggle)의 타이타닉 대회 페이지(<a class="reference external" href="https://www.kaggle.com/competitions/titanic/data">https://www.kaggle.com/competitions/titanic/data</a>)에서 다운로드할 수 있습니다.</p>
-<p><strong>train.csv</strong></p>
-<p>train.csv 파일은 모델을 학습시키기 위한 데이터입니다.
-이 파일에는 각 승객의 특징(예: 나이, 성별, 좌석 등)과 함께 해당 승객이 생존했는지 여부(Survived 컬럼)가 기록되어 있습니다. 모델은 이 데이터를 활용해 특징과 생존 여부 사이의 관계를 학습하게 됩니다.
-쉽게 말해, train.csv는 문제와 정답이 함께 실린 학습용 교재와 같습니다.</p>
-<p><strong>test.csv</strong></p>
-<p>test.csv 파일은 모델의 성능을 평가하기 위한 데이터입니다.
-이 파일에는 승객의 특징은 포함되어 있지만, 생존 여부(Survived)는 제공되지 않습니다. 우리가 만든 모델은 이 데이터를 입력받아 승객들이 생존했을지 여부를 예측해야 합니다.
-다르게 표현하자면, test.csv는 배운 내용을 확인하기 위한 시험 문제지와 같습니다.</p>
-<p><strong>gender_submission.csv</strong></p>
-<p>gender_submission.csv 파일은 최종 결과물을 제출하기 위한 파일입니다.
-test.csv에서 예측한 생존 여부를 이 파일의 규격에 맞춰 작성한 후, 대회 플랫폼에 제출합니다. 파일에는 승객 ID와 예측한 생존 여부가 포함됩니다.
-마치 시험 문제를 풀고 답을 정리해서 제출하는 답안지와 같은 역할을 합니다.</p>
-<p>세 파일 간의 관계를 교재-시험-답안지에 비유하면 아래와 같습니다:</p>
+<p>데이터 분석 프로젝트에서 가장 먼저 해야 할 일은 데이터를 이해하는 것입니다. 타이타닉 생존자 예측 프로젝트는 세 개의 CSV(Comma-Separated Values) 파일로 구성되어 있습니다. 각 파일은 마치 교재, 시험문제, 답안지와 같은 역할을 합니다.</p>
+<p><strong>train.csv: 학습용 데이터</strong></p>
 <ul class="simple">
-<li><p>train.csv(교재)로 모델을 학습시킨다.</p></li>
-<li><p>학습된 모델로 test.csv(시험문제) 데이터를 예측한다.</p></li>
-<li><p>예측 결과를 gender_submission.csv(답안지) 형태로 저장해 제출한다.</p></li>
+<li><p>실제 승객들의 특성과 생존 여부가 기록된 데이터입니다</p></li>
+<li><p>모델이 이 데이터를 통해 “어떤 특성을 가진 승객이 생존했는가?”를 학습합니다</p></li>
+<li><p>마치 문제와 답이 함께 있는 교재와 같은 역할을 합니다</p></li>
 </ul>
+<p><strong>test.csv: 평가용 데이터</strong></p>
+<ul class="simple">
+<li><p>승객들의 특성만 제공되고, 생존 여부는 제공되지 않습니다</p></li>
+<li><p>우리가 만든 모델이 이 승객들의 생존 여부를 예측해야 합니다</p></li>
+<li><p>배운 내용을 확인하는 시험문제와 같습니다</p></li>
+</ul>
+<p><strong>gender_submission.csv: 제출 양식</strong></p>
+<ul class="simple">
+<li><p>예측 결과를 제출할 때 사용하는 형식입니다</p></li>
+<li><p>승객 ID와 예측한 생존 여부를 포함합니다</p></li>
+<li><p>시험 답안을 정리해서 제출하는 답안지와 같은 역할입니다</p></li>
+</ul>
+<p>이제 이 파일들을 실제로 살펴보면서, 데이터 분석의 첫 걸음을 내딛어보겠습니다.</p>
 </section>
 <section id="id3">
-<h2>데이터 들여다보기<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
-<p>이제 세 개의 데이터 파일을 불러오겠습니다. 다음과 같이 프롬프트를 입력합니다:</p>
+<h2>판다스로 데이터 살펴보기<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>데이터 분석의 첫 단계는 데이터를 컴퓨터로 읽어들이는 것입니다. 이를 위해 우리는 판다스(Pandas)라는 파이썬 라이브러리를 사용할 것입니다. 판다스는 데이터 분석을 위한 강력한 도구로, 엑셀과 비슷한 형태로 데이터를 다룰 수 있게 해줍니다.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>여러분은 이 책의 모든 코드를 직접 작성할 필요가 없습니다. 각 단계에서 제시되는 프롬프트(📝로 표시)를 입력하면, 필요한 코드가 자동으로 생성됩니다. 이 코드를 복사하여 실행하면 됩니다.</p>
+<p>프롬프트는 다음과 같은 도구들에 입력할 수 있습니다:</p>
+<ul class="simple">
+<li><p><strong>ChatGPT</strong>: chatgpt.com에 접속하여 대화창에 프롬프트를 입력합니다</p></li>
+<li><p><strong>구글 코랩</strong>: 코드 셀에 표시되는 “코딩을 시작하거나 AI로 코드를 <u>생성</u>하세요” 메시지에서 “<u>생성</u>”을 클릭하면 나타나는 창에 프롬프트를 입력합니다</p></li>
+</ul>
+<p>이는 마치 요리 레시피를 따라하는 것과 같습니다. 요리를 처음 배우는 사람도 레시피만 잘 따라하면 맛있는 요리를 만들 수 있듯이, 코딩을 처음 접하는 분들도 프롬프트만 잘 따라하면 데이터 분석을 수행할 수 있습니다.</p>
+<p>각 단계는 다음과 같은 구조로 이루어져 있습니다:</p>
+<ol class="arabic simple">
+<li><p>📝 <strong>프롬프트</strong>: 여러분이 입력할 내용</p></li>
+<li><p>💻 <strong>코드</strong>: 생성된 코드</p></li>
+<li><p><strong>설명</strong>: 코드가 하는 일과 결과에 대한 설명</p></li>
+</ol>
+</div>
+<p>자, 이제 첫 번째 프롬프트를 입력해볼까요?</p>
 <p>📝 <strong>프롬프트</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">train</span><span class="o">.</span><span class="n">csv</span><span class="p">,</span> <span class="n">test</span><span class="o">.</span><span class="n">csv</span><span class="p">,</span> <span class="n">gender_submission</span><span class="o">.</span><span class="n">csv</span> <span class="n">파일을</span> <span class="n">불러와서</span> 
-<span class="n">각각</span> <span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">,</span> <span class="n">submission이라는</span> <span class="n">이름의</span> <span class="n">데이터프레임으로</span> <span class="n">저장해줘</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">우리가</span> <span class="n">가진</span> <span class="n">세</span> <span class="n">개의</span> <span class="n">파일</span><span class="p">(</span><span class="n">train</span><span class="o">.</span><span class="n">csv</span><span class="p">,</span> <span class="n">test</span><span class="o">.</span><span class="n">csv</span><span class="p">,</span> <span class="n">gender_submission</span><span class="o">.</span><span class="n">csv</span><span class="p">)</span><span class="n">을</span> <span class="n">읽어줘</span>
+<span class="n">각각</span> <span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">,</span> <span class="n">submission이라는</span> <span class="n">이름으로</span> <span class="n">저장해줘</span>
 </pre></div>
 </div>
 <p>💻 <strong>코드 &amp; 실행결과</strong></p>
@@ -438,11 +468,15 @@ test.csv에서 예측한 생존 여부를 이 파일의 규격에 맞춰 작성�
 </div>
 </div>
 </div>
-<p>위 코드는 세 개의 CSV 파일을 읽어오는 작업을 수행합니다. pd.read_csv()는 CSV(Comma-Separated Values) 파일을 읽어서 데이터프레임으로 변환하는 함수입니다. 데이터프레임은 엑셀의 스프레드시트처럼 행과 열로 구성된 2차원 형태의 데이터 구조입니다. 각각의 파일을 train, test, submission이라는 이름의 데이터프레임 변수에 저장했습니다.</p>
-<p>코드에서 <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">pandas</span> <span class="pre">as</span> <span class="pre">pd</span></code>라는 부분이 있는데, 이는 pandas라는 데이터 분석 라이브러리를 불러오면서 ‘pd’라는 별명을 붙인 것입니다. 그래서 <code class="docutils literal notranslate"><span class="pre">pd.read_csv()</span></code>와 같이 ‘pd.’을 앞에 붙여서 pandas의 기능을 사용할 수 있는 것입니다.</p>
-<p>그런데 위 코드를 실행하면 아무것도 출력되지 않습니다. 코드가 정상적으로 실행되어 데이터를 잘 읽어 들였는지 알 수가 없네요. 확인을 위해 각 데이터의 크기, 즉 행과 열의 수를 출력해보도록 하겠습니다.</p>
+<p>이 코드는 세 가지 중요한 작업을 수행합니다:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">pandas</span> <span class="pre">as</span> <span class="pre">pd</span></code>: 판다스 라이브러리를 불러옵니다. <code class="docutils literal notranslate"><span class="pre">pd</span></code>는 판다스의 별칭입니다.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pd.read_csv()</span></code>: CSV 파일을 읽어오는 판다스의 함수입니다.</p></li>
+<li><p>읽어온 데이터는 ‘데이터프레임(DataFrame)’이라는 형태로 저장됩니다. 데이터프레임은 행과 컬럼으로 구성된 2차원 테이블로, 엑셀의 시트와 비슷합니다.</p></li>
+</ol>
+<p>데이터를 제대로 불러왔는지 확인하기 위해, 각 데이터프레임의 크기를 살펴보겠습니다.</p>
 <p>📝 <strong>프롬프트</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">세</span> <span class="n">데이터프레임의</span> <span class="n">행과</span> <span class="n">열</span> <span class="n">수를</span> <span class="n">출력해줘</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">방금</span> <span class="n">만든</span> <span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">,</span> <span class="n">submission</span> <span class="n">데이터의</span> <span class="n">크기를</span> <span class="n">알려줘</span>
 </pre></div>
 </div>
 <p>💻 <strong>코드 &amp; 실행결과</strong></p>
@@ -462,15 +496,15 @@ submission data shape: (418, 2)
 </div>
 </div>
 </div>
-<p>위 결과는 다음과 같은 의미를 가집니다:</p>
+<p><code class="docutils literal notranslate"><span class="pre">shape</span></code>는 데이터프레임의 크기를 (행의 수, 컬럼의 수) 형태로 보여주는 속성입니다. 실행 결과를 보면:</p>
 <ul class="simple">
-<li><p>train 데이터는 891명의 승객 정보가 있으며, 각 승객마다 12개의 특성이 기록되어 있습니다.</p></li>
-<li><p>test 데이터는 418명의 승객 정보가 있고, 11개의 특성이 있습니다. train 데이터보다 특성이 하나 적은 이유는 생존 여부(Survived)가 제외되어 있기 때문입니다.</p></li>
-<li><p>submission 데이터는 test 데이터와 같은 418명의 승객에 대해 2개의 열(PassengerId와 Survived)만 가지고 있습니다.</p></li>
+<li><p>train 데이터: 891명의 승객 정보, 12개의 특성</p></li>
+<li><p>test 데이터: 418명의 승객 정보, 11개의 특성 (생존 여부 컬럼 제외)</p></li>
+<li><p>submission 데이터: 418명의 승객 정보, 2개의 컬럼 (ID와 예측할 생존 여부)</p></li>
 </ul>
-<p>이제 train 데이터의 내용을 자세히 살펴보겠습니다. 다음과 같이 프롬프트를 입력합니다:</p>
+<p>이제 train 데이터의 내용을 자세히 살펴보겠습니다. 판다스의 <code class="docutils literal notranslate"><span class="pre">head()</span></code> 메서드를 사용하면 데이터의 첫 5행을 확인할 수 있습니다.</p>
 <p>📝 <strong>프롬프트</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">train</span> <span class="n">데이터의</span> <span class="n">첫</span> <span class="mi">5</span><span class="n">개</span> <span class="n">행을</span> <span class="n">보여줘</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">train</span> <span class="n">데이터의</span> <span class="n">내용을</span> <span class="n">위에서부터</span> <span class="mi">5</span><span class="n">명만</span> <span class="n">보여줘</span>
 </pre></div>
 </div>
 <p>💻 <strong>코드 &amp; 실행결과</strong></p>
@@ -593,220 +627,52 @@ submission data shape: (418, 2)
 </table>
 </div></div></div>
 </div>
-<p>train 데이터를 살펴보면 각 승객에 대한 다양한 정보가 기록되어 있습니다:</p>
+<p>각 컬럼은 승객에 대한 서로 다른 특성을 나타냅니다:</p>
 <ul class="simple">
-<li><p>PassengerId: 승객 번호</p></li>
+<li><p>PassengerId: 승객 고유 번호</p></li>
 <li><p>Survived: 생존 여부 (1: 생존, 0: 사망)</p></li>
-<li><p>Pclass: 티켓 등급 (1: 1등석, 2: 2등석, 3: 3등석)</p></li>
+<li><p>Pclass: 객실 등급 (1: 1등석, 2: 2등석, 3: 3등석)</p></li>
 <li><p>Name: 승객 이름</p></li>
 <li><p>Sex: 성별</p></li>
 <li><p>Age: 나이</p></li>
-<li><p>SibSp: 함께 탑승한 형제자매, 배우자 수</p></li>
-<li><p>Parch: 함께 탑승한 부모, 자녀 수</p></li>
+<li><p>SibSp: 함께 승선한 형제자매, 배우자 수</p></li>
+<li><p>Parch: 함께 승선한 부모, 자녀 수</p></li>
 <li><p>Ticket: 티켓 번호</p></li>
 <li><p>Fare: 요금</p></li>
 <li><p>Cabin: 객실 번호</p></li>
 <li><p>Embarked: 승선 항구 (C: Cherbourg, Q: Queenstown, S: Southampton)</p></li>
 </ul>
-<p>이렇게 데이터를 살펴보면 우리가 예측에 사용할 수 있는 다양한 정보들이 있다는 것을 알 수 있습니다. 예를 들어, 티켓 등급(Pclass)이나 성별(Sex), 나이(Age) 등은 생존 여부와 관련이 있을 것으로 추측할 수 있습니다.</p>
-<p>test 데이터도 살펴보겠습니다. 앞서 train 데이터를 볼 때 사용했던 head() 명령을 활용하면 되겠죠? train을 test로만 바꿔주면 됩니다.</p>
-<p>💻 <strong>코드 &amp; 실행결과</strong></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
+<div class="tip admonition">
+<p class="admonition-title">직접 해보기</p>
+<p>데이터프레임의 내용을 살펴보는 간단한 방법들을 실습해보세요:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">tail()</span></code>: 마지막 5행을 보여줍니다</p></li>
+<li><p>데이터프레임 이름만 입력: 전체 데이터를 보여줍니다 (단, 행이 많을 경우 앞뒤 일부만 표시)</p></li>
+</ul>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>PassengerId</th>
-      <th>Pclass</th>
-      <th>Name</th>
-      <th>Sex</th>
-      <th>Age</th>
-      <th>SibSp</th>
-      <th>Parch</th>
-      <th>Ticket</th>
-      <th>Fare</th>
-      <th>Cabin</th>
-      <th>Embarked</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>892</td>
-      <td>3</td>
-      <td>Kelly, Mr. James</td>
-      <td>male</td>
-      <td>34.5</td>
-      <td>0</td>
-      <td>0</td>
-      <td>330911</td>
-      <td>7.8292</td>
-      <td>NaN</td>
-      <td>Q</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>893</td>
-      <td>3</td>
-      <td>Wilkes, Mrs. James (Ellen Needs)</td>
-      <td>female</td>
-      <td>47.0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>363272</td>
-      <td>7.0000</td>
-      <td>NaN</td>
-      <td>S</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>894</td>
-      <td>2</td>
-      <td>Myles, Mr. Thomas Francis</td>
-      <td>male</td>
-      <td>62.0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>240276</td>
-      <td>9.6875</td>
-      <td>NaN</td>
-      <td>Q</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>895</td>
-      <td>3</td>
-      <td>Wirz, Mr. Albert</td>
-      <td>male</td>
-      <td>27.0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>315154</td>
-      <td>8.6625</td>
-      <td>NaN</td>
-      <td>S</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>896</td>
-      <td>3</td>
-      <td>Hirvonen, Mrs. Alexander (Helga E Lindqvist)</td>
-      <td>female</td>
-      <td>22.0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>3101298</td>
-      <td>12.2875</td>
-      <td>NaN</td>
-      <td>S</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<p>test 데이터를 보면 train 데이터와 매우 비슷하지만, 한 가지 중요한 차이가 있습니다. 바로 ‘Survived’ 열이 없다는 것입니다. 이는 당연한 것인데, test 데이터는 우리가 생존 여부를 예측해야 할 데이터이기 때문입니다.</p>
-<p>앞서 교재-시험-답안지 비유를 떠올려보면, test 데이터는 시험 문제지와 같습니다. 시험 문제지에는 답이 적혀있지 않은 것처럼, test 데이터에도 생존 여부가 없는 것입니다. 우리가 만들 인공지능 모델이 바로 이 test 데이터의 승객들에 대해 생존 여부를 예측하게 될 것입니다.</p>
-<p>마지막으로 제출 양식인 gender_submission.csv를 살펴보겠습니다. 이제는 익숙하시죠? head() 명령을 사용해서 앞부분 몇 행만 확인해보겠습니다.</p>
-<p>💻 <strong>코드 &amp; 실행결과</strong></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">submission</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>PassengerId</th>
-      <th>Survived</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>892</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>893</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>894</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>895</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>896</td>
-      <td>1</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<p>이 파일은 우리가 제출할 답안의 형식을 보여줍니다. PassengerId는 test 데이터와 동일한 승객 번호이고, Survived는 우리가 예측한 생존 여부를 적는 곳입니다.</p>
-<p>재미있는 점은 이 파일의 이름이 ‘gender_submission.csv’라는 것입니다. 보통 다른 캐글 대회의 제출 양식에는 예측해야 할 값이 모두 0으로 되어 있는데, 타이타닉 대회에서는 성별에 기반한 예측 결과를 미리 제공합니다. 이는 타이타닉 대회가 많은 사람들의 ‘첫 번째 캐글 대회’이기 때문입니다. 초보자들이 참고할 수 있도록 간단한 예시 답안을 제공한 것이죠.</p>
 </section>
 <section id="id4">
-<h2>결과 제출해보기<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
-<p>우리는 아직 ‘Survived’를 예측하는 모델을 만들지 않았기 때문에, 이번 섹션에서는 일단 gender_submission.csv 파일을 아무런 변경없이 그대로 제출해 보겠습니다. 캐글의 타이타닉 페이지에서 ‘Submit Prediction’ 버튼을 누르면 아래와 같은 창에서 파일을 올릴 수 있습니다. ‘gender_submission.csv’ 파일을 올려봅시다.</p>
-<figure class="align-default" id="id5">
+<h2>결과 제출하기<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>이제 gender_submission.csv 파일을 캐글에 제출해보겠습니다. 이 파일은 성별에 기반한 단순한 예측을 담고 있습니다. 즉, 여성 승객은 생존(1), 남성 승객은 사망(0)으로 예측한 결과입니다.</p>
+<p>캐글의 타이타닉 페이지에서 ‘Submit Prediction’ 버튼을 누르면 파일을 제출할 수 있습니다. gender_submission.csv 파일을 제출하면 0.76555라는 점수를 받게 됩니다. 이는 418명의 테스트 데이터 중 약 320명(0.76555 × 418 ≈ 320)의 생존 여부를 정확하게 예측했다는 의미입니다.</p>
+<figure class="align-default" id="submit-prediction">
 <a class="reference internal image-reference" href="../_images/11-1.png"><img alt="../_images/11-1.png" src="../_images/11-1.png" style="width: 600px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 1 </span><span class="caption-text">결과파일 제출</span><a class="headerlink" href="#id5" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">결과 제출 화면</span><a class="headerlink" href="#submit-prediction" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<p>제출결과로 0.76555를 받았습니다. 원고를 쓰는 시점에서 0.76555는 13,315 팀 중 9,643 등이네요. 순위는 ‘Leaderboard’에서 확인할 수 있습니다.</p>
-<figure class="align-default" id="id6">
+<figure class="align-default" id="leaderboard">
 <a class="reference internal image-reference" href="../_images/11-2.png"><img alt="../_images/11-2.png" src="../_images/11-2.png" style="width: 600px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 2 </span><span class="caption-text">제출 결과</span><a class="headerlink" href="#id6" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text">리더보드 화면</span><a class="headerlink" href="#leaderboard" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<p>이 대회에서 사용하는 평가지표는 accuracy 입니다. Accuracy는 분류 문제에서 종종 사용되는 평가지표로 전체 케이스 중에서 정확한 예측을 한 케이스의 비율입니다. 0.76555 * 418 명을 하면 320명이 나오네요. 생존 여부를 정확하게 예측한 경우가 320명이라는 의미입니다. 남자는 0(희생자), 여자는 1(생존자)로 예측한 간단한 모델이지만 꽤 높은 점수가 나왔습니다. 앞으로 계속 학습해 가며, 이 값을 넘는 좋은 예측 모델을 만들어 봅시다!</p>
+<p>이렇게 단순히 성별만으로도 76.555%의 정확도를 달성할 수 있다는 점이 흥미롭습니다. 이는 타이타닉 침몰 당시 “여성과 어린이를 먼저 구하라”는 원칙이 실제로 지켜졌음을 보여주는 증거이기도 합니다.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>캐글에서 사용하는 평가 지표는 accuracy(정확도)입니다. accuracy는 전체 예측 중 올바른 예측의 비율을 의미합니다. 이후 챕터에서 accuracy를 포함한 다양한 평가 지표들에 대해 자세히 다루게 될 것입니다.</p>
+</div>
+<p>이제 기본적인 데이터 구조를 이해했으니, 다음 섹션에서는 본격적으로 데이터를 분석하면서 더 나은 예측 모델을 만들어보도록 하겠습니다.</p>
 </section>
 </section>
 
@@ -876,8 +742,8 @@ submission data shape: (418, 2)
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">데이터 파일 이해하기</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">데이터 들여다보기</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">결과 제출해보기</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">판다스로 데이터 살펴보기</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">결과 제출하기</a></li>
 </ul>
   </nav></div>
 

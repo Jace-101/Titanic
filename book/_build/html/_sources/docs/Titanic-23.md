@@ -19,9 +19,9 @@ kernelspec:
 
 import pandas as pd
 
-train = pd.read_csv('./train.csv')
-test = pd.read_csv('./test.csv')
-submission = pd.read_csv('./gender_submission.csv')
+train = pd.read_csv('train.csv')
+test = pd.read_csv('test.csv')
+submission = pd.read_csv('gender_submission.csv')
 
 for df in [train, test]:
     df['Gender'] = df['Sex'].map({'male': 0, 'female': 1})

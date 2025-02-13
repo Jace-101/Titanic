@@ -64,7 +64,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="5. (예정) 나이(Age)는 상관계수가 낮던데, 생존자 예측에 얼마나 도움이 될까?" href="Titanic-25.html" />
+    <link rel="next" title="5. 나이(Age)는 상관계수가 낮던데, 생존자 예측에 얼마나 도움이 될까?" href="Titanic-25.html" />
     <link rel="prev" title="3. 사라진 요금(Fare)을 찾아서: 숫자형 결측치는 어떻게 채워야 할까?" href="Titanic-23.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -181,8 +181,7 @@
 <li class="toctree-l2"><a class="reference internal" href="Titanic-22.html">2. 탑승 항구(Embarked)가 비어있는 두 승객엔 어떤 비밀이 있을까?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Titanic-23.html">3. 사라진 요금(Fare)을 찾아서: 숫자형 결측치는 어떻게 채워야 할까?</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">4. 설마 공짜로 탄 거야? 요금 결측치에 숨겨진 비밀</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Titanic-25.html">5. (예정) 나이(Age)는 상관계수가 낮던데, 생존자 예측에 얼마나 도움이 될까?</a></li>
-
+<li class="toctree-l2"><a class="reference internal" href="Titanic-25.html">5. 나이(Age)는 상관계수가 낮던데, 생존자 예측에 얼마나 도움이 될까?</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="Titanic-30.html">III. (예정) 비밀문서 해독: 텍스트 속에 숨겨진 생존의 단서</a></li>
@@ -404,9 +403,9 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="n">train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./train.csv&#39;</span><span class="p">)</span>
-<span class="n">test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./test.csv&#39;</span><span class="p">)</span>
-<span class="n">submission</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./gender_submission.csv&#39;</span><span class="p">)</span>
+<span class="n">train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;train.csv&#39;</span><span class="p">)</span>
+<span class="n">test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;test.csv&#39;</span><span class="p">)</span>
+<span class="n">submission</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;gender_submission.csv&#39;</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="p">[</span><span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">]:</span>
     <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Gender&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s1">&#39;male&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;female&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
@@ -799,7 +798,7 @@
 </div>
 <p>이 코드는 test 데이터에서 요금이 0인 승객들을 찾아냅니다. 실행 결과를 보면 test 데이터에서도 Fare=0인 승객들이 존재함을 알 수 있습니다.</p>
 <p>이는 매우 중요한 발견입니다. train 데이터와 test 데이터 모두에서 요금이 0인 승객들이 발견된다는 것은, 이것이 단순한 데이터 오류가 아닐 가능성을 시사합니다. 즉, 어떤 특별한 이유로 일부 승객들은 실제로 요금을 지불하지 않았을 수 있다는 것입니다.</p>
-<p>이제 이 승객들의 공통된 특징을 더 자세히 분석해볼 필요가 있겠네요. 특히 이들의 객실 등급, 탑승 항구, 직위 등을 살펴보면 요금이 0인 이유를 추측해볼 수 있을 것 같습니다.</p>
+<p>이제 이 승객들의 공통된 특징을 더 자세히 분석해볼 필요가 있겠네요. 특히 이들의 객실 등급, 탑승 항구 등을 살펴보면 요금이 0인 이유를 추측해볼 수 있을 것 같습니다.</p>
 <p>Fare가 0인 승객들의 명단을 자세히 살펴보면, 한 승객의 정보가 특히 눈에 띕니다. B52, B54, B56, 이렇게 무려 세 개의 1등석 객실을 사용한 승객이 있네요. 그것도 요금은 0이라니, 무언가 특별한 이유가 있었을 것 같지 않나요?</p>
 <p>이 승객의 이름이 바로 ‘Bruce Ismay’입니다. 혹시 타이타닉 영화를 보신 분들이라면 이 이름이 낯설지 않을 수도 있습니다. Ismay는 타이타닉호를 만든 White Star Line의 회장이었죠.</p>
 <figure class="align-default">
@@ -808,9 +807,9 @@
 <p><em>White Star Line의 회장이었던 J. Bruce Ismay. 타이타닉호 침몰 당시 구명보트를 타고 탈출한 것으로 유명합니다. 데이터에서 발견된 그의 무료 탑승 기록은 선주로서의 그의 위치를 반영합니다.</em></p>
 <p>Ismay는 영화에서도 중요한 인물로 등장합니다. 특히 아래 장면은 그가 구명보트에 탑승하는 결정적인 순간을 보여줍니다. 많은 여성과 어린이들이 아직 배에 남아있는 상황에서 그가 구명보트에 탑승한 것은 오랫동안 논란이 되었습니다.</p>
 <p><a class="reference external" href="https://www.youtube.com/watch?v=Xg5DUt1Ym7M">구명보트 탈출 장면</a></p>
-<p>Ismay의 요금이 0으로 기록된 것은 아마도 자신의 회사 배에 탑승했기 때문일 것입니다. 마치 항공사 CEO가 자사 항공편을 무료로 이용하는 것처럼요. 이를 통해 우리는 Fare=0이 단순한 데이터 오류가 아니라 실제 존재했던 특별한 경우임을 확인할 수 있습니다.</p>
+<p>Ismay의 요금이 0으로 기록된 것은 아마도 자신의 회사 배에 탑승했기 때문일 것입니다. 이를 통해 우리는 Fare=0이 단순한 데이터 오류가 아니라 실제 존재했던 특별한 경우임을 확인할 수 있습니다.</p>
 <p>그렇다면 train 데이터에도 이런 특별한 인물이 있는지 살펴볼까요? 요금이 0인 승객들 중에서 혹시 눈에 익은 이름이 있나요?</p>
-<p>아, 여기 ‘Andrews, Mr Thomas Jr’라는 이름이 보입니다. 타이타닉 영화의 팬이라면 이 이름 역시 낯설지 않을 것입니다. Thomas Andrews는 타이타닉호의 설계자였죠.</p>
+<p>아, 13번째에 ‘Andrews, Mr Thomas Jr’라는 이름이 보입니다. 타이타닉 영화의 팬이라면 이 이름 역시 낯설지 않을 것입니다. Thomas Andrews는 타이타닉호의 설계자였죠.</p>
 <figure class="align-default">
 <a class="reference internal image-reference" href="../_images/24-2.png"><img alt="../_images/24-2.png" src="../_images/24-2.png" style="width: 400px;" /></a>
 </figure>
@@ -960,7 +959,7 @@
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">5. (예정) 나이(Age)는 상관계수가 낮던데, 생존자 예측에 얼마나 도움이 될까?</p>
+        <p class="prev-next-title">5. 나이(Age)는 상관계수가 낮던데, 생존자 예측에 얼마나 도움이 될까?</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
