@@ -642,11 +642,191 @@ submission data shape: (418, 2)
 <li><p>Cabin: 객실 번호</p></li>
 <li><p>Embarked: 승선 항구 (C: Cherbourg, Q: Queenstown, S: Southampton)</p></li>
 </ul>
+<p>test 데이터도 살펴보겠습니다. 앞서 train 데이터를 볼 때 사용했던 head() 명령을 활용하면 되겠죠? train을 test로만 바꿔주면 됩니다.</p>
+<p>💻 <strong>코드 &amp; 실행결과</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PassengerId</th>
+      <th>Pclass</th>
+      <th>Name</th>
+      <th>Sex</th>
+      <th>Age</th>
+      <th>SibSp</th>
+      <th>Parch</th>
+      <th>Ticket</th>
+      <th>Fare</th>
+      <th>Cabin</th>
+      <th>Embarked</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>892</td>
+      <td>3</td>
+      <td>Kelly, Mr. James</td>
+      <td>male</td>
+      <td>34.5</td>
+      <td>0</td>
+      <td>0</td>
+      <td>330911</td>
+      <td>7.8292</td>
+      <td>NaN</td>
+      <td>Q</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>893</td>
+      <td>3</td>
+      <td>Wilkes, Mrs. James (Ellen Needs)</td>
+      <td>female</td>
+      <td>47.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>363272</td>
+      <td>7.0000</td>
+      <td>NaN</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>894</td>
+      <td>2</td>
+      <td>Myles, Mr. Thomas Francis</td>
+      <td>male</td>
+      <td>62.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>240276</td>
+      <td>9.6875</td>
+      <td>NaN</td>
+      <td>Q</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>895</td>
+      <td>3</td>
+      <td>Wirz, Mr. Albert</td>
+      <td>male</td>
+      <td>27.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>315154</td>
+      <td>8.6625</td>
+      <td>NaN</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>896</td>
+      <td>3</td>
+      <td>Hirvonen, Mrs. Alexander (Helga E Lindqvist)</td>
+      <td>female</td>
+      <td>22.0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>3101298</td>
+      <td>12.2875</td>
+      <td>NaN</td>
+      <td>S</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>test 데이터를 보면 train 데이터와 매우 비슷하지만, 한 가지 중요한 차이가 있습니다. 바로 ‘Survived’ 열이 없다는 것입니다. 이는 당연한 것인데, test 데이터는 우리가 생존 여부를 예측해야 할 데이터이기 때문입니다.</p>
+<p>앞서 교재-시험-답안지 비유를 떠올려보면, test 데이터는 시험 문제지와 같습니다. 시험 문제지에는 답이 적혀있지 않은 것처럼, test 데이터에도 생존 여부가 없는 것입니다. 우리가 만들 인공지능 모델이 바로 이 test 데이터의 승객들에 대해 생존 여부를 예측하게 될 것입니다.</p>
+<p>마지막으로 제출 양식인 gender_submission.csv를 살펴보겠습니다. 이제는 익숙하시죠? head() 명령을 사용해서 앞부분 몇 행만 확인해보겠습니다.</p>
+<p>💻 <strong>코드 &amp; 실행결과</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">submission</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PassengerId</th>
+      <th>Survived</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>892</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>893</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>894</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>895</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>896</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>이 파일은 우리가 제출할 답안의 형식을 보여줍니다. PassengerId는 test 데이터와 동일한 승객 번호이고, Survived는 우리가 예측한 생존 여부를 적는 곳입니다.</p>
+<p>재미있는 점은 이 파일의 이름이 ‘gender_submission.csv’라는 것입니다. 보통 다른 캐글 대회의 제출 양식에는 예측해야 할 값이 모두 0으로 되어 있는데, 타이타닉 대회에서는 성별에 기반한 예측 결과를 미리 제공합니다. 이는 타이타닉 대회가 많은 사람들의 ‘첫 번째 캐글 대회’이기 때문입니다. 초보자들이 참고할 수 있도록 간단한 예시 답안을 제공한 것이죠.</p>
 <div class="tip admonition">
 <p class="admonition-title">직접 해보기</p>
 <p>train 데이터의 내용을 살펴보는 간단한 방법들을 실습해보세요:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">train.tail()</span></code>: 마지막 5행을 보여줍니다</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">train.tail()</span></code>: train 데이터의 마지막 5행을 보여줍니다</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">train</span></code>: 데이터프레임 이름만 입력하면 전체 데이터를 보여줍니다 (단, 행이 많을 경우 앞뒤 일부만 표시)</p></li>
 </ul>
 </div>
