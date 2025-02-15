@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>1. 성별(Sex)을 추가하면 생존 예측의 정확도가 얼마나 올라갈까? &#8212; Predicting Titanic Survivors with ChatGPT</title>
+    <title>2.1 성별(Sex)은 생존에 얼마나 큰 영향을 미쳤을까? &#8212; Predicting Titanic Survivors with ChatGPT</title>
   
   
   
@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -177,7 +177,7 @@
 </ul>
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="Titanic-20.html">II. 더 깊은 바다로: 카테고리형 데이터와 결측치 처리</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">1. 성별(Sex)을 추가하면 생존 예측의 정확도가 얼마나 올라갈까?</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">2.1 성별(Sex)은 생존에 얼마나 큰 영향을 미쳤을까?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Titanic-22.html">2. 탑승 항구(Embarked)가 비어있는 두 승객엔 어떤 비밀이 있을까?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Titanic-23.html">3. 사라진 요금(Fare)을 찾아서: 숫자형 결측치는 어떻게 채워야 할까?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Titanic-24.html">4. 설마 공짜로 탄 거야? 요금 결측치에 숨겨진 비밀</a></li>
@@ -369,7 +369,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>1. 성별(Sex)을 추가하면 생존 예측의 정확도가 얼마나 올라갈까?</h1>
+    <h1>2.1 성별(Sex)은 생존에 얼마나 큰 영향을 미쳤을까?</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -393,17 +393,7 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="sex">
-<h1>1. 성별(Sex)을 추가하면 생존 예측의 정확도가 얼마나 올라갈까?<a class="headerlink" href="#sex" title="Link to this heading">#</a></h1>
-<p>타이타닉 영화에서 남자 주인공인 잭은 죽었고, 여자 주인공인 로즈는 구조되었습니다. 실제 사고에서도 그랬을까요? train 데이터에서 성별에 따른 생존비율을 확인해봅시다.</p>
-<figure class="align-default" id="id4">
-<a class="reference internal image-reference" href="../_images/21-1.png"><img alt="../_images/21-1.png" src="../_images/21-1.png" style="width: 600px;" /></a>
-<figcaption>
-<p><span class="caption-number">Fig. 5 </span><span class="caption-text">영화 ‘타이타닉’의 한 장면</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
-</figcaption>
-</figure>
-<p><em>로즈는 나무 위에서 생존할 수 있었지만, 잭은 차가운 바다 속에서 생을 마감했습니다. 이 장면은 당시 여성 승객들이 남성 승객들보다 더 높은 생존 기회를 가졌다는 역사적 사실을 극적으로 보여줍니다.</em></p>
-<p>💻 <strong>준비 코드</strong></p>
+  <p>💻 <strong>준비 코드</strong></p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -421,9 +411,18 @@
 </div>
 </details>
 </div>
+<br>
+<section class="tex2jax_ignore mathjax_ignore" id="sex">
+<h1>2.1 성별(Sex)은 생존에 얼마나 큰 영향을 미쳤을까?<a class="headerlink" href="#sex" title="Link to this heading">#</a></h1>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/21-1.png"><img alt="../_images/21-1.png" src="../_images/21-1.png" style="width: 600px;" /></a>
+</figure>
+<p><em>로즈는 떠다니는 나무 판자 위에서 생존할 수 있었지만, 잭은 차가운 바다 속에서 생을 마감했습니다. 이 장면은 당시 여성 승객들이 남성 승객들보다 더 높은 생존 기회를 가졌다는 역사적 사실을 극적으로 보여줍니다. (사진 출처: 영화 ‘타이타닉’)</em></p>
+<br>
+<p>앞서 우리는 수치형 변수만을 사용하여 첫 번째 예측 모델을 만들었습니다. 객실 등급, 나이, 요금 등의 정보로 63.397%의 정확도를 달성했죠. 하지만 영화 속 잭과 로즈의 운명이 암시하듯, 우리는 매우 중요한 정보를 하나 빠뜨렸습니다. 바로 성별입니다. 과연 성별 정보를 추가하면 예측 정확도가 얼마나 향상될까요?</p>
 <section id="id1">
 <h2>성별과 생존율 사이의 관계<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
-<p>먼저 성별에 따른 생존율을 계산하는 코드를 요청해보겠습니다.</p>
+<p>먼저 성별에 따른 생존율을 계산해보겠습니다. 앞서 배운 groupby와 agg 함수를 사용하면 쉽게 분석할 수 있습니다.</p>
 <p>📝 <strong>프롬프트</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">성별에</span> <span class="n">따른</span> <span class="n">승객</span> <span class="n">수와</span> <span class="n">생존율을</span> <span class="n">계산해줘</span>
 </pre></div>
@@ -479,23 +478,14 @@
 </table>
 </div></div></div>
 </div>
-<p>코드를 살펴보면, groupby() 함수를 사용하여 ‘Sex’ 컬럼을 기준으로 데이터를 그룹화했습니다. 그리고 agg() 함수를 사용하여 각 그룹별로 두 가지 계산을 수행했습니다:</p>
-<ol class="arabic simple">
-<li><p>count: 각 성별의 승객 수를 세어줍니다.</p></li>
-<li><p>mean: Survived 컬럼의 평균값을 계산합니다. Survived는 0(사망)과 1(생존)로 구성되어 있으므로, 평균값은 곧 생존율을 의미합니다.</p></li>
-</ol>
-<p>결과를 보면 놀라운 사실을 발견할 수 있습니다. 여성 승객의 생존율은 약 74.2%로 매우 높은 반면, 남성 승객의 생존율은 약 18.9%에 불과합니다. 이는 타이타닉 침몰 당시 “여성과 어린이를 먼저 구하라(Women and children first)”는 원칙이 실제로 지켜졌음을 보여줍니다. 영화의 설정은 이러한 역사적 사실을 정확하게 반영한 것이었네요.</p>
+<p>실행 결과는 충격적입니다. 여성 승객의 생존율은 74.2%로 매우 높은 반면, 남성 승객의 생존율은 18.9%에 불과합니다. 이러한 극명한 차이는 타이타닉 침몰 당시 “여성과 어린이를 먼저 구하라(Women and children first)”는 원칙이 실제로 지켜졌음을 보여줍니다.</p>
 </section>
 <section id="id2">
 <h2>성별(Sex) 변수 인코딩하기<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
-<p>챕터 1에서는 수치형 변수들만 사용하여 생존자를 예측해보았습니다. 하지만 결과는 그리 좋지 않았죠. 이번에는 Sex(성별) 변수를 활용해보겠습니다.</p>
-<p>Sex 변수부터 살펴볼까요? train 데이터의 Sex 컬럼은 ‘male’과 ‘female’, 두 가지 값을 가지고 있습니다. 문제는 이 데이터를 그대로 머신러닝 모델에 입력할 수 없다는 점입니다. 대부분의 머신러닝 알고리즘은 수치 데이터만 처리할 수 있기 때문이죠. 문자열인 ‘male’과 ‘female’을 컴퓨터가 이해할 수 있는 숫자로 변환해야 합니다. 이러한 변환 과정을 ‘인코딩(encoding)’이라고 부릅니다.</p>
-<p>가장 간단한 방법은 ‘female’을 0으로, ‘male’을 1로 변환하는 것입니다. 이를 ‘레이블 인코딩(Label Encoding)’이라고 합니다. 또는 ‘male’과 ‘female’을 각각의 새로운 피처로 만드는 ‘원-핫 인코딩(One-Hot Encoding)’ 방법도 있습니다. 원-핫 인코딩을 사용하면 Sex_male과 Sex_female이라는 두 개의 컬럼이 생성되고, 해당하는 성별의 컬럼에만 1을, 나머지 컬럼에는 0을 설정합니다. 두 방법 중 어떤 것을 선택해야 할까요?</p>
-<p>이 경우에는 레이블 인코딩을 사용하겠습니다. Sex는 두 가지 값만 가지는 이진 변수입니다. 원-핫 인코딩을 하면 두 개의 컬럼이 생성되는데, 이는 불필요한 중복입니다. 하나의 컬럼으로도 충분히 정보를 표현할 수 있기 때문입니다.</p>
-<p>이제 Sex 변수를 레이블 인코딩해보겠습니다.</p>
+<p>이제 성별 정보를 우리의 예측 모델에 추가해보겠습니다. 하지만 여기서 한 가지 문제가 있습니다. 지금까지 우리가 사용한 변수들은 모두 숫자였지만, Sex 변수는 ‘male’과 ‘female’이라는 문자열로 되어 있습니다. 대부분의 머신러닝 알고리즘은 숫자 데이터만 처리할 수 있기 때문에, 이 문자열을 숫자로 변환해야 합니다.</p>
+<p>이러한 변환 과정을 ‘인코딩(encoding)’이라고 부릅니다. 가장 간단한 방법은 ‘male’을 0으로, ‘female’을 1로 변환하는 것입니다. 이를 ‘레이블 인코딩(Label Encoding)’이라고 합니다.</p>
 <p>📝 <strong>프롬프트</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Sex</span> <span class="n">피처를</span> <span class="n">인코딩해서</span> <span class="n">Gender라는</span> <span class="n">새로운</span> <span class="n">피처를</span> <span class="n">만들어줘</span>
-<span class="s1">&#39;male&#39;</span><span class="n">은</span> <span class="mi">0</span><span class="n">으로</span><span class="p">,</span> <span class="s1">&#39;female&#39;</span><span class="n">은</span> <span class="mi">1</span><span class="n">로</span> <span class="n">인코딩해줘</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Sex</span> <span class="n">컬럼을</span> <span class="n">숫자로</span> <span class="n">변환하여</span> <span class="n">Gender라는</span> <span class="n">새로운</span> <span class="n">컬럼을</span> <span class="n">생성해줘</span>
 </pre></div>
 </div>
 <p>💻 <strong>코드 &amp; 실행결과</strong></p>
@@ -510,9 +500,14 @@
 </div>
 </div>
 </div>
-<p>레이블 인코딩을 수행하는 방법은 여러 가지가 있습니다. 여기서는 pandas의 map 함수를 사용했습니다. map 함수는 딕셔너리를 입력으로 받아 키(key)에 해당하는 값을 값(value)으로 변환합니다. Sex 피처의 값이 ‘male’이면 0으로, ‘female’이면 1로 변환하여 Gender라는 새로운 피처에 저장했습니다.
-train 데이터와 test 데이터 모두에 동일한 인코딩을 적용한 것에 주목해주세요. 머신러닝 프로젝트에서는 train 데이터와 test 데이터에 항상 동일한 전처리를 적용해야 합니다.</p>
-<p>그럼 변환이 제대로 되었는지 확인해보겠습니다. 변환 결과를 더 쉽게 확인할 수 있도록 필요한 열만 선택해서 출력하겠습니다.</p>
+<p>이 코드는 다음 작업을 수행합니다:</p>
+<ol class="arabic simple">
+<li><p>map 함수를 사용해 ‘male’을 0으로, ‘female’을 1로 변환</p></li>
+<li><p>변환된 값을 새로운 ‘Gender’ 컬럼에 저장</p></li>
+<li><p>train과 test 데이터 모두에 동일한 변환 적용</p></li>
+</ol>
+<br>
+<p>변환이 제대로 되었는지 확인해보겠습니다:</p>
 <p>📝 <strong>프롬프트</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">train에서</span> <span class="s1">&#39;PassengerId&#39;</span><span class="p">,</span> <span class="s1">&#39;Survived&#39;</span><span class="p">,</span> <span class="s1">&#39;Sex&#39;</span><span class="p">,</span> <span class="s1">&#39;Gender&#39;</span> <span class="n">컬럼만</span> <span class="n">보여줘</span>
 </pre></div>
@@ -589,15 +584,15 @@ train 데이터와 test 데이터 모두에 동일한 인코딩을 적용한 것
 </table>
 </div></div></div>
 </div>
-<p>Sex 피처의 ‘male’, ‘female’ 값들이 Gender 피처에서는 0과 1로 잘 변환된 것을 확인할 수 있습니다.</p>
+<p>결과를 보면 Sex 컬럼의 ‘male’, ‘female’ 값들이 Gender 컬럼에서는 0과 1로 잘 변환된 것을 확인할 수 있습니다.</p>
 </section>
 <section id="id3">
 <h2>모델 학습과 예측<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
-<p>이제 1.3절의 “Model Training” 과정을 따라 Random Forest 모델을 학습하겠습니다. Gender 피처를 포함하는 방법은 두 가지가 있습니다.</p>
-<p>첫 번째는 기존의 inc_fts 리스트에 ‘Gender’를 추가하는 방법입니다:
-inc_fts += [‘Gender’]  # 기존 리스트에 ‘Gender’ 추가</p>
-<p>또는 처음부터 모든 피처를 포함하여 리스트를 만드는 방법도 있습니다:
-inc_fts = [‘Pclass’, ‘Age’, ‘SibSp’, ‘Parch’, ‘Fare’, ‘Gender’]</p>
+<p>이제 Gender 변수를 포함하여 모델을 다시 학습시켜보겠습니다. 기존의 수치형 변수 리스트에 ‘Gender’를 추가합니다:</p>
+<p>📝 <strong>프롬프트</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">기존의</span> <span class="n">수치형</span> <span class="n">변수</span> <span class="n">리스트에</span> <span class="s1">&#39;Gender&#39;</span><span class="n">를</span> <span class="n">추가해줘</span>
+</pre></div>
+</div>
 <p>💻 <strong>코드 &amp; 실행결과</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -614,466 +609,33 @@ inc_fts = [‘Pclass’, ‘Age’, ‘SibSp’, ‘Parch’, ‘Fare’, ‘Gen
 </div>
 </div>
 </div>
-<p>어느 방법을 사용하든 결과는 동일합니다. 저는 첫 번째 방법으로 하겠습니다. 나머지 학습 과정은 이전과 동일하게 진행하면 됩니다.</p>
-<p>💻 <strong>코드 &amp; 실행결과</strong></p>
+<p>이제 1.3절에서 사용했던 모델 학습 코드를 실행하겠습니다:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="n">inc_fts</span><span class="p">]</span>     <span class="c1"># 선택한 정보들</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="s1">&#39;Survived&#39;</span><span class="p">]</span>  <span class="c1"># 실제 생존 여부</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 데이터 준비</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="n">inc_fts</span><span class="p">]</span>     <span class="c1"># 선택한 특성들</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="s1">&#39;Survived&#39;</span><span class="p">]</span>  <span class="c1"># 생존 여부</span>
 <span class="n">X_test</span> <span class="o">=</span> <span class="n">test</span><span class="p">[</span><span class="n">inc_fts</span><span class="p">]</span> <span class="c1"># 예측해야 할 데이터의 정보들</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="c1"># 행과 열 출력 </span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(891, 6) (891,) (418, 6)
-</pre></div>
-</div>
-</div>
-</div>
-<p>X.shape의 결과가 (891, 6)으로 출력되는 것을 확인할 수 있습니다. 이는 891개의 데이터에 6개의 피처(Pclass, Age, SibSp, Parch, Fare, Gender)가 있다는 의미입니다. 마찬가지로 X_test.shape도 (418, 6)으로 출력됩니다. test 데이터의 418개 데이터에도 동일한 6개의 피처가 있다는 뜻이죠.</p>
-<p>💻 <strong>코드 &amp; 실행결과</strong></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-
+<span class="c1"># 학습/검증 데이터 분할</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
 <span class="n">X_train</span><span class="p">,</span> <span class="n">X_valid</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_valid</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">X_valid</span><span class="o">.</span><span class="n">shape</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>((712, 6), (179, 6))
-</pre></div>
-</div>
-</div>
-</div>
-<p>💻 <strong>코드 &amp; 실행결과</strong></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
 
+<span class="c1"># 모델 학습</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><style>#sk-container-id-1 {
-  /* Definition of color scheme common for light and dark mode */
-  --sklearn-color-text: black;
-  --sklearn-color-line: gray;
-  /* Definition of color scheme for unfitted estimators */
-  --sklearn-color-unfitted-level-0: #fff5e6;
-  --sklearn-color-unfitted-level-1: #f6e4d2;
-  --sklearn-color-unfitted-level-2: #ffe0b3;
-  --sklearn-color-unfitted-level-3: chocolate;
-  /* Definition of color scheme for fitted estimators */
-  --sklearn-color-fitted-level-0: #f0f8ff;
-  --sklearn-color-fitted-level-1: #d4ebff;
-  --sklearn-color-fitted-level-2: #b3dbfd;
-  --sklearn-color-fitted-level-3: cornflowerblue;
 
-  /* Specific color for light theme */
-  --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
-  --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, white)));
-  --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
-  --sklearn-color-icon: #696969;
-
-  @media (prefers-color-scheme: dark) {
-    /* Redefinition of color scheme for dark theme */
-    --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
-    --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, #111)));
-    --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
-    --sklearn-color-icon: #878787;
-  }
-}
-
-#sk-container-id-1 {
-  color: var(--sklearn-color-text);
-}
-
-#sk-container-id-1 pre {
-  padding: 0;
-}
-
-#sk-container-id-1 input.sk-hidden--visually {
-  border: 0;
-  clip: rect(1px 1px 1px 1px);
-  clip: rect(1px, 1px, 1px, 1px);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
-}
-
-#sk-container-id-1 div.sk-dashed-wrapped {
-  border: 1px dashed var(--sklearn-color-line);
-  margin: 0 0.4em 0.5em 0.4em;
-  box-sizing: border-box;
-  padding-bottom: 0.4em;
-  background-color: var(--sklearn-color-background);
-}
-
-#sk-container-id-1 div.sk-container {
-  /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
-     but bootstrap.min.css set `[hidden] { display: none !important; }`
-     so we also need the `!important` here to be able to override the
-     default hidden behavior on the sphinx rendered scikit-learn.org.
-     See: https://github.com/scikit-learn/scikit-learn/issues/21755 */
-  display: inline-block !important;
-  position: relative;
-}
-
-#sk-container-id-1 div.sk-text-repr-fallback {
-  display: none;
-}
-
-div.sk-parallel-item,
-div.sk-serial,
-div.sk-item {
-  /* draw centered vertical line to link estimators */
-  background-image: linear-gradient(var(--sklearn-color-text-on-default-background), var(--sklearn-color-text-on-default-background));
-  background-size: 2px 100%;
-  background-repeat: no-repeat;
-  background-position: center center;
-}
-
-/* Parallel-specific style estimator block */
-
-#sk-container-id-1 div.sk-parallel-item::after {
-  content: "";
-  width: 100%;
-  border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
-  flex-grow: 1;
-}
-
-#sk-container-id-1 div.sk-parallel {
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-  background-color: var(--sklearn-color-background);
-  position: relative;
-}
-
-#sk-container-id-1 div.sk-parallel-item {
-  display: flex;
-  flex-direction: column;
-}
-
-#sk-container-id-1 div.sk-parallel-item:first-child::after {
-  align-self: flex-end;
-  width: 50%;
-}
-
-#sk-container-id-1 div.sk-parallel-item:last-child::after {
-  align-self: flex-start;
-  width: 50%;
-}
-
-#sk-container-id-1 div.sk-parallel-item:only-child::after {
-  width: 0;
-}
-
-/* Serial-specific style estimator block */
-
-#sk-container-id-1 div.sk-serial {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: var(--sklearn-color-background);
-  padding-right: 1em;
-  padding-left: 1em;
-}
-
-
-/* Toggleable style: style used for estimator/Pipeline/ColumnTransformer box that is
-clickable and can be expanded/collapsed.
-- Pipeline and ColumnTransformer use this feature and define the default style
-- Estimators will overwrite some part of the style using the `sk-estimator` class
-*/
-
-/* Pipeline and ColumnTransformer style (default) */
-
-#sk-container-id-1 div.sk-toggleable {
-  /* Default theme specific background. It is overwritten whether we have a
-  specific estimator or a Pipeline/ColumnTransformer */
-  background-color: var(--sklearn-color-background);
-}
-
-/* Toggleable label */
-#sk-container-id-1 label.sk-toggleable__label {
-  cursor: pointer;
-  display: block;
-  width: 100%;
-  margin-bottom: 0;
-  padding: 0.5em;
-  box-sizing: border-box;
-  text-align: center;
-}
-
-#sk-container-id-1 label.sk-toggleable__label-arrow:before {
-  /* Arrow on the left of the label */
-  content: "▸";
-  float: left;
-  margin-right: 0.25em;
-  color: var(--sklearn-color-icon);
-}
-
-#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {
-  color: var(--sklearn-color-text);
-}
-
-/* Toggleable content - dropdown */
-
-#sk-container-id-1 div.sk-toggleable__content {
-  max-height: 0;
-  max-width: 0;
-  overflow: hidden;
-  text-align: left;
-  /* unfitted */
-  background-color: var(--sklearn-color-unfitted-level-0);
-}
-
-#sk-container-id-1 div.sk-toggleable__content.fitted {
-  /* fitted */
-  background-color: var(--sklearn-color-fitted-level-0);
-}
-
-#sk-container-id-1 div.sk-toggleable__content pre {
-  margin: 0.2em;
-  border-radius: 0.25em;
-  color: var(--sklearn-color-text);
-  /* unfitted */
-  background-color: var(--sklearn-color-unfitted-level-0);
-}
-
-#sk-container-id-1 div.sk-toggleable__content.fitted pre {
-  /* unfitted */
-  background-color: var(--sklearn-color-fitted-level-0);
-}
-
-#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {
-  /* Expand drop-down */
-  max-height: 200px;
-  max-width: 100%;
-  overflow: auto;
-}
-
-#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
-  content: "▾";
-}
-
-/* Pipeline/ColumnTransformer-specific style */
-
-#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
-  color: var(--sklearn-color-text);
-  background-color: var(--sklearn-color-unfitted-level-2);
-}
-
-#sk-container-id-1 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
-  background-color: var(--sklearn-color-fitted-level-2);
-}
-
-/* Estimator-specific style */
-
-/* Colorize estimator box */
-#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
-  /* unfitted */
-  background-color: var(--sklearn-color-unfitted-level-2);
-}
-
-#sk-container-id-1 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
-  /* fitted */
-  background-color: var(--sklearn-color-fitted-level-2);
-}
-
-#sk-container-id-1 div.sk-label label.sk-toggleable__label,
-#sk-container-id-1 div.sk-label label {
-  /* The background is the default theme color */
-  color: var(--sklearn-color-text-on-default-background);
-}
-
-/* On hover, darken the color of the background */
-#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {
-  color: var(--sklearn-color-text);
-  background-color: var(--sklearn-color-unfitted-level-2);
-}
-
-/* Label box, darken color on hover, fitted */
-#sk-container-id-1 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
-  color: var(--sklearn-color-text);
-  background-color: var(--sklearn-color-fitted-level-2);
-}
-
-/* Estimator label */
-
-#sk-container-id-1 div.sk-label label {
-  font-family: monospace;
-  font-weight: bold;
-  display: inline-block;
-  line-height: 1.2em;
-}
-
-#sk-container-id-1 div.sk-label-container {
-  text-align: center;
-}
-
-/* Estimator-specific */
-#sk-container-id-1 div.sk-estimator {
-  font-family: monospace;
-  border: 1px dotted var(--sklearn-color-border-box);
-  border-radius: 0.25em;
-  box-sizing: border-box;
-  margin-bottom: 0.5em;
-  /* unfitted */
-  background-color: var(--sklearn-color-unfitted-level-0);
-}
-
-#sk-container-id-1 div.sk-estimator.fitted {
-  /* fitted */
-  background-color: var(--sklearn-color-fitted-level-0);
-}
-
-/* on hover */
-#sk-container-id-1 div.sk-estimator:hover {
-  /* unfitted */
-  background-color: var(--sklearn-color-unfitted-level-2);
-}
-
-#sk-container-id-1 div.sk-estimator.fitted:hover {
-  /* fitted */
-  background-color: var(--sklearn-color-fitted-level-2);
-}
-
-/* Specification for estimator info (e.g. "i" and "?") */
-
-/* Common style for "i" and "?" */
-
-.sk-estimator-doc-link,
-a:link.sk-estimator-doc-link,
-a:visited.sk-estimator-doc-link {
-  float: right;
-  font-size: smaller;
-  line-height: 1em;
-  font-family: monospace;
-  background-color: var(--sklearn-color-background);
-  border-radius: 1em;
-  height: 1em;
-  width: 1em;
-  text-decoration: none !important;
-  margin-left: 1ex;
-  /* unfitted */
-  border: var(--sklearn-color-unfitted-level-1) 1pt solid;
-  color: var(--sklearn-color-unfitted-level-1);
-}
-
-.sk-estimator-doc-link.fitted,
-a:link.sk-estimator-doc-link.fitted,
-a:visited.sk-estimator-doc-link.fitted {
-  /* fitted */
-  border: var(--sklearn-color-fitted-level-1) 1pt solid;
-  color: var(--sklearn-color-fitted-level-1);
-}
-
-/* On hover */
-div.sk-estimator:hover .sk-estimator-doc-link:hover,
-.sk-estimator-doc-link:hover,
-div.sk-label-container:hover .sk-estimator-doc-link:hover,
-.sk-estimator-doc-link:hover {
-  /* unfitted */
-  background-color: var(--sklearn-color-unfitted-level-3);
-  color: var(--sklearn-color-background);
-  text-decoration: none;
-}
-
-div.sk-estimator.fitted:hover .sk-estimator-doc-link.fitted:hover,
-.sk-estimator-doc-link.fitted:hover,
-div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
-.sk-estimator-doc-link.fitted:hover {
-  /* fitted */
-  background-color: var(--sklearn-color-fitted-level-3);
-  color: var(--sklearn-color-background);
-  text-decoration: none;
-}
-
-/* Span, style for the box shown on hovering the info icon */
-.sk-estimator-doc-link span {
-  display: none;
-  z-index: 9999;
-  position: relative;
-  font-weight: normal;
-  right: .2ex;
-  padding: .5ex;
-  margin: .5ex;
-  width: min-content;
-  min-width: 20ex;
-  max-width: 50ex;
-  color: var(--sklearn-color-text);
-  box-shadow: 2pt 2pt 4pt #999;
-  /* unfitted */
-  background: var(--sklearn-color-unfitted-level-0);
-  border: .5pt solid var(--sklearn-color-unfitted-level-3);
-}
-
-.sk-estimator-doc-link.fitted span {
-  /* fitted */
-  background: var(--sklearn-color-fitted-level-0);
-  border: var(--sklearn-color-fitted-level-3);
-}
-
-.sk-estimator-doc-link:hover span {
-  display: block;
-}
-
-/* "?"-specific style due to the `<a>` HTML tag */
-
-#sk-container-id-1 a.estimator_doc_link {
-  float: right;
-  font-size: 1rem;
-  line-height: 1em;
-  font-family: monospace;
-  background-color: var(--sklearn-color-background);
-  border-radius: 1rem;
-  height: 1rem;
-  width: 1rem;
-  text-decoration: none;
-  /* unfitted */
-  color: var(--sklearn-color-unfitted-level-1);
-  border: var(--sklearn-color-unfitted-level-1) 1pt solid;
-}
-
-#sk-container-id-1 a.estimator_doc_link.fitted {
-  /* fitted */
-  border: var(--sklearn-color-fitted-level-1) 1pt solid;
-  color: var(--sklearn-color-fitted-level-1);
-}
-
-/* On hover */
-#sk-container-id-1 a.estimator_doc_link:hover {
-  /* unfitted */
-  background-color: var(--sklearn-color-unfitted-level-3);
-  color: var(--sklearn-color-background);
-  text-decoration: none;
-}
-
-#sk-container-id-1 a.estimator_doc_link.fitted:hover {
-  /* fitted */
-  background-color: var(--sklearn-color-fitted-level-3);
-}
-</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>RandomForestClassifier(random_state=42)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;&nbsp;RandomForestClassifier<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.ensemble.RandomForestClassifier.html">?<span>Documentation for RandomForestClassifier</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>RandomForestClassifier(random_state=42)</pre></div> </div></div></div></div></div></div>
-</div>
-<p>💻 <strong>코드 &amp; 실행결과</strong></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
-
+<span class="c1"># 성능 평가</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
 <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_valid</span><span class="p">)</span>
 <span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Validation Score: </span><span class="si">{</span><span class="n">accuracy</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># 테스트 데이터 예측 및 저장</span>
+<span class="n">y_test_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">submission</span><span class="p">[</span><span class="s1">&#39;Survived&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_test_pred</span>
+<span class="n">submission</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;titanic_pred.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1083,72 +645,21 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </div>
 </div>
 </div>
-<p>모델 학습 결과, Validation Score가 0.82123으로 나왔습니다. 이는 챕터 1에서 수치형 변수만 사용했을 때의 점수인 0.73184보다 크게 향상된 결과입니다. Gender 피처 하나를 추가했을 뿐인데 정확도가 많이 상승했네요. 이는 앞서 살펴본 것처럼 성별이 생존 여부와 매우 강한 관련이 있다는 것을 다시 한 번 확인시켜주는 결과입니다.</p>
-<p>💻 <strong>코드 &amp; 실행결과</strong></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_test_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-
-<span class="n">submission</span><span class="p">[</span><span class="s1">&#39;Survived&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_test_pred</span>
-<span class="n">submission</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;titanic_pred.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">submission</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>모델 학습 코드의 재사용</strong></p>
+<p>위의 모델 학습 코드는 앞으로 여러 섹션에서 반복적으로 사용됩니다. 다음 섹션부터는 이 코드가 “준비 코드”에 포함되어 있으므로, 매번 입력할 필요 없이 바로 실행 결과만 확인하면 됩니다.</p>
+<p>준비 코드에 포함되는 내용:</p>
+<ol class="arabic simple">
+<li><p>데이터 준비 (X, y, X_test 생성)</p></li>
+<li><p>학습/검증 데이터 분할</p></li>
+<li><p>Random Forest 모델 학습</p></li>
+<li><p>성능 평가 및 예측 결과 저장</p></li>
+</ol>
+<p>이는 마치 요리 책에서 기본 반죽을 미리 준비해두고 다양한 빵을 만드는 것과 같습니다.</p>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>PassengerId</th>
-      <th>Survived</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>892</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>893</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>894</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>895</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>896</td>
-      <td>0</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<p>실제 test 데이터에 대한 예측 결과를 캐글에 제출했더니 0.73444의 점수를 얻었습니다. 이는 418명의 test 데이터 중 307명의 생존 여부를 맞혔다는 의미입니다. 챕터 1에서 수치형 변수만 사용했을 때의 점수가 0.63397(265명)이었던 것과 비교하면, Gender 피처를 추가함으로써 42명을 더 정확하게 예측할 수 있게 되었네요.</p>
+<p>Random Forest 모델을 사용하여 학습하고, 검증 데이터로 성능을 평가한 결과, Validation Score가 0.82123으로 나왔습니다. 이는 이전 모델(0.73184)보다 크게 향상된 결과입니다.</p>
+<p>실제 test 데이터에 대한 예측 결과를 캐글에 제출했더니 0.73444의 점수를 얻었습니다. 418명의 test 데이터 중 307명의 생존 여부를 맞혔다는 의미입니다. 수치형 변수만 사용했을 때의 점수가 0.63397(265명)이었던 것과 비교하면, Gender 변수를 추가함으로써 42명을 더 정확하게 예측할 수 있게 되었네요.</p>
 <p>지금까지의 결과를 표로 정리하면 다음과 같습니다:</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -1178,7 +689,17 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </tbody>
 </table>
 </div>
-</section>
+<p>단 하나의 변수를 추가했을 뿐인데 정확도가 10%p 이상 향상되었습니다. 이는 성별이 생존 여부를 예측하는데 매우 중요한 요소였음을 다시 한 번 확인시켜주는 결과입니다.</p>
+<p>다음 섹션에서는 승객들의 탑승 항구(Embarked) 정보를 추가하여 모델을 더욱 개선해보도록 하겠습니다. 과연 이 정보는 예측 정확도를 얼마나 향상시킬 수 있을까요?</p>
+<div class="seealso admonition">
+<p class="admonition-title">데이터 속 숨은 이야기</p>
+<p><strong>“Women and children first”의 유래: 버켄헤드 규율</strong></p>
+<p>타이타닉호에서 지켜진 “여성과 어린이 먼저”라는 원칙은 사실 그보다 60년 전인 1845년의 한 사건에서 비롯되었습니다. 영국 군함 HMS 버켄헤드(Birkenhead)가 남아프리카 해안에서 좌초했을 때의 일입니다.</p>
+<p>침몰이 시작되자 함장은 제한된 구명보트에 여성과 어린이들을 먼저 태웠습니다. 그리고 남성 군인들은… 놀랍게도 침몰하는 배 위에 정렬해 서있었다고 합니다. 그들은 구명보트로 달려가는 혼란스러운 상황이 여성과 어린이의 탈출을 방해할 수 있다고 판단했기 때문입니다.</p>
+<p>이 이야기는 빅토리아 시대 영국의 기사도 정신을 상징하는 사건이 되었고, “버켄헤드 규율(Birkenhead Drill)”이라는 이름으로 이후 해상 구조의 기본 원칙이 되었습니다.</p>
+<p>타이타닉호의 경우 이 원칙이 잘 지켜져서 우리가 방금 확인한 것처럼 여성의 생존율(74.2%)이 남성(18.9%)보다 훨씬 높았습니다. 영화에서 보여준 여러 장면들, 특히 구명보트에 탑승하는 순서를 다루는 장면들은 이러한 역사적 맥락을 정확히 반영한 것이었죠.</p>
+</div>
+<br></section>
 </section>
 
     <script type="text/x-thebe-config">
