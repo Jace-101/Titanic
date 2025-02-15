@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -177,7 +177,7 @@
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="Titanic-20.html">II. 더 깊은 바다로: 카테고리형 데이터와 결측치 처리</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="Titanic-21.html">1. 성별(Sex)을 추가하면 생존 예측의 정확도가 얼마나 올라갈까?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titanic-21.html">2.1 성별(Sex)은 생존에 얼마나 큰 영향을 미쳤을까?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Titanic-22.html">2. 탑승 항구(Embarked)가 비어있는 두 승객엔 어떤 비밀이 있을까?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Titanic-23.html">3. 사라진 요금(Fare)을 찾아서: 숫자형 결측치는 어떻게 채워야 할까?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Titanic-24.html">4. 설마 공짜로 탄 거야? 요금 결측치에 숨겨진 비밀</a></li>
@@ -859,6 +859,11 @@ submission data shape: (418, 2)
 <p>캐글의 타이타닉 대회에서 사용하는 평가 지표는 accuracy(정확도)입니다. accuracy는 전체 예측 중 올바른 예측의 비율을 의미합니다. 이후 챕터에서 accuracy를 포함한 다양한 평가 지표들에 대해 자세히 다루게 될 것입니다.</p>
 </div>
 <p>이제 기본적인 데이터 구조를 이해했으니, 다음 섹션에서는 본격적으로 데이터를 분석하면서 더 나은 예측 모델을 만들어보도록 하겠습니다.</p>
+<div class="seealso admonition">
+<p class="admonition-title">데이터 속 숨은 이야기</p>
+<p><strong>캐글의 첫 대회, 타이타닉</strong></p>
+<p>캐글이 2012년에 처음 공개한 대회가 바로 이 타이타닉 생존자 예측 대회였다는 사실을 아시나요? 데이터 사이언스 입문자들을 위해 특별히 선정된 이 데이터셋에는 흥미로운 비하인드 스토리가 있습니다. 타이타닉 승객 데이터는 영국 선박부에서 작성한 공식 기록을 바탕으로 합니다. 하지만 당시의 모든 정보가 완벽하게 보존된 것은 아니었습니다. 특히 3등석 승객들의 정보는 상당 부분 누락되어 있었고, 생존자 명단도 여러 번의 수정을 거쳤습니다. 캐글은 이 불완전한 데이터를 교육용으로 가공하면서, 일부러 Age나 Cabin 같은 중요한 정보들의 결측치를 그대로 남겨두었습니다. 이는 현실 세계의 데이터도 완벽하지 않다는 것을 보여주기 위해서였죠. 실제로 많은 데이터 사이언티스트들이 이 대회를 통해 결측치 처리, 범주형 변수 인코딩 등 데이터 전처리의 기초를 배웠다고 합니다. 그래서 타이타닉 대회는 “데이터 사이언스의 Hello World”라고도 불립니다.</p>
+</div>
 <br></section>
 </section>
 

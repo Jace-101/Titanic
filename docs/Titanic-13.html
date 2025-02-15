@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -177,7 +177,7 @@
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="Titanic-20.html">II. 더 깊은 바다로: 카테고리형 데이터와 결측치 처리</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="Titanic-21.html">1. 성별(Sex)을 추가하면 생존 예측의 정확도가 얼마나 올라갈까?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titanic-21.html">2.1 성별(Sex)은 생존에 얼마나 큰 영향을 미쳤을까?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Titanic-22.html">2. 탑승 항구(Embarked)가 비어있는 두 승객엔 어떤 비밀이 있을까?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Titanic-23.html">3. 사라진 요금(Fare)을 찾아서: 숫자형 결측치는 어떻게 채워야 할까?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Titanic-24.html">4. 설마 공짜로 탄 거야? 요금 결측치에 숨겨진 비밀</a></li>
@@ -1108,6 +1108,11 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <li><p>다양한 머신러닝 알고리즘 시도해보기</p></li>
 </ol>
 <p>다음 챕터에서는 특히 성별(Sex)과 승선 항구(Embarked)라는 문자형 변수들을 어떻게 활용할 수 있는지 배워보도록 하겠습니다. 이를 통해 우리의 예측 모델이 얼마나 개선되는지 함께 확인해보시죠!</p>
+<div class="seealso admonition">
+<p class="admonition-title">데이터 속 숨은 이야기</p>
+<p><strong>Random Forest와 타이타닉의 의사결정</strong></p>
+<p>우리가 사용한 Random Forest 알고리즘의 작동 방식은 흥미롭게도 실제 타이타닉호 침몰 당시의 의사결정 과정과 비슷한 면이 있습니다. 침몰이 시작되자 승무원들은 여러 기준을 동시에 고려해야 했습니다: - 좌석 등급 - 나이 - 성별 - 동반 가족 여부 각 구명보트마다 다른 승무원들이 서로 다른 우선순위로 승객들을 탑승시켰고, 최종적으로는 이러한 개별 결정들이 모여 전체 생존자가 결정되었습니다.  Random Forest도 이와 비슷하게 여러 개의 의사결정 나무(Decision Tree)가 각각 다른 기준으로 판단을 내리고, 이들의 “다수결”로 최종 예측을 만듭니다.  이처럼 알고리즘이 실제 역사적 상황을 반영하는 경우도 있다는 점이 매우 흥미롭습니다.</p>
+</div>
 </section>
 </section>
 

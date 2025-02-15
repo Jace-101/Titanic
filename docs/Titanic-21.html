@@ -589,14 +589,10 @@
 <section id="id3">
 <h2>모델 학습과 예측<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
 <p>이제 Gender 변수를 포함하여 모델을 다시 학습시켜보겠습니다. 기존의 수치형 변수 리스트에 ‘Gender’를 추가합니다:</p>
-<p>📝 <strong>프롬프트</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">기존의</span> <span class="n">수치형</span> <span class="n">변수</span> <span class="n">리스트에</span> <span class="s1">&#39;Gender&#39;</span><span class="n">를</span> <span class="n">추가해줘</span>
-</pre></div>
-</div>
 <p>💻 <strong>코드 &amp; 실행결과</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">inc_fts</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Pclass&#39;</span><span class="p">,</span> <span class="s1">&#39;Age&#39;</span><span class="p">,</span> <span class="s1">&#39;SibSp&#39;</span><span class="p">,</span> <span class="s1">&#39;Parch&#39;</span><span class="p">,</span> <span class="s1">&#39;Fare&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">inc_fts</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Pclass&#39;</span><span class="p">,</span> <span class="s1">&#39;Age&#39;</span><span class="p">,</span> <span class="s1">&#39;SibSp&#39;</span><span class="p">,</span> <span class="s1">&#39;Parch&#39;</span><span class="p">,</span> <span class="s1">&#39;Fare&#39;</span><span class="p">]</span>  <span class="c1"># 기존 리스트</span>
 <span class="n">inc_fts</span> <span class="o">+=</span> <span class="p">[</span><span class="s1">&#39;Gender&#39;</span><span class="p">]</span>  <span class="c1"># 기존 리스트에 &#39;Gender&#39; 추가</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">inc_fts</span><span class="p">)</span>
