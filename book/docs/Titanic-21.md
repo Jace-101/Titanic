@@ -45,7 +45,7 @@ width: 600px
 
 ## 성별과 생존율 사이의 관계
 
-먼저 성별에 따른 생존율을 계산해보겠습니다. 앞서 배운 groupby와 agg 함수를 사용하면 쉽게 분석할 수 있습니다.
+먼저 성별에 따른 생존율을 계산해보겠습니다. groupby와 agg 함수를 사용하면 쉽게 분석할 수 있습니다.
 
 📝 **프롬프트**
 ```
@@ -58,7 +58,7 @@ results = train.groupby('Sex')['Survived'].agg(['count', 'mean'])
 results
 ```
 
-실행 결과는 충격적입니다. 여성 승객의 생존율은 74.2%로 매우 높은 반면, 남성 승객의 생존율은 18.9%에 불과합니다. 이러한 극명한 차이는 타이타닉 침몰 당시 "여성과 어린이를 먼저 구하라(Women and children first)"는 원칙이 실제로 지켜졌음을 보여줍니다.
+실행 결과는 충격적입니다. 여성 승객의 생존율은 74.2%로 매우 높은 반면, 남성 승객의 생존율은 18.9%에 불과합니다. 이러한 극명한 차이는 타이타닉 침몰 당시 "여성과 아이 먼저(Women and children first)"라는 원칙이 실제로 지켜졌음을 보여줍니다.
 
 
 
@@ -121,22 +121,23 @@ print(inc_fts)
 이제 1.3절에서 사용했던 모델 학습 코드를 실행하겠습니다:
 
 ```{code-cell}
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
+
 # 데이터 준비
 X = train[inc_fts]     # 선택한 특성들
 y = train['Survived']  # 생존 여부
 X_test = test[inc_fts] # 예측해야 할 데이터의 정보들
 
 # 학습/검증 데이터 분할
-from sklearn.model_selection import train_test_split
 X_train, X_valid, y_train, y_valid = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # 모델 학습
-from sklearn.ensemble import RandomForestClassifier
 model = RandomForestClassifier(random_state=42)
 model.fit(X_train, y_train)
 
 # 성능 평가
-from sklearn.metrics import accuracy_score
 y_pred = model.predict(X_valid)
 accuracy = accuracy_score(y_valid, y_pred)
 print(f"Validation Score: {accuracy:.5f}")
