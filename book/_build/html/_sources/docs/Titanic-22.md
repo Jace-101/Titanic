@@ -94,7 +94,11 @@ print(train['Embarked'].unique())
 ---
 ```
 
-타이타닉호는 Southampton에서 출발하여 Cherbourg, Queenstown을 거쳐 뉴욕으로 향했습니다. 각 항구는 서로 다른 이야기를 품고 있었습니다. 빅토리아 시대 영국의 화려한 부유층이 많았던 Southampton, 프랑스의 귀족들이 즐겨 찾던 Cherbourg, 신대륙을 향한 아일랜드 이민자들의 관문이었던 Queenstown. 이렇게 서로 다른 배경의 승객들이 타이타닉호에 올랐습니다.
+타이타닉호는 영국 Southampton에서 출발하여 프랑스 Cherbourg, 아일랜드 Queenstown을 거쳐 뉴욕으로 향했습니다. 각 항구는 서로 다른 이야기를 품고 있었습니다:
+
+- Southampton: 타이타닉호의 첫 출발지이자 가장 많은 승객이 탑승한 항구
+- Cherbourg: 프랑스 상류층이 선호하던 항구. 유럽 대륙의 귀족들이 주로 이용
+- Queenstown: 많은 아일랜드 이민자들이 '아메리칸 드림'을 꿈꾸며 출발했던 곳
 
 흥미로운 점은 일부 승객의 승선 항구 정보가 누락되어 있다는 것입니다. 이들은 어떤 사연을 가진 승객들일까요?
 
@@ -181,8 +185,7 @@ train[train['Embarked'].isnull()]
    - 나이는 38세와 62세로 24살 차이가 납니다
    - 둘 다 가족(SibSp=0, Parch=0)과 함께 타지 않았습니다
 
-:::{admonition} 생각해보기 
-:class: tip 
+:::{admonition} 생각해 보기 
 
 1912년, 혼자 여행하기 어려웠던 시대에 이 두 여성은 어떤 관계였을까요? 다음과 같은 가능성들을 생각해볼 수 있습니다:
 
@@ -289,9 +292,9 @@ train.head()
 
 
 :::{admonition} One-Hot Encoding의 장단점
-:class: tip
 
 **장점**:
+
 - 범주형 변수들 사이에 크기 관계가 생기는 것을 방지할 수 있습니다
 - 각 범주가 독립적으로 처리되어 모델이 더 정확한 패턴을 학습할 수 있습니다
 
@@ -366,48 +369,7 @@ train_and_predict(train, test)
 
 
 
-:::{admonition} 직접 해보기
-:class: tip
-
-결측치 처리와 인코딩에 대한 이해를 높이기 위해 다음 실습을 해보세요:
-
-1. 결측치 처리 실험
-   ```python
-   # 결측치를 'C'로 채우기
-   train['Embarked'] = train['Embarked'].fillna('C')
-   
-   # 또는 'Q'로 채우기
-   train['Embarked'] = train['Embarked'].fillna('Q')
-   ```
-   각각의 경우 모델의 성능이 어떻게 달라지는지 비교해보세요. 왜 그런 차이가 났을까요?
-
-2. 다른 방식의 인코딩 시도
-   - 레이블 인코딩으로 처리해보기
-   ```python
-   train['Embarked_Label'] = train['Embarked'].map({'S': 0, 'C': 1, 'Q': 2})
-   ```
-   - 원-핫 인코딩과 비교했을 때 어떤 차이가 있나요?
-
-3. 승선 항구와 다른 변수의 관계 분석
-   ```python
-   # 각 항구별 평균 요금 확인
-   train.groupby('Embarked')['Fare'].mean()
-   
-   # 각 항구별 객실 등급 분포 확인
-   pd.crosstab(train['Embarked'], train['Pclass'])
-   ```
-   이 결과들은 앞서 본 생존율 차이를 어떻게 설명할 수 있나요?
-
-도전해보세요!
-1. 승선 항구와 성별을 함께 고려하면 어떤 패턴이 보일까요?
-2. 각 항구별로 나이 분포는 어떻게 다를까요?
-3. 요금과 승선 항구 사이에는 어떤 관계가 있을까요?
-
-이러한 분석을 통해 데이터 속에 숨어있는 새로운 패턴을 발견할 수 있습니다.
-:::
-
 :::{admonition} 프롬프트 실험하기
-:class: tip
 
 AI에게 분석을 요청할 때는 다양한 방식으로 프롬프트를 작성해볼 수 있습니다:
 

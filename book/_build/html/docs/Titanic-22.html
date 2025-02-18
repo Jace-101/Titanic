@@ -491,7 +491,12 @@
 <figure class="align-default">
 <img alt="../_images/22-1.png" src="../_images/22-1.png" />
 </figure>
-<p>타이타닉호는 Southampton에서 출발하여 Cherbourg, Queenstown을 거쳐 뉴욕으로 향했습니다. 각 항구는 서로 다른 이야기를 품고 있었습니다. 빅토리아 시대 영국의 화려한 부유층이 많았던 Southampton, 프랑스의 귀족들이 즐겨 찾던 Cherbourg, 신대륙을 향한 아일랜드 이민자들의 관문이었던 Queenstown. 이렇게 서로 다른 배경의 승객들이 타이타닉호에 올랐습니다.</p>
+<p>타이타닉호는 영국 Southampton에서 출발하여 프랑스 Cherbourg, 아일랜드 Queenstown을 거쳐 뉴욕으로 향했습니다. 각 항구는 서로 다른 이야기를 품고 있었습니다:</p>
+<ul class="simple">
+<li><p>Southampton: 타이타닉호의 첫 출발지이자 가장 많은 승객이 탑승한 항구</p></li>
+<li><p>Cherbourg: 프랑스 상류층이 선호하던 항구. 유럽 대륙의 귀족들이 주로 이용</p></li>
+<li><p>Queenstown: 많은 아일랜드 이민자들이 ‘아메리칸 드림’을 꿈꾸며 출발했던 곳</p></li>
+</ul>
 <p>흥미로운 점은 일부 승객의 승선 항구 정보가 누락되어 있다는 것입니다. 이들은 어떤 사연을 가진 승객들일까요?</p>
 </section>
 <section id="id2">
@@ -703,8 +708,8 @@ test 데이터의 Embarked 결측치 개수: 0
 </ul>
 </li>
 </ol>
-<div class="tip admonition">
-<p class="admonition-title">생각해보기</p>
+<div class="admonition- admonition">
+<p class="admonition-title">생각해 보기</p>
 <p>1912년, 혼자 여행하기 어려웠던 시대에 이 두 여성은 어떤 관계였을까요? 다음과 같은 가능성들을 생각해볼 수 있습니다:</p>
 <ul class="simple">
 <li><p>부유한 여성과 그의 여행 동반자(companion)</p></li>
@@ -1014,7 +1019,7 @@ Name: count, dtype: int64
 </div></div></div>
 </div>
 <p>이제 ‘Embarked_S’, ‘Embarked_C’, ‘Embarked_Q’ 세 개의 새로운 컬럼이 생성되었고, 각 승객은 자신이 승선한 항구에 해당하는 컬럼에만 1의 값을 가지게 됩니다. 이렇게 하면 항구 간에 크기 관계가 생기는 것을 방지할 수 있습니다.</p>
-<div class="tip admonition">
+<div class="admonition-one-hot-encoding admonition">
 <p class="admonition-title">One-Hot Encoding의 장단점</p>
 <p><strong>장점</strong>:</p>
 <ul class="simple">
@@ -1130,51 +1135,7 @@ Name: count, dtype: int64
 </li>
 </ol>
 <p>지금까지 승선 항구별 특성을 살펴보았는데, 특히 Cherbourg 승객들의 높은 생존율은 이들이 지불한 요금과도 관련이 있을 것 같습니다. 다음 섹션에서는 요금(Fare) 데이터를 자세히 분석하면서, 이 변수가 생존율에 미치는 영향을 살펴보도록 하겠습니다.</p>
-<div class="tip admonition">
-<p class="admonition-title">직접 해보기</p>
-<p>결측치 처리와 인코딩에 대한 이해를 높이기 위해 다음 실습을 해보세요:</p>
-<ol class="arabic">
-<li><p>결측치 처리 실험</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 결측치를 &#39;C&#39;로 채우기</span>
-<span class="n">train</span><span class="p">[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
-
-<span class="c1"># 또는 &#39;Q&#39;로 채우기</span>
-<span class="n">train</span><span class="p">[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;Q&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>각각의 경우 모델의 성능이 어떻게 달라지는지 비교해보세요. 왜 그런 차이가 났을까요?</p>
-</li>
-<li><p>다른 방식의 인코딩 시도</p>
-<ul class="simple">
-<li><p>레이블 인코딩으로 처리해보기</p></li>
-</ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;Embarked_Label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s1">&#39;S&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Q&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><p>원-핫 인코딩과 비교했을 때 어떤 차이가 있나요?</p></li>
-</ul>
-</li>
-<li><p>승선 항구와 다른 변수의 관계 분석</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 각 항구별 평균 요금 확인</span>
-<span class="n">train</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Embarked&#39;</span><span class="p">)[</span><span class="s1">&#39;Fare&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-
-<span class="c1"># 각 항구별 객실 등급 분포 확인</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">],</span> <span class="n">train</span><span class="p">[</span><span class="s1">&#39;Pclass&#39;</span><span class="p">])</span>
-</pre></div>
-</div>
-<p>이 결과들은 앞서 본 생존율 차이를 어떻게 설명할 수 있나요?</p>
-</li>
-</ol>
-<p>도전해보세요!</p>
-<ol class="arabic simple">
-<li><p>승선 항구와 성별을 함께 고려하면 어떤 패턴이 보일까요?</p></li>
-<li><p>각 항구별로 나이 분포는 어떻게 다를까요?</p></li>
-<li><p>요금과 승선 항구 사이에는 어떤 관계가 있을까요?</p></li>
-</ol>
-<p>이러한 분석을 통해 데이터 속에 숨어있는 새로운 패턴을 발견할 수 있습니다.</p>
-</div>
-<div class="tip admonition">
+<div class="admonition- admonition">
 <p class="admonition-title">프롬프트 실험하기</p>
 <p>AI에게 분석을 요청할 때는 다양한 방식으로 프롬프트를 작성해볼 수 있습니다:</p>
 <ol class="arabic">
@@ -1307,7 +1268,7 @@ Name: count, dtype: int64
   <div class="footer-item">
     
 <p class="component-author">
-By Jace Lee
+By Sean & Jace Lee (buildgates0617@gmail.com)
 </p>
 
   </div>
