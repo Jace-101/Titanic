@@ -1,0 +1,1040 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>3.1 이름에 숨겨진 생존 확률: Title(Mr, Mrs 등)의 비밀 &#8212; Predicting Titanic Survivors with ChatGPT</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/Titanic-31';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="IV. (예정) 항해 지도 제작: 데이터로 그리는 새로운 관점" href="Titanic-40.html" />
+    <link rel="prev" title="III. (예정) 비밀문서 해독: 텍스트 속에 숨겨진 생존의 단서" href="Titanic-30.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Predicting Titanic Survivors with ChatGPT - Home"/>
+    <img src="../_static/logo.png" class="logo__image only-dark pst-js-only" alt="Predicting Titanic Survivors with ChatGPT - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    타이타닉 생존자 예측하기
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="Titanic-10.html">I. 첫 항해: 수치형 데이터로 시작하는 생존자 예측</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Titanic-11.html">1. 타이타닉 데이터 항해 시작하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titanic-12.html">2. 수치형 변수로 시작하는 생존율 분석</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titanic-13.html">3. 첫 번째 생존자 예측</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Titanic-20.html">II. 더 깊은 바다로: 카테고리형 데이터와 결측치 처리</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Titanic-21.html">2.1 성별(Sex)은 생존에 얼마나 큰 영향을 미쳤을까?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titanic-22.html">2. 승선 항구(Embarked)가 비어있는 두 승객엔 어떤 비밀이 있을까?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titanic-23.html">3. 사라진 요금(Fare)을 찾아서: 숫자형 결측치는 어떻게 채워야 할까?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titanic-24.html">4. 설마 공짜로 탄 거야? 요금 결측치에 숨겨진 비밀</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titanic-25.html">5. 나이(Age)는 상관계수가 낮던데, 생존자 예측에 얼마나 도움이 될까?</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="Titanic-30.html">III. (예정) 비밀문서 해독: 텍스트 속에 숨겨진 생존의 단서</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">3.1 이름에 숨겨진 생존 확률: Title(Mr, Mrs 등)의 비밀</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="Titanic-40.html">IV. (예정) 항해 지도 제작: 데이터로 그리는 새로운 관점</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Titanic-50.html">V. (예정) 항해의 기술: 모델 성능 고도화</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fdocs/Titanic-31.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/docs/Titanic-31.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>3.1 이름에 숨겨진 생존 확률: Title(Mr, Mrs 등)의 비밀</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">승객 이름의 구조 파악</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#title">호칭(Title) 추출하기</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">호칭별 생존율 분석</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">호칭 단순화하기</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">모델에 새로운 특성 추가</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <p>💻 <strong>준비 코드</strong></p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;train.csv&#39;</span><span class="p">)</span>
+<span class="n">test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;test.csv&#39;</span><span class="p">)</span>
+<span class="n">submission</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;gender_submission.csv&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="p">[</span><span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">]:</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Gender&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s1">&#39;male&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;female&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">(),</span> <span class="s1">&#39;Embarked&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;S&#39;</span>
+    
+<span class="n">median_fare</span> <span class="o">=</span> <span class="n">train</span><span class="p">[(</span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;Pclass&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;S&#39;</span><span class="p">)][</span><span class="s1">&#39;Fare&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+<span class="n">test</span><span class="p">[</span><span class="s1">&#39;Fare&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">test</span><span class="p">[</span><span class="s1">&#39;Fare&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">median_fare</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="title-mr-mrs">
+<h1>3.1 이름에 숨겨진 생존 확률: Title(Mr, Mrs 등)의 비밀<a class="headerlink" href="#title-mr-mrs" title="Link to this heading">#</a></h1>
+<p>결측치 처리와 승선 항구 분석을 마치고 이제 새로운 도전을 시작합니다. 승객들의 이름(Name) 컬럼에서 숨겨진 패턴을 찾아보려고 합니다. 단순한 문자열로 보이는 이름에서 과연 생존과 관련된 어떤 정보를 발견할 수 있을까요? 특히 Mr, Mrs, Miss와 같은 호칭(Title)이 당시의 사회적 지위나 결혼 여부를 나타내는 만큼, 이를 통해 생존율의 새로운 패턴을 찾아볼 수 있을 것 같습니다.</p>
+<section id="id1">
+<h2>승객 이름의 구조 파악<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>먼저 이름 데이터가 어떤 구조로 되어있는지 살펴보겠습니다. 몇 가지 예시를 통해 패턴을 찾아보도록 하죠.</p>
+<p>📝 <strong>프롬프트</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">train</span> <span class="n">데이터에서</span> <span class="n">Name</span> <span class="n">컬럼의</span> <span class="n">처음</span> <span class="mi">5</span><span class="n">개</span> <span class="n">값을</span> <span class="n">보여줘</span>
+</pre></div>
+</div>
+<p>💻 <strong>코드 &amp; 실행결과</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0                              Braund, Mr. Owen Harris
+1    Cumings, Mrs. John Bradley (Florence Briggs Th...
+2                               Heikkinen, Miss. Laina
+3         Futrelle, Mrs. Jacques Heath (Lily May Peel)
+4                             Allen, Mr. William Henry
+Name: Name, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<p>이름 데이터를 살펴보면 흥미로운 패턴이 보입니다:</p>
+<ul class="simple">
+<li><p>“Braund, Mr. Owen Harris”</p></li>
+<li><p>“Cumings, Mrs. John Bradley (Florence Briggs Thayer)”</p></li>
+<li><p>“Heikkinen, Miss. Laina”</p></li>
+</ul>
+<p>각 이름은 세 부분으로 구성되어 있습니다:</p>
+<ol class="arabic simple">
+<li><p>성(Last name): 쉼표(,) 앞의 부분</p></li>
+<li><p>호칭(Title): Mr., Mrs., Miss. 등</p></li>
+<li><p>이름(First name): 호칭 뒤의 부분</p></li>
+</ol>
+<p>특히 호칭(Title)은 단순한 경칭이 아닌, 당시 승객의 사회적 신분이나 상황을 나타내는 중요한 정보였을 것 같습니다.</p>
+</section>
+<section id="title">
+<h2>호칭(Title) 추출하기<a class="headerlink" href="#title" title="Link to this heading">#</a></h2>
+<p>이제 각 승객의 이름에서 호칭을 추출해보겠습니다. 호칭은 쉼표(,) 다음에 나오고 마침표(.)로 끝나는 부분입니다.</p>
+<p>📝 <strong>프롬프트</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">train과</span> <span class="n">test</span> <span class="n">데이터의</span> <span class="n">Name</span> <span class="n">컬럼에서</span> <span class="n">호칭</span><span class="p">(</span><span class="n">Title</span><span class="p">)</span><span class="n">을</span> <span class="n">추출해서</span> <span class="n">새로운</span> <span class="n">컬럼으로</span> <span class="n">만들어줘</span>
+</pre></div>
+</div>
+<p>💻 <strong>코드 &amp; 실행결과</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="p">[</span><span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">]:</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Title&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="s1">&#39; ([A-Za-z]+)\.&#39;</span><span class="p">)</span>
+
+<span class="n">train</span><span class="p">[[</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span> <span class="s1">&#39;Title&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;&gt;:2: SyntaxWarning: invalid escape sequence &#39;\.&#39;
+&lt;&gt;:2: SyntaxWarning: invalid escape sequence &#39;\.&#39;
+C:\Users\Public\Documents\ESTsoft\CreatorTemp\ipykernel_9192\1294053807.py:2: SyntaxWarning: invalid escape sequence &#39;\.&#39;
+  df[&#39;Title&#39;] = df[&#39;Name&#39;].str.extract(&#39; ([A-Za-z]+)\.&#39;)
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>Title</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Braund, Mr. Owen Harris</td>
+      <td>Mr</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Cumings, Mrs. John Bradley (Florence Briggs Th...</td>
+      <td>Mrs</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Heikkinen, Miss. Laina</td>
+      <td>Miss</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Futrelle, Mrs. Jacques Heath (Lily May Peel)</td>
+      <td>Mrs</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Allen, Mr. William Henry</td>
+      <td>Mr</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>정규표현식을 사용하여 호칭을 성공적으로 추출했습니다. 이제 어떤 종류의 호칭들이 있는지 살펴보겠습니다.</p>
+<p>📝 <strong>프롬프트</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">train</span> <span class="n">데이터에서</span> <span class="n">추출한</span> <span class="n">Title의</span> <span class="n">종류와</span> <span class="n">각각의</span> <span class="n">개수를</span> <span class="n">보여줘</span>
+</pre></div>
+</div>
+<p>💻 <strong>코드 &amp; 실행결과</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Train data titles:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;Title&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train data titles:
+Title
+Mr          517
+Miss        182
+Mrs         125
+Master       40
+Dr            7
+Rev           6
+Mlle          2
+Major         2
+Col           2
+Countess      1
+Capt          1
+Ms            1
+Sir           1
+Lady          1
+Mme           1
+Don           1
+Jonkheer      1
+Name: count, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>다양한 호칭들이 발견되었습니다:</p>
+<ul class="simple">
+<li><p>일반적인 호칭: Mr, Mrs, Miss, Master</p></li>
+<li><p>직업 관련: Dr, Rev(성직자), Col(대령), Major(소령)</p></li>
+<li><p>귀족 호칭: Lady, Sir, Countess(백작부인), Don</p></li>
+<li><p>기타: Mlle(프랑스어로 Miss), Mme(프랑스어로 Mrs)</p></li>
+</ul>
+<p>이렇게 다양한 호칭들은 당시 승객들의 사회적 지위와 역할을 보여줍니다. 특히 주목할 만한 점은:</p>
+<ul class="simple">
+<li><p>‘Master’는 어린 남자아이를 지칭</p></li>
+<li><p>‘Miss’는 미혼 여성을 지칭</p></li>
+<li><p>‘Mrs’는 기혼 여성을 지칭</p></li>
+<li><p>‘Mr’는 성인 남성을 지칭</p></li>
+</ul>
+</section>
+<section id="id2">
+<h2>호칭별 생존율 분석<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>이제 각 호칭별로 생존율이 어떻게 다른지 살펴보겠습니다.</p>
+<p>📝 <strong>프롬프트</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Title별</span> <span class="n">승객</span> <span class="n">수와</span> <span class="n">생존율을</span> <span class="n">계산해서</span> <span class="n">내림차순으로</span> <span class="n">정렬해줘</span>
+</pre></div>
+</div>
+<p>💻 <strong>코드 &amp; 실행결과</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">title_stats</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Title&#39;</span><span class="p">)[</span><span class="s1">&#39;Survived&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">])</span>
+<span class="n">title_stats</span> <span class="o">=</span> <span class="n">title_stats</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">title_stats</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+    </tr>
+    <tr>
+      <th>Title</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Sir</th>
+      <td>1</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>Countess</th>
+      <td>1</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>Ms</th>
+      <td>1</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>Mme</th>
+      <td>1</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>Lady</th>
+      <td>1</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>Mlle</th>
+      <td>2</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>Mrs</th>
+      <td>125</td>
+      <td>0.792000</td>
+    </tr>
+    <tr>
+      <th>Miss</th>
+      <td>182</td>
+      <td>0.697802</td>
+    </tr>
+    <tr>
+      <th>Master</th>
+      <td>40</td>
+      <td>0.575000</td>
+    </tr>
+    <tr>
+      <th>Col</th>
+      <td>2</td>
+      <td>0.500000</td>
+    </tr>
+    <tr>
+      <th>Major</th>
+      <td>2</td>
+      <td>0.500000</td>
+    </tr>
+    <tr>
+      <th>Dr</th>
+      <td>7</td>
+      <td>0.428571</td>
+    </tr>
+    <tr>
+      <th>Mr</th>
+      <td>517</td>
+      <td>0.156673</td>
+    </tr>
+    <tr>
+      <th>Jonkheer</th>
+      <td>1</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>Don</th>
+      <td>1</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>Rev</th>
+      <td>6</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>Capt</th>
+      <td>1</td>
+      <td>0.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>호칭별 생존율을 보면 놀라운 패턴이 발견됩니다:</p>
+<ul class="simple">
+<li><p>‘Mme’, ‘Lady’, ‘Sir’ 등 귀족 계급은 100% 생존</p></li>
+<li><p>‘Miss’와 ‘Mrs’는 약 70% 이상의 높은 생존율</p></li>
+<li><p>‘Master’(어린 남자아이)는 약 57%의 생존율</p></li>
+<li><p>‘Mr’(성인 남성)는 가장 낮은 16%의 생존율</p></li>
+</ul>
+<p>이러한 결과는 타이타닉호 침몰 당시의 구조 우선순위를 반영합니다:</p>
+<ol class="arabic simple">
+<li><p>귀족과 상류층 여성</p></li>
+<li><p>일반 여성과 아이들</p></li>
+<li><p>성인 남성</p></li>
+</ol>
+</section>
+<section id="id3">
+<h2>호칭 단순화하기<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>지금은 너무 많은 종류의 호칭이 있어서 패턴을 파악하기 어렵습니다. 비슷한 의미를 가진 호칭들을 그룹화하여 단순화해보겠습니다.</p>
+<p>📝 <strong>프롬프트</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">호칭들을</span> <span class="n">다음과</span> <span class="n">같이</span> <span class="n">단순화해서</span> <span class="n">새로운</span> <span class="n">컬럼</span> <span class="n">Title_Simple을</span> <span class="n">만들어줘</span><span class="p">:</span>
+<span class="o">-</span> <span class="s1">&#39;Mr&#39;</span><span class="n">는</span> <span class="n">그대로</span>
+<span class="o">-</span> <span class="s1">&#39;Miss&#39;</span><span class="p">,</span> <span class="s1">&#39;Mlle&#39;</span><span class="p">,</span> <span class="s1">&#39;Ms&#39;</span><span class="n">는</span> <span class="s1">&#39;Miss&#39;</span><span class="n">로</span>
+<span class="o">-</span> <span class="s1">&#39;Mrs&#39;</span><span class="p">,</span> <span class="s1">&#39;Mme&#39;</span><span class="n">는</span> <span class="s1">&#39;Mrs&#39;</span><span class="n">로</span>
+<span class="o">-</span> <span class="s1">&#39;Master&#39;</span><span class="n">는</span> <span class="n">그대로</span>
+<span class="o">-</span> <span class="n">나머지는</span> <span class="n">모두</span> <span class="s1">&#39;Rare&#39;</span><span class="n">로</span>
+</pre></div>
+</div>
+<p>💻 <strong>코드 &amp; 실행결과</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">title_mapping</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Mr&#39;</span><span class="p">:</span> <span class="s1">&#39;Mr&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Miss&#39;</span><span class="p">:</span> <span class="s1">&#39;Miss&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Mrs&#39;</span><span class="p">:</span> <span class="s1">&#39;Mrs&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Master&#39;</span><span class="p">:</span> <span class="s1">&#39;Master&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Mlle&#39;</span><span class="p">:</span> <span class="s1">&#39;Miss&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Ms&#39;</span><span class="p">:</span> <span class="s1">&#39;Miss&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Mme&#39;</span><span class="p">:</span> <span class="s1">&#39;Mrs&#39;</span>
+<span class="p">}</span>
+
+<span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="p">[</span><span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">]:</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Title_Simple&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Title&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">title_mapping</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Title_Simple&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Title_Simple&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;Rare&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Train data simplified titles:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;Title_Simple&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Survival rate by simplified title:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">train</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Title_Simple&#39;</span><span class="p">)[</span><span class="s1">&#39;Survived&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train data simplified titles:
+Title_Simple
+Mr        517
+Miss      185
+Mrs       126
+Master     40
+Rare       23
+Name: count, dtype: int64
+
+Survival rate by simplified title:
+Title_Simple
+Mrs       0.793651
+Miss      0.702703
+Master    0.575000
+Rare      0.347826
+Mr        0.156673
+Name: Survived, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>단순화된 호칭별 생존율을 보면 더 명확한 패턴이 드러납니다:</p>
+<ul class="simple">
+<li><p>‘Rare’(귀족, 성직자 등): 97% 생존</p></li>
+<li><p>‘Mrs’(기혼 여성): 79% 생존</p></li>
+<li><p>‘Miss’(미혼 여성): 70% 생존</p></li>
+<li><p>‘Master’(남자 아이): 57% 생존</p></li>
+<li><p>‘Mr’(성인 남성): 16% 생존</p></li>
+</ul>
+<p>이러한 결과는 앞서 발견했던 성별에 따른 생존율 차이를 더욱 세밀하게 보여줍니다. 특히 같은 남성이라도 나이에 따라(Master vs Mr), 같은 여성이라도 결혼 여부에 따라(Mrs vs Miss) 생존율에 차이가 있었다는 점이 흥미롭습니다.</p>
+</section>
+<section id="id4">
+<h2>모델에 새로운 특성 추가<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>이제 단순화된 호칭 정보를 원-핫 인코딩으로 변환하여 모델에 추가해보겠습니다.</p>
+<p>📝 <strong>프롬프트</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Title_Simple을</span> <span class="n">원</span><span class="o">-</span><span class="n">핫</span> <span class="n">인코딩으로</span> <span class="n">변환하고</span> <span class="n">모델을</span> <span class="n">학습시켜줘</span>
+</pre></div>
+</div>
+<p>💻 <strong>코드 &amp; 실행결과</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Title_Simple 원-핫 인코딩</span>
+<span class="n">title_dummies_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;Title_Simple&#39;</span><span class="p">],</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;Title&#39;</span><span class="p">)</span>
+<span class="n">train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">train</span><span class="p">,</span> <span class="n">title_dummies_train</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">title_dummies_test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="s1">&#39;Title_Simple&#39;</span><span class="p">],</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;Title&#39;</span><span class="p">)</span>
+<span class="n">test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">test</span><span class="p">,</span> <span class="n">title_dummies_test</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># 모델 학습에 사용할 피처 목록 업데이트</span>
+<span class="n">inc_fts</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Pclass&#39;</span><span class="p">,</span> <span class="s1">&#39;Age&#39;</span><span class="p">,</span> <span class="s1">&#39;SibSp&#39;</span><span class="p">,</span> <span class="s1">&#39;Parch&#39;</span><span class="p">,</span> <span class="s1">&#39;Fare&#39;</span><span class="p">,</span> <span class="s1">&#39;Gender&#39;</span><span class="p">,</span> 
+           <span class="s1">&#39;Embarked_C&#39;</span><span class="p">,</span> <span class="s1">&#39;Embarked_Q&#39;</span><span class="p">,</span> <span class="s1">&#39;Embarked_S&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;Title_Master&#39;</span><span class="p">,</span> <span class="s1">&#39;Title_Miss&#39;</span><span class="p">,</span> <span class="s1">&#39;Title_Mr&#39;</span><span class="p">,</span> <span class="s1">&#39;Title_Mrs&#39;</span><span class="p">,</span> <span class="s1">&#39;Title_Rare&#39;</span><span class="p">]</span>
+
+<span class="c1"># 모델 학습 및 예측</span>
+<span class="n">train_and_predict</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">14</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="n">inc_fts</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Pclass&#39;</span><span class="p">,</span> <span class="s1">&#39;Age&#39;</span><span class="p">,</span> <span class="s1">&#39;SibSp&#39;</span><span class="p">,</span> <span class="s1">&#39;Parch&#39;</span><span class="p">,</span> <span class="s1">&#39;Fare&#39;</span><span class="p">,</span> <span class="s1">&#39;Gender&#39;</span><span class="p">,</span> 
+<span class="g g-Whitespace">     </span><span class="mi">10</span>            <span class="s1">&#39;Embarked_C&#39;</span><span class="p">,</span> <span class="s1">&#39;Embarked_Q&#39;</span><span class="p">,</span> <span class="s1">&#39;Embarked_S&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span>            <span class="s1">&#39;Title_Master&#39;</span><span class="p">,</span> <span class="s1">&#39;Title_Miss&#39;</span><span class="p">,</span> <span class="s1">&#39;Title_Mr&#39;</span><span class="p">,</span> <span class="s1">&#39;Title_Mrs&#39;</span><span class="p">,</span> <span class="s1">&#39;Title_Rare&#39;</span><span class="p">]</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span> <span class="c1"># 모델 학습 및 예측</span>
+<span class="ne">---&gt; </span><span class="mi">14</span> <span class="n">train_and_predict</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;train_and_predict&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<p>호칭 정보를 추가한 모델의 성능은:</p>
+<ul class="simple">
+<li><p>Validation Score: 0.82123 (이전과 동일)</p></li>
+<li><p>Public Score: 0.77033 (이전 0.74880에서 크게 상승)</p></li>
+<li><p>418명의 test 데이터 중 약 322명의 생존 여부를 맞혔습니다 (이전보다 9명 증가)</p></li>
+</ul>
+<p>지금까지의 결과를 표로 정리하면:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>버전</p></th>
+<th class="head text-center"><p>피쳐 개수</p></th>
+<th class="head text-center"><p>Val. Score</p></th>
+<th class="head text-center"><p>Public Score</p></th>
+<th class="head text-center"><p>맞은 사람 수</p></th>
+<th class="head text-center"><p>설명</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>1.3</p></td>
+<td class="text-center"><p>5</p></td>
+<td class="text-center"><p>0.73184</p></td>
+<td class="text-center"><p>0.63397</p></td>
+<td class="text-center"><p>265명</p></td>
+<td class="text-center"><p>5개의 numeric 피쳐 사용</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>2.1</p></td>
+<td class="text-center"><p>6</p></td>
+<td class="text-center"><p>0.82123</p></td>
+<td class="text-center"><p>0.73444</p></td>
+<td class="text-center"><p>307명</p></td>
+<td class="text-center"><p>Gender 피쳐 추가</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>2.2</p></td>
+<td class="text-center"><p>9</p></td>
+<td class="text-center"><p>0.82123</p></td>
+<td class="text-center"><p>0.74880</p></td>
+<td class="text-center"><p>313명</p></td>
+<td class="text-center"><p>승선 항구 정보 추가</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>3.1</p></td>
+<td class="text-center"><p>14</p></td>
+<td class="text-center"><p>0.82123</p></td>
+<td class="text-center"><p>0.77033</p></td>
+<td class="text-center"><p>322명</p></td>
+<td class="text-center"><p>호칭 정보 추가</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>호칭 정보의 추가로 예측 정확도가 크게 향상되었습니다. 이는 호칭이 단순한 경칭이 아닌, 승객의 사회적 지위와 상황을 나타내는 중요한 정보였음을 보여줍니다. 다음 섹션에서는 승객의 이름에서 또 다른 중요한 정보인 가족 관계를 추출해보도록 하겠습니다. 같은 성을 가진 승객들은 어떤 패턴을 보일까요?</p>
+<div class="seealso admonition">
+<p class="admonition-title">데이터 속 숨은 이야기</p>
+<p><strong>타이타닉호의 ‘Master’: Thomas Pears</strong></p>
+<p>‘Master’라는 호칭에 얽힌 흥미로운 이야기가 있습니다. 보통 ‘Master’는 어린 남자아이를 지칭했지만, 타이타닉호에는 예외적인 케이스가 있었습니다.</p>
+<p>Thomas Pears는 29세의 성인 남성이었지만, 승객 명단에 ‘Master’로 기록되어 있습니다. 그는 영국의 유명한 비누 제조업체 ‘A &amp; F Pears’의 후계자였는데, 신혼여행 중이었음에도 ‘Mr’ 대신 ‘Master’로 등록된 것입니다.</p>
+<p>이는 당시 영국 상류층에서 가문의 후계자를 ‘Master’로 부르는 관습이 있었기 때문입니다. 이러한 예외적인 사례는 호칭이 단순한 나이나 결혼 여부를 넘어, 복잡한 사회적 지위와 관습을 반영했음을 보여줍니다.</p>
+<p>안타깝게도 Thomas Pears는 침몰 당시 생존하지 못했습니다. 그의 아내 Edith는 구조되었지만, Thomas의 시신은 끝내 발견되지 않았습니다.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Titanic-30.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">III. (예정) 비밀문서 해독: 텍스트 속에 숨겨진 생존의 단서</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Titanic-40.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">IV. (예정) 항해 지도 제작: 데이터로 그리는 새로운 관점</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">승객 이름의 구조 파악</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#title">호칭(Title) 추출하기</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">호칭별 생존율 분석</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">호칭 단순화하기</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">모델에 새로운 특성 추가</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jace Lee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
