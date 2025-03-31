@@ -1,0 +1,51 @@
+Traceback (most recent call last):
+  File "C:\Users\mlee\anaconda3\Lib\site-packages\jupyter_cache\executors\utils.py", line 58, in single_nb_execution
+    executenb(
+  File "C:\Users\mlee\anaconda3\Lib\site-packages\nbclient\client.py", line 1305, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mlee\anaconda3\Lib\site-packages\jupyter_core\utils\__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mlee\anaconda3\Lib\asyncio\base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\mlee\anaconda3\Lib\site-packages\nbclient\client.py", line 705, in async_execute
+    await self.async_execute_cell(
+  File "C:\Users\mlee\anaconda3\Lib\site-packages\nbclient\client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "C:\Users\mlee\anaconda3\Lib\site-packages\nbclient\client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+def corr_matrix(df, ft, count):
+    corr = df.corr(numeric_only=True)
+    count = min(count, len(corr.columns))
+    top_corr = abs(corr[ft]).sort_values(ascending=False).iloc[:count]
+
+    sz = min(15, count)
+    plt.figure(figsize=(sz, sz-3))
+    sns.heatmap(df[top_corr.index].corr(), vmax=1, vmin=-1, center=0, annot=True, cmap='coolwarm')
+    plt.title('Correlation Matrix')
+    plt.show()
+
+corr_matrix(train, 'Survived', 10)
+------------------
+
+
+[1;31m---------------------------------------------------------------------------[0m
+[1;31mNameError[0m                                 Traceback (most recent call last)
+Cell [1;32mIn[7], line 12[0m
+[0;32m      9[0m     plt[38;5;241m.[39mtitle([38;5;124m'[39m[38;5;124mCorrelation Matrix[39m[38;5;124m'[39m)
+[0;32m     10[0m     plt[38;5;241m.[39mshow()
+[1;32m---> 12[0m corr_matrix(train, [38;5;124m'[39m[38;5;124mSurvived[39m[38;5;124m'[39m, [38;5;241m10[39m)
+
+Cell [1;32mIn[7], line 7[0m, in [0;36mcorr_matrix[1;34m(df, ft, count)[0m
+[0;32m      4[0m top_corr [38;5;241m=[39m [38;5;28mabs[39m(corr[ft])[38;5;241m.[39msort_values(ascending[38;5;241m=[39m[38;5;28;01mFalse[39;00m)[38;5;241m.[39miloc[:count]
+[0;32m      6[0m sz [38;5;241m=[39m [38;5;28mmin[39m([38;5;241m15[39m, count)
+[1;32m----> 7[0m plt[38;5;241m.[39mfigure(figsize[38;5;241m=[39m(sz, sz[38;5;241m-[39m[38;5;241m3[39m))
+[0;32m      8[0m sns[38;5;241m.[39mheatmap(df[top_corr[38;5;241m.[39mindex][38;5;241m.[39mcorr(), vmax[38;5;241m=[39m[38;5;241m1[39m, vmin[38;5;241m=[39m[38;5;241m-[39m[38;5;241m1[39m, center[38;5;241m=[39m[38;5;241m0[39m, annot[38;5;241m=[39m[38;5;28;01mTrue[39;00m, cmap[38;5;241m=[39m[38;5;124m'[39m[38;5;124mcoolwarm[39m[38;5;124m'[39m)
+[0;32m      9[0m plt[38;5;241m.[39mtitle([38;5;124m'[39m[38;5;124mCorrelation Matrix[39m[38;5;124m'[39m)
+
+[1;31mNameError[0m: name 'plt' is not defined
+
