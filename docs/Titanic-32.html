@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>I. 첫 항해: 데이터와의 첫 만남, 그리고 첫 예측 &#8212; Predicting Titanic Survivors with ChatGPT</title>
+    <title>2. 객실 번호는 없는 게 더 많네. 휴, 이걸 어떻게 살리지? &#8212; Predicting Titanic Survivors with ChatGPT</title>
   
   
   
@@ -60,12 +60,12 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/Titanic-10';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/Titanic-32';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="1. 세 개의 파일로 시작하는 생존 예측의 첫 걸음" href="Titanic-11.html" />
-    <link rel="prev" title="타이타닉 생존자 예측하기" href="../intro.html" />
+    <link rel="next" title="3. 규칙 없는 티켓 번호, 일단 넣어는 보자" href="Titanic-33.html" />
+    <link rel="prev" title="1. 에이, 이름이 생존 여부에 영향을 줄 리 없잖아…" href="Titanic-31.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -170,23 +170,23 @@
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">I. 첫 항해: 데이터와의 첫 만남, 그리고 첫 예측</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Titanic-10.html">I. 첫 항해: 데이터와의 첫 만남, 그리고 첫 예측</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="Titanic-11.html">1. 세 개의 파일로 시작하는 생존 예측의 첫 걸음</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Titanic-12.html">2. 통계로 본 생존의 조건, 숫자 속에 숨어 있는 이야기</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Titanic-13.html">3. 성별 없이 생존을 예측할 수 있을까? 우리의 첫 번째 모델</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="Titanic-20.html">II. 더 깊은 바다로: 결측치와 범주형 변수라는 두 가지 난관</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="Titanic-21.html">2.1 성별은 생존을 가르는 결정적 단서였을까?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titanic-21.html">1. 성별은 생존을 가르는 결정적 단서였을까?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Titanic-22.html">2. 승선 항구가 비어 있는 두 여성은 누구지?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Titanic-23.html">3. 사라진 요금은 어떻게 채워야 하나?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Titanic-24.html">4. 타이타닉에 무임승객이 있는 거야? 설마…</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Titanic-25.html">5. 나이는 정말 쓸모없는 변수일까?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titanic-25.html">5. 나이(Age)는 상관계수가 낮던데, 생존자 예측에 얼마나 도움이 될까?</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="Titanic-30.html">III. (예정) 비밀문서 해독: 이름, 객실, 티켓 번호 속의 숨겨진 단서</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="Titanic-30.html">III. (예정) 비밀문서 해독: 이름, 객실, 티켓 번호 속의 숨겨진 단서</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="Titanic-31.html">1. 에이, 이름이 생존 여부에 영향을 줄 리 없잖아…</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Titanic-32.html">2. 객실 번호는 없는 게 더 많네. 휴, 이걸 어떻게 살리지?</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">2. 객실 번호는 없는 게 더 많네. 휴, 이걸 어떻게 살리지?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Titanic-33.html">3. 규칙 없는 티켓 번호, 일단 넣어는 보자</a></li>
 </ul>
 </details></li>
@@ -271,7 +271,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fdocs/Titanic-10.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fdocs/Titanic-32.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -301,7 +301,7 @@
       
       
       
-      <li><a href="../_sources/docs/Titanic-10.md" target="_blank"
+      <li><a href="../_sources/docs/Titanic-32.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -364,9 +364,7 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</button>
+
 </div></div>
       
     </div>
@@ -377,21 +375,11 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>I. 첫 항해: 데이터와의 첫 만남, 그리고 첫 예측</h1>
+    <h1>2. 객실 번호는 없는 게 더 많네. 휴, 이걸 어떻게 살리지?</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">세 개의 파일로 시작하는 생존 예측의 첫 걸음</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">통계로 본 생존의 조건, 숫자 속에 숨어 있는 이야기</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">성별 없이 생존을 예측할 수 있을까? 우리의 첫 번째 모델</a></li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -401,42 +389,11 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="i">
-<h1>I. 첫 항해: 데이터와의 첫 만남, 그리고 첫 예측<a class="headerlink" href="#i" title="Link to this heading">#</a></h1>
-<p>데이터 과학 동아리의 첫 번째 프로젝트.<br />
-우리는 타이타닉 생존자 예측이라는 역사적 사건 속 데이터와 마주합니다.</p>
-<p>이 장에서는 단순한 분석을 넘어, 실제 사람들의 생존 여부를 예측해보는 여정을 시작합니다. 엑셀처럼 보이는 표 속 숫자들이 어떻게 의미를 가지게 되는지, 그리고 우리가 만든 인공지능이 어떤 방식으로 그 의미를 배워가는지를 하나씩 확인해볼 수 있습니다.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>2. 객실 번호는 없는 게 더 많네. 휴, 이걸 어떻게 살리지?<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<p><em>데이터 과학 동아리 - ? 번째 모임</em></p>
 <hr class="docutils" />
-<section id="id1">
-<h2>세 개의 파일로 시작하는 생존 예측의 첫 걸음<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
-<p>모든 이야기는 세 개의 파일에서 시작됩니다.<br />
-<code class="docutils literal notranslate"><span class="pre">train.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">test.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">gender_submission.csv</span></code>—교재, 시험지, 그리고 예시 답안처럼 역할을 나눈 이 세 파일을 열어보며, 데이터 분석의 첫 관문을 통과합니다.</p>
-<ul class="simple">
-<li><p>누가 살아남았는가?</p></li>
-<li><p>어떤 정보를 가지고 있는가?</p></li>
-<li><p>어떤 정보는 왜 빠져 있는가?</p></li>
-</ul>
-<p>프롬은 프롬프트로, 코더블은 코드로 분석을 시작하며, 독자는 두 사람의 방식 중 자신에게 맞는 방법을 선택할 수 있습니다.</p>
-</section>
-<hr class="docutils" />
-<section id="id2">
-<h2>통계로 본 생존의 조건, 숫자 속에 숨어 있는 이야기<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
-<p>다음으로는 숫자 속에 숨은 이야기를 찾아갑니다. 나이, 요금, 객실 등급, 가족 동반 수 등 수치로 표현된 정보들이 생존과 어떤 관계를 가지는지를 분석합니다.</p>
-<p>히트맵으로 상관관계를 시각화하고, 막대그래프와 파이그래프를 통해 직관적인 인사이트를 발견합니다.<br />
-1등석 승객의 생존율이 3등석보다 3배 가까이 높았다는 사실, 가장 비싼 티켓을 산 승객의 생존 이야기, 어린아이들의 생존율 등이 숫자를 통해 되살아납니다.</p>
-</section>
-<hr class="docutils" />
-<section id="id3">
-<h2>성별 없이 생존을 예측할 수 있을까? 우리의 첫 번째 모델<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
-<p>마지막으로, 우리가 분석한 수치형 변수만을 사용하여 첫 번째 머신러닝 모델을 만들어봅니다. 성별이나 승선 항구 같은 정보는 일부러 제외한 이 모델은 ‘기본 예측 모델(baseline)’로, 이후 발전된 모델과 비교하기 위한 기준점 역할을 합니다.</p>
-<p>우리는 Random Forest라는 알고리즘을 사용하여 인공지능 모델을 학습시키고, test 데이터에 대한 생존 여부를 예측하여 캐글에 제출해봅니다.</p>
-<p>검증 데이터 기준으로 약 73%의 정확도를 보였고, 캐글에서는 0.63397의 점수를 얻었습니다. 비록 성별 정보조차 사용하지 않은 모델이지만, 우리만의 첫 번째 결과를 만들었다는 사실만으로도 충분히 의미 있는 출발입니다.</p>
-<hr class="docutils" />
-<p>이 장은 타이타닉 데이터 분석의 시작이자, 데이터 사이언스로 생각하는 법을 배우는 첫걸음입니다.
-숫자 하나하나를 다르게 보기 시작한 지금, 우리는 다음 장에서 성별, 이름, 승선 항구 같은 **‘글자 속 데이터’**로 시선을 옮겨볼 것입니다.</p>
-</section>
-<div class="toctree-wrapper compound">
-</div>
+<p>(나중에 추가)</p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -470,20 +427,20 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../intro.html"
+       href="Titanic-31.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">타이타닉 생존자 예측하기</p>
+        <p class="prev-next-title">1. 에이, 이름이 생존 여부에 영향을 줄 리 없잖아…</p>
       </div>
     </a>
     <a class="right-next"
-       href="Titanic-11.html"
+       href="Titanic-33.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">1. 세 개의 파일로 시작하는 생존 예측의 첫 걸음</p>
+        <p class="prev-next-title">3. 규칙 없는 티켓 번호, 일단 넣어는 보자</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -493,24 +450,6 @@
             </div>
             
             
-              
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">세 개의 파일로 시작하는 생존 예측의 첫 걸음</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">통계로 본 생존의 조건, 숫자 속에 숨어 있는 이야기</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">성별 없이 생존을 예측할 수 있을까? 우리의 첫 번째 모델</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>
