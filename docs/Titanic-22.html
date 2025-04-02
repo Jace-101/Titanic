@@ -64,7 +64,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="3. 사라진 요금은 어떻게 채워야 하나?" href="Titanic-23.html" />
+    <link rel="next" title="3. 사라진 요금을 찾아서…" href="Titanic-23.html" />
     <link rel="prev" title="1. 성별은 생존을 가르는 결정적 단서였을까?" href="Titanic-21.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -179,13 +179,22 @@
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="Titanic-20.html">II. 더 깊은 바다로: 결측치와 범주형 변수라는 두 가지 난관</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="Titanic-21.html">1. 성별은 생존을 가르는 결정적 단서였을까?</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">2. 승선 항구가 비어 있는 두 여성은 누구지?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Titanic-23.html">3. 사라진 요금은 어떻게 채워야 하나?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titanic-23.html">3. 사라진 요금을 찾아서…</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Titanic-24.html">4. 타이타닉에 무임승객이 있는 거야? 설마…</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Titanic-25.html">5. 나이(Age)는 상관계수가 낮던데, 생존자 예측에 얼마나 도움이 될까?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titanic-25.html">5. 나이는 정말 쓸모없는 변수일까?</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="Titanic-30.html">III. (예정) 비밀문서 해독: 이름, 객실, 티켓 번호 속의 숨겨진 단서</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Titanic-40.html">IV. (예정) 항해의 완성: 새로운 피처로 예측의 지도를 다시 그리다</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Titanic-30.html">III. (예정) 비밀문서 해독: 이름, 객실, 티켓 번호 속의 숨겨진 단서</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Titanic-31.html">1. 에이, 이름이 생존 여부에 영향을 줄 리 없잖아…</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titanic-32.html">2. 객실 번호는 없는 게 더 많네. 휴, 이걸 어떻게 살리지?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titanic-33.html">3. 규칙 없는 티켓 번호, 일단 넣어는 보자</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Titanic-40.html">IV. (예정) 항해의 완성: 새로운 피처로 예측의 지도를 다시 그리다</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Titanic-41.html">1. 가족이 함께 탄 승객들, 더 많이 살아남았을까?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titanic-42.html">2. 아이 먼저, 여자 먼저… 영화 속 장면을 파생피처로 만들어본다면?</a></li>
+</ul>
+</details></li>
 </ul>
 
     </div>
@@ -459,15 +468,21 @@
 <br>
 <section class="tex2jax_ignore mathjax_ignore" id="id1">
 <h1>2. 승선 항구가 비어 있는 두 여성은 누구지?<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
-<p>성별 정보의 추가로 우리의 예측 모델은 큰 진전을 이루었습니다. 하지만 타이타닉호의 생존과 죽음을 가른 것이 단순히 성별뿐이었을까요? 이번에는 승객들의 승선 항구를 나타내는 ‘Embarked’ 변수를 살펴보겠습니다. 과연 어느 항구에서 승선한 승객들의 생존 확률이 더 높았을까요?</p>
+<p><em>데이터 과학 동아리 - 다섯 번째 모임</em></p>
+<hr class="docutils" />
+<p>프롬: 다안 선배! 저번 시간에 성별 정보를 모델에 추가했더니 정확도가 크게 올랐잖아요. 10% 포인트나 향상됐다니 정말 놀라웠어요. 오늘은 또 어떤 변수를 추가해볼 예정인가요?</p>
+<p>다안: 지난 번에 Gender 변수 하나로 정확도가 크게 향상된 것을 확인했지. 오늘은 승객들의 승선 항구를 나타내는 ‘Embarked’ 변수를 살펴볼 거야. 타이타닉호는 여러 항구에 정박하면서 승객들을 태웠거든. 각 항구마다 어떤 특성을 가진 승객들이 탑승했는지, 그리고 그것이 생존율과 어떤 관련이 있는지 분석해볼 거야.</p>
+<p>코더블: 흥미로운데요. 각 항구별로 탑승한 승객들의 특성이 달랐다면, 생존율에도 차이가 있었을 것 같아요. 먼저 Embarked 변수가 어떤 값들을 가지고 있는지부터 확인해볼까요?</p>
 <section id="embarked">
 <h2>Embarked 피쳐 개요<a class="headerlink" href="#embarked" title="Link to this heading">#</a></h2>
-<p>먼저 Embarked 변수에 어떤 값들이 있는지 확인해보겠습니다.</p>
-<p>📝 <strong>프롬프트</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Embarked</span> <span class="n">피쳐에</span> <span class="n">어떤</span> <span class="n">값들이</span> <span class="n">있는지</span> <span class="n">보여줘</span>
+<p>프롬: 승선 항구요? 타이타닉호가 어디서 출발했는지 궁금한데, Embarked 피쳐에는 어떤 값들이 있는지 확인해볼 수 있을까요?</p>
+<p>다안: 좋은 질문이야! Embarked 변수는 승객들이 어느 항구에서 타이타닉호에 탑승했는지를 나타내는 정보야. 한번 어떤 값들이 있는지 확인해보자.</p>
+<p>프롬: 제가 프롬프트로 한번 확인해볼게요!</p>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="gh"># 프롬프트</span>
+Embarked 피쳐에 어떤 값들이 있는지 보여줘
 </pre></div>
 </div>
-<p>💻 <strong>코드 &amp; 실행결과</strong></p>
+<p>코더블: 저는 코드로 확인해볼게요. unique() 함수를 사용하면 중복 없이 모든 값을 한 번에 볼 수 있어요.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
@@ -480,32 +495,33 @@
 </div>
 </div>
 </div>
-<p>결과를 보면 네 가지 값이 있습니다:</p>
+<p>다안: 보다시피 네 가지 값이 있어:</p>
 <ul class="simple">
 <li><p>‘S’: Southampton(영국)</p></li>
 <li><p>‘C’: Cherbourg(프랑스)</p></li>
 <li><p>‘Q’: Queenstown(아일랜드)</p></li>
 <li><p>nan: 결측치(Not a Number)</p></li>
 </ul>
+<p>타이타닉호의 항로를 보면, Southampton에서 출발해서 Cherbourg, Queenstown을 거쳐 뉴욕으로 향하는 경로였어.</p>
 <figure class="align-default">
 <img alt="../_images/22-1.png" src="../_images/22-1.png" />
 </figure>
-<p>타이타닉호는 영국 Southampton에서 출발하여 프랑스 Cherbourg, 아일랜드 Queenstown을 거쳐 뉴욕으로 향했습니다. 각 항구는 서로 다른 이야기를 품고 있었습니다:</p>
-<ul class="simple">
-<li><p>Southampton: 타이타닉호의 첫 출발지이자 가장 많은 승객이 탑승한 항구</p></li>
-<li><p>Cherbourg: 프랑스 상류층이 선호하던 항구. 유럽 대륙의 귀족들이 주로 이용</p></li>
-<li><p>Queenstown: 많은 아일랜드 이민자들이 ‘아메리칸 드림’을 꿈꾸며 출발했던 곳</p></li>
-</ul>
-<p>흥미로운 점은 일부 승객의 승선 항구 정보가 누락되어 있다는 것입니다. 이들은 어떤 사연을 가진 승객들일까요?</p>
+<p>프롬: 아하! 그럼 타이타닉은 영국에서 출발해서 프랑스, 아일랜드를 거쳐 미국으로 가는 배였군요! 각 항구마다 서로 다른 나라의 사람들이 탑승했겠네요. 그런데 결측치라는 건 뭔가요? 기록이 없다는 뜻인가요?</p>
+<p>다안: 맞아. 결측치란 데이터가 누락된 경우를 말해. 어떤 이유에서든 일부 승객들의 승선 항구 정보가 기록되지 않은 거지. 데이터 분석에서는 이런 결측치를 어떻게 처리할지가 중요한 문제 중 하나야.</p>
+<p>코더블: 결측치는 프로그래밍할 때도 자주 문제가 되는데요. 값이 없으면 코드가 오류를 일으키거나 계산 결과가 이상해질 수 있어요. 이런 누락된 값들을 어떻게 채우느냐에 따라 나중에 모델 결과도 달라질 수 있죠?</p>
+<p>다안: 정확해! 데이터 전처리에서 결측치 처리는 정말 중요한 단계야. 어떻게 처리하느냐에 따라 모델의 성능이 크게 달라질 수 있지.</p>
+<p>가장 간단한 방법은 결측치가 있는 행을 제거하는 거지만, 그러면 귀중한 데이터를 잃을 수 있어. 그래서 보통은 적절한 값으로 대체하는 방법을 많이 사용해.</p>
 </section>
 <section id="id2">
 <h2>출발지별 생존율 분석<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
-<p>먼저 각 항구에서 승선한 승객들의 생존 확률이 어떻게 달랐는지부터 살펴보겠습니다.</p>
-<p>📝 <strong>프롬프트</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">출발지</span><span class="p">(</span><span class="n">Embarked</span><span class="p">)</span><span class="n">별</span> <span class="n">승객</span> <span class="n">수와</span> <span class="n">생존율을</span> <span class="n">계산해줘</span>
+<p>프롬: 그렇다면 각 항구에서 탑승한 승객들의 생존율은 어땠을까요? 혹시 특정 항구에서 탑승한 승객들의 생존 확률이 더 높았나요?</p>
+<p>다안: 좋은 질문이야! 각 항구에서 탑승한 승객들의 수와 생존율을 분석해보자.</p>
+<p>프롬: 그럼 한번 프롬프트로 확인해볼게요!</p>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="gh"># 프롬프트</span>
+출발지(Embarked)별 승객 수와 생존율을 계산해줘
 </pre></div>
 </div>
-<p>💻 <strong>코드 &amp; 실행결과</strong></p>
+<p>코더블: 저는 groupby 함수를 사용해서 Embarked 값별로 그룹을 나누고, 승객 수와 생존율을 계산해볼게요.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">embarked_stats</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Embarked&#39;</span><span class="p">)[</span><span class="s1">&#39;Survived&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">])</span>
@@ -561,33 +577,39 @@
 </table>
 </div></div></div>
 </div>
-<p>분석 결과가 보여주는 놀라운 패턴들을 살펴보겠습니다:</p>
+<p>다안: 결과를 보면 흥미로운 패턴이 보이네:</p>
 <ol class="arabic simple">
 <li><p>승객 분포:</p>
 <ul class="simple">
-<li><p>Southampton(S)에서 가장 많은 644명이 승선했습니다</p></li>
-<li><p>Cherbourg(C)에서 168명이 승선했습니다</p></li>
-<li><p>Queenstown(Q)에서 가장 적은 77명이 승선했습니다</p></li>
+<li><p>Southampton(S)에서 가장 많은 644명이 승선했어</p></li>
+<li><p>Cherbourg(C)에서 168명이 승선했고</p></li>
+<li><p>Queenstown(Q)에서는 가장 적은 77명이 승선했어</p></li>
+<li><p>그리고 결측치(NaN)가 2명이 있네</p></li>
 </ul>
 </li>
 <li><p>생존율:</p>
 <ul class="simple">
-<li><p>Cherbourg 승선객의 생존율이 55.4%로 가장 높습니다</p></li>
-<li><p>Queenstown 승선객의 생존율은 39.0%입니다</p></li>
-<li><p>Southampton 승선객의 생존율이 33.7%로 가장 낮습니다</p></li>
+<li><p>Cherbourg 승선객의 생존율이 55.4%로 가장 높아</p></li>
+<li><p>Queenstown 승선객의 생존율은 39.0%야</p></li>
+<li><p>Southampton 승선객의 생존율은 33.7%로 가장 낮아</p></li>
 </ul>
 </li>
 </ol>
-<p>특히 주목할 만한 점은 Cherbourg에서 승선한 승객들의 생존율이 다른 항구 승선객들에 비해 현저히 높다는 것입니다. 이는 Cherbourg가 프랑스의 부유한 항구도시였고, 이곳에서 승선한 승객들 중 상당수가 1등실을 이용했기 때문으로 보입니다.</p>
+<p>프롬: 와, 탑승 항구에 따라 생존율이 이렇게 차이가 나다니 놀라워요! Cherbourg에서 탑승한 승객들의 생존율이 Southampton보다 20% 포인트 이상 높네요. 왜 이런 차이가 생겼을까요?</p>
+<p>다안: 여러 가지 이유가 있을 수 있어. Cherbourg는 프랑스의 부유한 항구도시였어. 그래서 이곳에서 승선한 승객들 중 상당수가 1등실을 이용했을 가능성이 높아. 이전 분석에서 객실 등급과 생존율이 관련이 있다는 걸 확인했잖아? 반면 Southampton은 가장 많은 승객이 탑승한 곳으로, 다양한 계층의 사람들이 섞여 있었을 거야.</p>
+<p>코더블: 또 다른 가능성은 승선 순서와 관련이 있을 수도 있어요. Southampton이 첫 번째 항구였으니 그곳에서 탑승한 승객들은 배의 내부 깊숙이 위치한 객실을 배정받았을 수도 있고, 나중에 탑승한 승객들은 상대적으로 출구와 가까운 객실에 배정됐을 수도 있죠. 그게 침몰 상황에서 탈출 가능성에 영향을 미쳤을 수 있어요.</p>
+<p>프롬: 아! 그럼 지금 살펴본 각 항구별 생존율 차이가 실제로는 객실 등급 때문이었을 수도 있겠네요. Cherbourg에서 탑승한 사람들이 더 부유해서 더 좋은 객실을 이용했고, 그래서 생존율이 높았을 수 있겠군요!</p>
 </section>
 <section id="id3">
 <h2>결측치의 수 확인<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
-<p>먼저 Embarked 피쳐에 정확히 몇 개의 결측치가 있는지 확인해보겠습니다. 전체적인 결측치 현황을 파악하는 것은 데이터 전처리의 첫 단계입니다.  train 데이터와 test 데이터 모두 확인해보겠습니다.</p>
-<p>📝 <strong>프롬프트</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">train과</span> <span class="n">test의</span> <span class="n">Embarked</span> <span class="n">결측치</span> <span class="n">개수를</span> <span class="n">알려줘</span>
+<p>프롬: 그런데 NaN 값이 있다는 건 몇몇 승객들의 승선 항구 정보가 누락됐다는 거잖아요. 정확히 몇 명이나 그런 건가요? 그리고 이런 결측치는 어떻게 처리해야 하나요?</p>
+<p>다안: 좋은 질문이야! 먼저 결측치가 정확히 몇 개나 있는지 train 데이터와 test 데이터 각각에서 확인해보자.</p>
+<p>프롬: 프롬프트로 알아볼게요!</p>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="gh"># 프롬프트</span>
+train과 test의 Embarked 결측치 개수를 알려줘
 </pre></div>
 </div>
-<p>💻 <strong>코드 &amp; 실행결과</strong></p>
+<p>코더블: 저는 isnull() 함수와 sum() 함수를 사용해서 결측치 개수를 계산해볼게요.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;train 데이터의 Embarked 결측치 개수: </span><span class="si">{</span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -602,16 +624,18 @@ test 데이터의 Embarked 결측치 개수: 0
 </div>
 </div>
 </div>
-<p>결과를 보면 train 데이터에는 2개, test 데이터에는 0개의 결측치가 있음을 알 수 있습니다. 즉, 승선 항구 정보가 누락된 승객은 train 데이터에만 2명 있으며, test 데이터에는 없습니다. train 데이터의 결측치는 전체 891명의 승객 중 0.2% 정도로 매우 적은 비율이지만, 정확한 예측을 위해서는 이 결측치들도 적절히 처리하는게 좋습니다.</p>
+<p>다안: 결과를 보니 train 데이터에는 2개, test 데이터에는 0개의 결측치가 있네. train 데이터의 결측치 비율은 전체 891명 중 2명으로 약 0.2%에 불과해. 굉장히 적은 비율이지만, 정확한 예측을 위해서는 이 결측치들도 적절히 처리하는 게 좋아.</p>
+<p>프롬: 아, 그럼 train 데이터에만 결측치가 있고 test 데이터에는 없군요. 이 결측치가 있는 두 승객은 누구인지 궁금해요. 어떤 특별한 이유가 있었을까요?</p>
 </section>
 <section id="id4">
 <h2>결측치의 비밀 추적하기<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
-<p>이제 승선 항구 정보가 누락된 승객들의 이야기를 추적해보겠습니다. 이들은 누구이며, 어떤 사연이 있었을까요?</p>
-<p>📝 <strong>프롬프트</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Embarked가</span> <span class="n">결측치인</span> <span class="n">승객들의</span> <span class="n">정보를</span> <span class="n">보여줘</span>
+<p>다안: 그래, 이제 승선 항구 정보가 누락된 두 승객의 정보를 자세히 살펴보자. 이들이 어떤 사람들이었는지 알면 결측치를 어떻게 처리할지 더 좋은 결정을 내릴 수 있을 거야.</p>
+<p>프롬: 그 승객들의 정보를 확인해볼게요!</p>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="gh"># 프롬프트</span>
+Embarked가 결측치인 승객들의 정보를 보여줘
 </pre></div>
 </div>
-<p>💻 <strong>코드 &amp; 실행결과</strong></p>
+<p>코더블: 저는 다음 코드로 결측치인 행만 선택해서 확인해볼게요.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train</span><span class="p">[</span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()]</span>
@@ -689,27 +713,30 @@ test 데이터의 Embarked 결측치 개수: 0
 </table>
 </div></div></div>
 </div>
-<p>발견된 단서들을 정리해보면:</p>
+<p>다안: 흥미로운 정보들이 보이네! 이 두 승객의 공통점과 차이점을 정리해보면:</p>
 <ol class="arabic simple">
-<li><p>같은 특성:</p>
+<li><p>공통점:</p>
 <ul class="simple">
-<li><p>두 승객 모두 1등실 여성 승객입니다</p></li>
-<li><p>지불한 운임이 모두 80파운드로 동일합니다</p></li>
-<li><p>같은 티켓으로 같은 객실을 사용했습니다</p></li>
-<li><p>두 승객 모두 생존했습니다</p></li>
+<li><p>두 승객 모두 1등실 여성 승객이야</p></li>
+<li><p>운임이 모두 80파운드로 정확히 동일해</p></li>
+<li><p>같은 티켓 번호(PC 17755)를 가지고 있어</p></li>
+<li><p>두 승객 모두 생존했어</p></li>
+<li><p>둘 다 가족(SibSp=0, Parch=0)과 함께 타지 않았어</p></li>
 </ul>
 </li>
-<li><p>다른 특성:</p>
+<li><p>차이점:</p>
 <ul class="simple">
-<li><p>성(lastname)이 다릅니다</p></li>
-<li><p>나이는 38세와 62세로 24살 차이가 납니다</p></li>
-<li><p>둘 다 가족(SibSp=0, Parch=0)과 함께 타지 않았습니다</p></li>
+<li><p>다른 성(last name)을 가지고 있어 (Stone, Icard)</p></li>
+<li><p>나이는 38세(Icard)와 62세(Stone)로 24살 차이가 나</p></li>
 </ul>
 </li>
 </ol>
-<div class="admonition- admonition">
-<p class="admonition-title">생각해 보기</p>
-<p>1912년, 혼자 여행하기 어려웠던 시대에 이 두 여성은 어떤 관계였을까요? 다음과 같은 가능성들을 생각해볼 수 있습니다:</p>
+<p>프롬: 우와! 이거 마치 추리 소설 같아요! 같은 티켓을 썼고, 운임도 똑같고… 근데 성이 다르니 가족은 아닐 것 같고… 나이 차이도 꽤 나고… 이 두 사람은 도대체 어떤 관계였을까요? 너무 궁금해요!</p>
+<p>다안: 흥미로운 질문이야! 1912년 타이타닉호가 항해하던 시절에는 부유한 여성이 혼자 여행하는 경우가 드물었어. 두 사람의 관계에 대해 여러 가지 가능성을 생각해볼 수 있겠지.</p>
+<p>이런 추리는 데이터 분석을 더 재미있게 만들어주기도 하지만, 실제적인 도움도 줘. 나중에 우리가 이 두 승객의 결측치를 어떻게 처리할지 결정할 때, 그들이 같은 항구에서 승선했을 거라는 점은 중요한 단서가 될 거야.</p>
+<div class="tip admonition">
+<p class="admonition-title">생각해보기</p>
+<p>이 두 여성의 관계는 무엇이었을까요? 다음과 같은 가능성들을 생각해볼 수 있습니다:</p>
 <ul class="simple">
 <li><p>부유한 여성과 그의 여행 동반자(companion)</p></li>
 <li><p>귀부인과 그의 가정교사 또는 개인비서</p></li>
@@ -717,16 +744,18 @@ test 데이터의 Embarked 결측치 개수: 0
 </ul>
 <p>여러분은 어떤 관계였을 것 같나요?</p>
 </div>
-<p>이러한 추리는 단순한 재미를 넘어 실제 데이터 분석에도 도움이 됩니다. 두 승객이 동행이었다면, 당연히 같은 항구에서 승선했을 것이기 때문입니다. 앞으로의 결측치 처리에서 이 점을 고려해야 할 것입니다.</p>
+<p>코더블: 이런 분석은 단순한 호기심을 넘어서 실제 데이터 처리에도 도움이 돼요. 이 두 승객이 함께 여행했다면, 분명히 같은 항구에서 승선했을 테니까요. 그러므로 둘 다 같은 값으로 결측치를 채워야 할 것 같아요.</p>
 </section>
 <section id="id5">
 <h2>1등석 승객들의 승선 항구 분석<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
-<p>두 승객이 모두 1등석을 이용했다는 점은 중요한 단서가 됩니다. 1등석 승객들은 주로 어느 항구에서 승선했을까요?</p>
-<p>📝 <strong>프롬프트</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Pclass가</span> <span class="mi">1</span><span class="n">인</span> <span class="n">승객들의</span> <span class="n">Embarked</span> <span class="n">값이</span> <span class="n">몇</span> <span class="n">명인지</span> <span class="n">세어</span> <span class="n">줘</span>
+<p>프롬: 그럼 두 사람이 어떤 항구에서 탑승했을지 어떻게 알 수 있을까요? 단서가 있을까요?</p>
+<p>다안: 좋은 질문이야! 이 두 승객이 1등석을 이용했다는 점에 주목해보자. 1등석 승객들은 주로 어느 항구에서 승선했는지 확인하면, 이 두 승객의 승선 항구를 추정하는 데 도움이 될 거야.</p>
+<p>프롬: 한번 1등석 승객들의 승선 항구를 확인해볼게요!</p>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="gh"># 프롬프트</span>
+Pclass가 1인 승객들의 Embarked 값이 몇 명인지 세어 줘
 </pre></div>
 </div>
-<p>💻 <strong>코드 &amp; 실행결과</strong></p>
+<p>코더블: 저는 다음 코드로 확인해볼게요. value_counts() 메서드를 사용하면 각 값별 개수를 쉽게 구할 수 있어요.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train</span><span class="p">[</span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;Pclass&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">][</span><span class="s1">&#39;Embarked&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
@@ -743,29 +772,31 @@ Name: count, dtype: int64
 </div>
 </div>
 </div>
-<p>결과를 보면 1등석 승객들의 승선 패턴이 뚜렷하게 나타납니다:</p>
+<p>다안: 결과를 보면 1등석 승객들의 승선 패턴이 명확하게 나타나네:</p>
 <ul class="simple">
-<li><p>Southampton(S)에서 127명이 승선했습니다</p></li>
-<li><p>Cherbourg(C)에서 85명이 승선했습니다</p></li>
-<li><p>Queenstown(Q)에서는 단 2명만이 승선했습니다</p></li>
+<li><p>Southampton(S)에서 127명이 승선했어</p></li>
+<li><p>Cherbourg(C)에서 85명이 승선했어</p></li>
+<li><p>Queenstown(Q)에서는 단 2명만 승선했어</p></li>
 </ul>
-<p>이 분포는 결측치 승객들의 승선 항구를 추정하는데 중요한 힌트를 제공합니다. Queenstown은 거의 가능성이 없어 보이며, Southampton과 Cherbourg 중 하나일 것입니다.</p>
+<p>이 패턴은 우리의 결측치 승객들이 어느 항구에서 승선했을지 추정하는 데 중요한 단서가 돼. Queenstown에서는 거의 1등석 승객이 없었으니 이 두 승객이 그곳에서 탑승했을 가능성은 매우 낮아 보여.</p>
+<p>프롬: 그럼 Southampton이나 Cherbourg 중 하나겠네요. Southampton에서 더 많은 1등석 승객이 탑승했으니, 이 두 승객도 Southampton에서 탑승했을 가능성이 더 높을 것 같아요!</p>
+<p>코더블: 음, 그렇게만 볼 수는 없을 것 같아요. 숫자로만 보면 Southampton의 1등석 승객이 많지만, 비율로 따지면 좀 다를 수도 있어요. Cherbourg에서 탑승한 승객들 중에는 1등석 비율이 더 높을 수도 있으니까요. 아까 승선 항구별 생존율을 봤을 때, Cherbourg 승객의 생존율이 훨씬 높았잖아요. 그건 어쩌면 1등석 승객 비율이 높았기 때문일 수도 있지 않을까요?</p>
+<p>둘 다 좋은 의견을 제시했어. 실제로 데이터를 분석할 때는 이렇게 여러 관점에서 생각해보는 게 중요해. 우리가 가진 정보만으로는 두 가지 가능성이 모두 있어 보이지만, 일단 통계적으로 더 가능성이 높은 쪽을 선택해야 할 때가 있지. 결측치를 처리하는 건 때로는 이런 추정과 결정이 필요한 과정이야.</p>
+<p>프롬: 아하! 그럼 항구별 생존율 차이가 사실은 객실 등급 때문이었을 수도 있겠네요. 그래도 수치상으로는 Southampton에서 더 많은 1등석 승객이 탑승했으니, 확률적으로는 여전히 Southampton이 더 가능성이 높아 보여요.</p>
 </section>
 <section id="id6">
 <h2>결측치 처리하기<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
-<p>이전 분석을 통해 우리는 중요한 단서들을 발견했습니다:</p>
-<ul class="simple">
-<li><p>두 승객은 같은 티켓으로 1등실을 이용했습니다</p></li>
-<li><p>1등석 승객들의 다수(127명)가 Southampton에서 승선했습니다</p></li>
-<li><p>Queenstown에서는 1등석 승객이 단 2명뿐이었습니다</p></li>
-</ul>
-<p>이러한 패턴을 고려할 때, 이 두 승객도 Southampton에서 승선했을 가능성이 높아 보입니다. 이에 따라 결측치를 ‘S’로 채워보겠습니다.</p>
-<p>📝 <strong>프롬프트</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">1.</span> <span class="n">Embarked</span> <span class="n">값이</span> <span class="n">비어</span> <span class="n">있는</span> <span class="n">승객들의</span> <span class="n">값을</span> <span class="s1">&#39;S&#39;</span><span class="n">로</span> <span class="n">채워</span> <span class="n">줘</span>
-<span class="mf">2.</span> <span class="n">PassengerId가</span> <span class="mi">62</span> <span class="n">또는</span> <span class="mi">830</span><span class="n">인</span> <span class="n">승객들의</span> <span class="n">정보를</span> <span class="n">보여</span> <span class="n">줘</span>
+<p>다안: 자, 이제 우리가 수집한 단서들을 종합해볼까? 두 승객이 함께 여행했고 같은 항구에서 승선했을 것이라는 점, 그리고 1등석 승객 분포를 봤을 때 어느 쪽이 더 가능성이 높아 보여? 결측치는 어떻게 채우는 게 좋을까?</p>
+<p>프롬: 음… 두 가지 가능성이 있지만, 더 많은 1등석 승객이 Southampton에서 탑승했다는 게 결정적인 단서인 것 같아요. 저는 ‘S’로 채우는 게 좋을 것 같아요!</p>
+<p>코더블: 저도 동의해요. Cherbourg의 가능성도 있지만, 절대적인 숫자로는 Southampton이 더 높아 보여요. 127명 대 85명이니까요. 결측치를 처리할 때는 가장 가능성이 높은 값으로 채우는 게 일반적인 방법이라고 알고 있어요.</p>
+<p>다안: 좋아, 그럼 의견이 모였네. 두 승객의 결측치를 ‘S’로 채워넣도록 하자.</p>
+<p>프롬: 그럼 결측치를 ‘S’로 채워볼게요!</p>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="gh"># 프롬프트</span>
+<span class="k">1.</span> Embarked 값이 비어 있는 승객들의 값을 &#39;S&#39;로 채워 줘
+<span class="k">2.</span> PassengerId가 62 또는 830인 승객들의 정보를 보여 줘
 </pre></div>
 </div>
-<p>💻 <strong>코드 &amp; 실행결과</strong></p>
+<p>코더블: 저는 fillna 메서드를 사용해서 결측치를 ‘S’로 채워보겠습니다. 이 메서드는 결측치(NaN)를 지정한 값으로 대체해주는 함수예요.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;S&#39;</span><span class="p">)</span>
@@ -844,30 +875,25 @@ Name: count, dtype: int64
 </table>
 </div></div></div>
 </div>
-<p>실행 결과를 보면 두 승객의 Embarked 값이 NaN에서 ‘S’로 변경된 것을 확인할 수 있습니다. 이로써 train 데이터의 Embarked 결측치 처리가 완료되었습니다. 이제 다음 단계로 넘어가서, 이 정보를 머신러닝 모델이 이해할 수 있는 형태로 변환해보도록 하겠습니다.</p>
+<p>다안: 좋아! 이제 두 승객의 Embarked 값이 NaN에서 ‘S’로 변경된 것을 확인할 수 있어. 이렇게 하면 train 데이터의 Embarked 결측치가 모두 처리된 거야.</p>
+<p>프롬: 데이터 분석이 정말 탐정 일처럼 느껴져요! 작은 단서들을 모아서 숨겨진 이야기를 찾아내는 것 같아요. 너무 재미있어요!</p>
+<p>다안: 맞아, 데이터 분석은 종종 탐정 일과 비슷해. 주어진, 때로는 불완전한 정보들로부터 의미 있는 패턴과 이야기를 찾아내는 과정이니까.</p>
 </section>
 <section id="id7">
 <h2>인코딩 방식 비교<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
-<p>승선 항구 정보를 숫자로 변환하는 방법에는 크게 두 가지가 있습니다. 앞서 성별 데이터를 처리할 때 사용했던 레이블 인코딩과, 이번에 사용할 원-핫 인코딩입니다. 위 다이어그램은 두 방식의 차이를 보여줍니다.</p>
-<p>레이블 인코딩은 각 범주에 숫자를 할당하는 방식입니다:</p>
-<ul class="simple">
-<li><p>Southampton = 0</p></li>
-<li><p>Cherbourg = 1</p></li>
-<li><p>Queenstown = 2</p></li>
-</ul>
-<p>하지만 이 방식은 중요한 문제가 있습니다. 숫자의 크기가 마치 항구 간의 순위나 중요도를 나타내는 것처럼 보일 수 있기 때문입니다. Queenstown(2)이 Southampton(0)보다 “더 좋은” 항구인 것처럼 해석될 수 있죠.</p>
-<p>반면 원-핫 인코딩은 각 항구를 별도의 컬럼으로 만듭니다:</p>
-<ul class="simple">
-<li><p>Embarked_S: Southampton에서 승선했으면 1, 아니면 0</p></li>
-<li><p>Embarked_C: Cherbourg에서 승선했으면 1, 아니면 0</p></li>
-<li><p>Embarked_Q: Queenstown에서 승선했으면 1, 아니면 0</p></li>
-</ul>
-<p>이렇게 하면 각 항구가 독립적으로 처리되어, 불필요한 순서 관계가 생기는 것을 방지할 수 있습니다.</p>
-<p>📝 <strong>프롬프트</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">train과</span> <span class="n">test의</span> <span class="n">Embarked</span> <span class="n">피쳐를</span> <span class="n">One</span><span class="o">-</span><span class="n">Hot</span> <span class="n">Encoding으로</span> <span class="n">추가해줘</span>
+<p>다안: 이제 Embarked 변수를 우리 머신러닝 모델이 이해할 수 있는 숫자 형태로 변환해야 해. 이것을 ‘인코딩(encoding)’이라고 해.</p>
+<p>프롬: 아, 지난 번에 남성을 0, 여성을 1로 바꾼 것처럼요?</p>
+<p>다안: 맞아! 그때는 레이블 인코딩(Label Encoding)이라는 방식을 사용했어. 하지만 Embarked는 세 개의 카테고리(S, C, Q)가 있고, 이들 사이에는 크기나 순서 관계가 없어. 이런 경우에는 원-핫 인코딩(One-Hot Encoding)이라는 방식이 더 적합해.</p>
+<p>다안: 두 인코딩 방식의 차이를 설명해줄게. 레이블 인코딩은 각 카테고리에 숫자를 할당하는 방식인데, 이렇게 하면 모델이 숫자 크기에 의미가 있다고 오해할 수 있어.</p>
+<p>예를 들어, Southampton=0, Cherbourg=1, Queenstown=2와 같이 변환하면, 모델은 Queenstown이 Southampton보다 “두 배 더 중요하다”고 잘못 해석할 수 있지. 항구 사이에는 그런 순서나 크기 관계가 없는데도 말이야.</p>
+<p>반면 원-핫 인코딩은 각 카테고리마다 별도의 컬럼을 만들어서 해당되면 1, 아니면 0으로 표시하는 방식이야. 이렇게 하면 각 항구를 완전히 독립적인 특성으로 처리할 수 있어.</p>
+<p>원-핫 인코딩을 사용하면 각 항구가 독립적인 변수로 처리돼. 이제 pandas의 get_dummies 함수를 사용해서 Embarked를 원-핫 인코딩 해보자.</p>
+<p>프롬: 원-핫 인코딩으로 변환해볼게요!</p>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="gh"># 프롬프트</span>
+train과 test의 Embarked 피쳐를 One-Hot Encoding으로 추가해줘
 </pre></div>
 </div>
-<p>💻 <strong>코드 &amp; 실행결과</strong></p>
+<p>코더블: 저는 pandas의 get_dummies 함수를 사용해서 원-핫 인코딩을 구현해볼게요. 이 함수는 범주형 변수를 자동으로 이진(0과 1) 더미 변수로 변환해주는 편리한 기능이에요.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">embarked_dummies_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">],</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;Embarked&#39;</span><span class="p">)</span>
@@ -876,7 +902,7 @@ Name: count, dtype: int64
 <span class="n">embarked_dummies_test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">],</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;Embarked&#39;</span><span class="p">)</span>
 <span class="n">test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">test</span><span class="p">,</span> <span class="n">embarked_dummies_test</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
-<span class="n">train</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">train</span><span class="p">[[</span><span class="s1">&#39;PassengerId&#39;</span><span class="p">,</span> <span class="s1">&#39;Embarked&#39;</span><span class="p">,</span> <span class="s1">&#39;Embarked_C&#39;</span><span class="p">,</span> <span class="s1">&#39;Embarked_Q&#39;</span><span class="p">,</span> <span class="s1">&#39;Embarked_S&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -900,18 +926,7 @@ Name: count, dtype: int64
     <tr style="text-align: right;">
       <th></th>
       <th>PassengerId</th>
-      <th>Survived</th>
-      <th>Pclass</th>
-      <th>Name</th>
-      <th>Sex</th>
-      <th>Age</th>
-      <th>SibSp</th>
-      <th>Parch</th>
-      <th>Ticket</th>
-      <th>Fare</th>
-      <th>Cabin</th>
       <th>Embarked</th>
-      <th>Gender</th>
       <th>Embarked_C</th>
       <th>Embarked_Q</th>
       <th>Embarked_S</th>
@@ -921,18 +936,7 @@ Name: count, dtype: int64
     <tr>
       <th>0</th>
       <td>1</td>
-      <td>0</td>
-      <td>3</td>
-      <td>Braund, Mr. Owen Harris</td>
-      <td>male</td>
-      <td>22.0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>A/5 21171</td>
-      <td>7.2500</td>
-      <td>NaN</td>
       <td>S</td>
-      <td>0</td>
       <td>False</td>
       <td>False</td>
       <td>True</td>
@@ -940,18 +944,7 @@ Name: count, dtype: int64
     <tr>
       <th>1</th>
       <td>2</td>
-      <td>1</td>
-      <td>1</td>
-      <td>Cumings, Mrs. John Bradley (Florence Briggs Th...</td>
-      <td>female</td>
-      <td>38.0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>PC 17599</td>
-      <td>71.2833</td>
-      <td>C85</td>
       <td>C</td>
-      <td>1</td>
       <td>True</td>
       <td>False</td>
       <td>False</td>
@@ -959,18 +952,7 @@ Name: count, dtype: int64
     <tr>
       <th>2</th>
       <td>3</td>
-      <td>1</td>
-      <td>3</td>
-      <td>Heikkinen, Miss. Laina</td>
-      <td>female</td>
-      <td>26.0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>STON/O2. 3101282</td>
-      <td>7.9250</td>
-      <td>NaN</td>
       <td>S</td>
-      <td>1</td>
       <td>False</td>
       <td>False</td>
       <td>True</td>
@@ -978,18 +960,7 @@ Name: count, dtype: int64
     <tr>
       <th>3</th>
       <td>4</td>
-      <td>1</td>
-      <td>1</td>
-      <td>Futrelle, Mrs. Jacques Heath (Lily May Peel)</td>
-      <td>female</td>
-      <td>35.0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>113803</td>
-      <td>53.1000</td>
-      <td>C123</td>
       <td>S</td>
-      <td>1</td>
       <td>False</td>
       <td>False</td>
       <td>True</td>
@@ -997,18 +968,7 @@ Name: count, dtype: int64
     <tr>
       <th>4</th>
       <td>5</td>
-      <td>0</td>
-      <td>3</td>
-      <td>Allen, Mr. William Henry</td>
-      <td>male</td>
-      <td>35.0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>373450</td>
-      <td>8.0500</td>
-      <td>NaN</td>
       <td>S</td>
-      <td>0</td>
       <td>False</td>
       <td>False</td>
       <td>True</td>
@@ -1017,8 +977,9 @@ Name: count, dtype: int64
 </table>
 </div></div></div>
 </div>
-<p>이제 ‘Embarked_S’, ‘Embarked_C’, ‘Embarked_Q’ 세 개의 새로운 컬럼이 생성되었고, 각 승객은 자신이 승선한 항구에 해당하는 컬럼에만 1의 값을 가지게 됩니다. 이렇게 하면 항구 간에 크기 관계가 생기는 것을 방지할 수 있습니다.</p>
-<div class="admonition-one-hot-encoding admonition">
+<p>프롬: 오, 새로운 컬럼들이 생겼네요! ‘Embarked_S’, ‘Embarked_C’, ‘Embarked_Q’ 이렇게요. 그러니까 첫 번째 승객은 Southampton에서 탑승했으니 ‘Embarked_S’가 1이고 나머지는 0인 거군요?</p>
+<p>다안: 정확해! 이렇게 원-핫 인코딩을 하면 각 항구를 별도의 컬럼으로 표현할 수 있어. 이 방식은 항구 간에 크기 관계가 생기는 것을 방지하고, 각 항구의 영향을 독립적으로 분석할 수 있게 해줘.</p>
+<div class="tip admonition">
 <p class="admonition-title">One-Hot Encoding의 장단점</p>
 <p><strong>장점</strong>:</p>
 <ul class="simple">
@@ -1035,12 +996,13 @@ Name: count, dtype: int64
 </section>
 <section id="id8">
 <h2>모델 학습과 예측<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
-<p>이제 원-핫 인코딩으로 생성된 새로운 피쳐들을 사용하여 모델을 학습시켜 보겠습니다. 앞서 사용한 피쳐들(Pclass, Age, SibSp, Parch, Fare, Gender)에 승선 항구 관련 피쳐들을 추가하여 예측의 정확도를 높여보겠습니다.</p>
-<p>📝 <strong>프롬프트</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">승선</span> <span class="n">항구</span> <span class="n">관련</span> <span class="n">피쳐들</span><span class="p">(</span><span class="n">Embarked_C</span><span class="p">,</span> <span class="n">Embarked_Q</span><span class="p">,</span> <span class="n">Embarked_S</span><span class="p">)</span><span class="n">을</span> <span class="n">inc_fts에</span> <span class="n">추가해줘</span>
+<p>다안: 이제 원-핫 인코딩으로 생성된 새로운 피쳐들을 우리 모델에 추가해보자. 이전에 사용했던 변수들과 함께 이 새로운 변수들을 사용하면 예측 정확도가 어떻게 달라질지 확인해볼 거야.</p>
+<p>프롬: 프롬: 이제 승선 항구 변수들을 inc_fts 리스트에 추가해볼게요!</p>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="gh"># 프롬프트</span>
+승선 항구 관련 피쳐들(Embarked_C, Embarked_Q, Embarked_S)을 inc_fts에 추가해줘
 </pre></div>
 </div>
-<p>💻 <strong>코드 &amp; 실행결과</strong></p>
+<p>코더블: 저도 승선 항구 관련 변수들을 기존 변수 리스트에 추가해볼게요.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">inc_fts</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Pclass&#39;</span><span class="p">,</span> <span class="s1">&#39;Age&#39;</span><span class="p">,</span> <span class="s1">&#39;SibSp&#39;</span><span class="p">,</span> <span class="s1">&#39;Parch&#39;</span><span class="p">,</span> <span class="s1">&#39;Fare&#39;</span><span class="p">]</span>
@@ -1057,14 +1019,13 @@ Name: count, dtype: int64
 </div>
 </div>
 </div>
-<p>이제 총 9개의 피쳐를 사용하게 됩니다:</p>
+<p>다안: 좋아! 이제 우리는 총 9개의 변수를 사용하게 됐어:</p>
 <ul class="simple">
-<li><p>처음에 사용했던 5개의 수치형 피쳐</p></li>
-<li><p>성별을 나타내는 Gender 피쳐</p></li>
-<li><p>승선 항구를 나타내는 3개의 피쳐(Embarked_C, Embarked_Q, Embarked_S)</p></li>
+<li><p>처음에 사용했던 5개의 수치형 변수(Pclass, Age, SibSp, Parch, Fare)</p></li>
+<li><p>지난 시간에 추가한 Gender 변수</p></li>
+<li><p>오늘 추가한 3개의 항구 관련 변수(Embarked_C, Embarked_Q, Embarked_S)</p></li>
 </ul>
-<p>모델의 학습과 예측은 이제 train_and_predict(train, test) 함수 하나로 진행됩니다. 1.3 섹션에서 사용했던 모든 모델 학습 코드가 이 함수 안에 포함되어 있어서, 매번 긴 코드를 반복해서 입력할 필요가 없어졌습니다. 마치 요리 책에서 자주 사용하는 기본 양념을 미리 섞어두는 것처럼, 자주 사용하는 코드를 하나의 함수로 정리한 것이죠.</p>
-<p>💻 <strong>코드 &amp; 실행결과</strong></p>
+<p>다안: 이 변수들을 사용해서 모델을 학습시켜보자. 챕터 시작부분에 ‘준비 코드’로 미리 정의해둔 train_and_predict 함수를 사용하면 모델 학습부터 캐글 제출 파일 생성까지 한 번에 할 수 있어.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_and_predict</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">)</span>
@@ -1077,14 +1038,10 @@ Name: count, dtype: int64
 </div>
 </div>
 </div>
-<p>이렇게 간단한 명령어 하나로 모델 학습부터 예측까지 모든 과정이 자동으로 실행됩니다. 이제 우리는 피쳐를 추가하거나 수정할 때 inc_fts 리스트만 변경하면 되니, 더욱 효율적으로 실험을 진행할 수 있게 되었습니다.</p>
-<p>이렇게 승선 항구 정보를 추가하여 학습한 모델의 성능을 보면:</p>
-<ul class="simple">
-<li><p>Validation Score: 0.82123 (이전과 동일)</p></li>
-<li><p>Public Score: 0.74880 (이전 0.73444에서 상승)</p></li>
-<li><p>418명의 test 데이터 중 약 313명의 생존 여부를 맞혔습니다 (이전보다 6명 증가)</p></li>
-</ul>
-<p>지금까지의 결과를 표로 정리하면 다음과 같습니다:</p>
+<p>프롬: 와! 모델의 Validation Score가 0.82123으로 나왔네요. 그런데 이전에 Gender만 추가했을 때와 같은 점수인데요?</p>
+<p>다안: 맞아, 검증 세트에서의 점수는 이전과 동일하네. 하지만 실제 test 데이터에 대한 예측 결과는 달라질 수 있어. 캐글에 제출해봐야 정확한 차이를 알 수 있을 거야.</p>
+<p>프롬: 제가 방금 캐글에 제출해봤어요! 점수가 0.74880이 나왔어요. 이전에 Gender만 사용했을 때는 0.73444였으니, 승선 항구 정보를 추가했더니 약간 상승했네요. 418명 중에 313명을 맞췄다는 의미니까, 이전보다 약 6명 더 정확하게 예측한 셈이에요.</p>
+<p>다안: 좋은 소식이네! 승선 항구 정보가 생존 예측에 도움이 된다는 걸 확인했어. 지금까지의 결과를 표로 정리하면 이렇게 돼:</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head text-center"><p>버전</p></th>
@@ -1120,21 +1077,64 @@ Name: count, dtype: int64
 </tbody>
 </table>
 </div>
-<p>이 결과는 매우 흥미로운 시사점을 제공합니다:</p>
+<p>다안: 이 결과에서 몇 가지 중요한 인사이트를 얻을 수 있어:</p>
 <ol class="arabic simple">
-<li><p>성별(Gender)의 강력한 영향력</p></li>
-<li><p>승선 항구의 보완적 역할</p>
+<li><p>Gender 변수의 추가로 42명의 승객에 대한 예측이 개선됐어 - 이는 성별이 생존에 매우 결정적인 요소였음을 보여줘</p></li>
+<li><p>Embarked 관련 변수들을 추가하니 6명의 예측이 더 개선됐어 - 승선 항구도 유의미한 영향을 미친 것이지</p></li>
+<li><p>검증 점수는 동일하지만 실제 테스트 데이터에 대한 예측은 달라졌어 - 이는 변수 추가의 효과가 데이터 세트마다 다르게 나타날 수 있다는 점을 시사해</p></li>
+</ol>
+<p>프롬: 성별이 정말 중요한 변수였네요. 그에 비하면 승선 항구는 상대적으로 영향이 작았지만, 그래도 6명이나 더 정확하게 예측할 수 있게 해줬어요!</p>
+<p>다안: 맞아, 그리고 앞서 분석에서 보았듯이, Cherbourg에서 승선한 승객들의 생존율(55.4%)이 다른 항구보다 높았던 것이 이런 예측 정확도 향상에 기여했을 거야. 특히 Cherbourg에서 승선한 승객들 중 1등실 승객의 비율이 높았다는 점도 중요한 요인이었을 거야.</p>
+<p>프롬: 진짜 재밌어요! 타이타닉 데이터에서 숨겨진 패턴을 하나씩 발견하는 것 같아요. 다음엔 또 어떤 변수를 살펴볼 건가요?</p>
+<p>다안: 다음 시간에는 요금(Fare) 데이터를 자세히 분석해볼 거야. 요금은 객실 등급과 밀접한 관련이 있을 테니까, 그 관계가 생존율에 어떤 영향을 미쳤는지 살펴볼 거야. 특히 test 데이터에 요금 정보가 누락된 승객이 있어서, 이 결측치를 어떻게 처리하면 좋을지도 함께 고민해볼 거야.</p>
+<p>프롬: 와, 기대돼요! 데이터 속에 숨겨진 이야기들을 계속 발견해가는 게 너무 재밌어요. 승객들의 객실 등급이나 승선 항구에 따라 생존 확률이 달랐다는 사실도 흥미로웠는데, 요금 정보는 또 어떤 패턴을 보여줄지 궁금해요!</p>
+<p>코더블: 저는 특히 결측치 처리 방법을 배우는 게 기대돼요. 실제 데이터 분석에서는 결측치가 항상 있기 마련이니까요. 다양한 결측치 처리 전략을 실습해볼 수 있을 것 같아요.</p>
+<p>다안: 그래, 다음 시간도 기대해! 오늘은 승선 항구 정보를 분석하고 모델에 추가함으로써 예측 정확도를 향상시키는 데 성공했어. 그리고 결측치 처리의 중요성도 배웠지. 다음 시간에도 이런 기법들을 활용해서 모델을 더욱 발전시켜 나가보자!</p>
+<div class="tip admonition">
+<p class="admonition-title">직접 해보기</p>
+<p>결측치 처리와 인코딩에 대한 이해를 높이기 위해 다음 실습을 해보세요:</p>
+<ol class="arabic">
+<li><p>결측치 처리 실험</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 결측치를 &#39;C&#39;로 채우기</span>
+<span class="n">train</span><span class="p">[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
+
+<span class="c1"># 또는 &#39;Q&#39;로 채우기</span>
+<span class="n">train</span><span class="p">[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;Q&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>각각의 경우 모델의 성능이 어떻게 달라지는지 비교해보세요. 왜 그런 차이가 났을까요?</p>
+</li>
+<li><p>다른 방식의 인코딩 시도</p>
 <ul class="simple">
-<li><p>3개의 피쳐가 추가되었지만 6명의 예측만 개선되었습니다</p></li>
-<li><p>하지만 이는 각 항구의 고유한 특성이 생존에 영향을 미쳤음을 의미합니다</p></li>
-<li><p>특히 Cherbourg 승객들의 높은 생존율(55.4%)이 예측 정확도 향상에 크게 기여했습니다</p></li>
-<li><p>이는 Cherbourg에서 승선한 승객들 중 1등실 승객의 비율이 높았기 때문입니다</p></li>
-<li><p>앞서 분석에서 보았듯이, 전체 168명의 Cherbourg 승객 중 무려 85명(약 51%)이 1등실을 이용했습니다</p></li>
+<li><p>레이블 인코딩으로 처리해보기</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;Embarked_Label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s1">&#39;S&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Q&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>원-핫 인코딩과 비교했을 때 어떤 차이가 있나요?</p></li>
 </ul>
 </li>
+<li><p>승선 항구와 다른 변수의 관계 분석</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 각 항구별 평균 요금 확인</span>
+<span class="n">train</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Embarked&#39;</span><span class="p">)[</span><span class="s1">&#39;Fare&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="c1"># 각 항구별 객실 등급 분포 확인</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">],</span> <span class="n">train</span><span class="p">[</span><span class="s1">&#39;Pclass&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>이 결과들은 앞서 본 생존율 차이를 어떻게 설명할 수 있나요?</p>
+</li>
 </ol>
-<p>지금까지 승선 항구별 특성을 살펴보았는데, 특히 Cherbourg 승객들의 높은 생존율은 이들이 지불한 요금과도 관련이 있을 것 같습니다. 다음 섹션에서는 요금(Fare) 데이터를 자세히 분석하면서, 이 변수가 생존율에 미치는 영향을 살펴보도록 하겠습니다.</p>
-<div class="admonition- admonition">
+<p>도전해보세요!</p>
+<ol class="arabic simple">
+<li><p>승선 항구와 성별을 함께 고려하면 어떤 패턴이 보일까요?</p></li>
+<li><p>각 항구별로 나이 분포는 어떻게 다를까요?</p></li>
+<li><p>요금과 승선 항구 사이에는 어떤 관계가 있을까요?</p></li>
+</ol>
+<p>이러한 분석을 통해 데이터 속에 숨어있는 새로운 패턴을 발견할 수 있습니다.</p>
+</div>
+<div class="tip admonition">
 <p class="admonition-title">프롬프트 실험하기</p>
 <p>AI에게 분석을 요청할 때는 다양한 방식으로 프롬프트를 작성해볼 수 있습니다:</p>
 <ol class="arabic">
@@ -1162,14 +1162,15 @@ Name: count, dtype: int64
 </ol>
 <p>같은 데이터도 다양한 각도에서 분석할 수 있습니다. 여러분만의 프롬프트로 새로운 인사이트를 발견해보세요!</p>
 </div>
-<div class="seealso admonition">
+<div class="note admonition">
 <p class="admonition-title">데이터 속 숨은 이야기</p>
+<p><strong>승선 항구 결측치 승객들의 실제 이야기</strong></p>
 <p>우리가 분석한 결측치 승객들의 실제 이야기를 찾아보았습니다!</p>
 <p><a class="reference external" href="https://www.encyclopedia-titanica.org">Encyclopedia Titanica</a>에서 이 두 승객에 대한 흥미로운 기록을 발견했습니다. 데이터에서 우리가 추측했던 것처럼, 이들은 실제로 함께 여행했던 동행이었습니다.</p>
 <figure class="align-default">
 <img alt="../_images/22-2.png" src="../_images/22-2.png" />
 </figure>
-<p>62세의 Stone 부인(사진)과 38세의 Miss Icard는 고용주와 가정부 관계였습니다. 둘은 Southampton에서 승선했고, 다행히 모두 생존했습니다. 특히 감동적인 것은 Stone 부인이 사망 시 Miss Icard에게 상당한 금액의 유산과 개인 소지품을 남겼다는 기록입니다. 24년의 나이 차이를 넘어, 고용주와 가정부로 시작된 두 사람의 관계가 깊은 신뢰와 우정으로 발전했던 것 같네요.</p>
+<p>62세의 Stone 부인(사진)과 38세의 Miss Icard는 고용주와 가정부 관계였습니다. 둘은 Southampton에서 승선했고, 다행히 모두 생존했습니다. 특히 감동적인 것은 Stone 부인이 사망 시 Icard에게 상당한 금액의 유산과 개인 소지품을 남겼다는 기록입니다. 24년의 나이 차이를 넘어, 고용주와 가정부로 시작된 두 사람의 관계가 깊은 신뢰와 우정으로 발전했던 것 같네요.</p>
 <p>이렇게 차가운 숫자로 이루어진 데이터 속에도 따뜻한 인간 드라마가 숨어있습니다. 우리가 분석한 결측치 처리가 단순한 데이터 작업이 아닌, 실제 존재했던 사람들의 이야기라는 점이 특별하게 다가옵니다.</p>
 <p>더 자세한 내용이 궁금하시다면:</p>
 <ul class="simple">
@@ -1224,7 +1225,7 @@ Name: count, dtype: int64
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">3. 사라진 요금은 어떻게 채워야 하나?</p>
+        <p class="prev-next-title">3. 사라진 요금을 찾아서…</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
