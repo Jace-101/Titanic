@@ -177,9 +177,9 @@
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="Titanic-20.html">II. 더 깊은 바다로: 결측치와 범주형 변수라는 두 가지 난관</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="Titanic-21.html">2.1 성별은 생존을 가르는 결정적 단서였을까?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titanic-21.html">1. 성별은 생존을 가르는 결정적 단서였을까?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Titanic-22.html">2. 승선 항구가 비어 있는 두 여성은 누구지?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Titanic-23.html">3. 사라진 요금은 어떻게 채워야 하나?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Titanic-23.html">3. 사라진 요금을 찾아서…</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Titanic-24.html">4. 타이타닉에 무임승객이 있는 거야? 설마…</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Titanic-25.html">5. 나이는 정말 쓸모없는 변수일까?</a></li>
 </ul>
@@ -408,11 +408,11 @@
 <h1>2. 통계로 본 생존의 조건, 숫자 속에 숨어 있는 이야기<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
 <p><em>데이터 과학 동아리 - 두 번째 모임</em></p>
 <hr class="docutils" />
-<p>프롬: 다안 선배, 지난 시간에 타이타닉 데이터의 기본 구조를 살펴봤는데, 오늘은 어떤 걸 알아볼 예정인가요?</p>
-<p>다안: 지난 시간에 우리는 데이터 파일들의 구조와 내용을 확인했지. 그리고 성별만으로도 76.555%의 정확도를 달성할 수 있다는 사실도 발견했어. 오늘은 한 걸음 더 나아가 데이터를 좀 더 깊이 분석해볼 거야.</p>
-<p>코더블: 그러니까 좀 더 다양한 변수들이 생존율과 어떤 관계가 있는지 살펴볼 거군요?</p>
-<p>다안: 정확해! 모델을 만들기 위해서는 먼저 데이터를 깊이 있게 이해하는 것이 중요해. 우리가 가진 train 데이터에는 어떤 패턴이 있을까? 수치로 표현된 특성들(나이, 요금, 동승한 가족 수 등)은 생존과 어떤 관계가 있을까? 이런 질문들에 대한 답을 찾아가면서, 자연스럽게 첫 번째 머신러닝 모델을 만들어 볼 거야.</p>
-<p>코더블: 먼저 데이터를 읽어와야 할 텐데, 지난 시간에 했던 것처럼 코드를 작성할게요.</p>
+<p><strong>프롬:</strong> 다안 선배, 지난 시간에 타이타닉 데이터의 기본 구조를 살펴봤는데, 오늘은 어떤 걸 알아볼 예정인가요?</p>
+<p><strong>다안:</strong> 지난 시간에 우리는 데이터 파일들의 구조와 내용을 확인했지. 그리고 성별만으로도 76.555%의 정확도를 달성할 수 있다는 사실도 발견했어. 오늘은 한 걸음 더 나아가 데이터를 좀 더 깊이 분석해볼 거야.</p>
+<p><strong>코더블:</strong> 그러니까 좀 더 다양한 변수들이 생존율과 어떤 관계가 있는지 살펴볼 거군요?</p>
+<p><strong>다안:</strong> 정확해! 모델을 만들기 위해서는 먼저 데이터를 깊이 있게 이해하는 것이 중요해. 우리가 가진 train 데이터에는 어떤 패턴이 있을까? 수치로 표현된 특성들(나이, 요금, 동승한 가족 수 등)은 생존과 어떤 관계가 있을까? 이런 질문들에 대한 답을 찾아가면서, 자연스럽게 첫 번째 머신러닝 모델을 만들어 볼 거야.</p>
+<p><strong>코더블:</strong> 먼저 데이터를 읽어와야 할 텐데, 지난 시간에 했던 것처럼 코드를 작성할게요.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -424,12 +424,12 @@
 </div>
 </div>
 </div>
-<p>다안: 좋아, 이제 데이터를 불러왔으니 분석을 시작해보자!</p>
+<p><strong>다안:</strong> 좋아, 이제 데이터를 불러왔으니 분석을 시작해보자!</p>
 <section id="id2">
 <h2>데이터의 기본 정보 확인<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
-<p>프롬: 데이터에 대해 좀 더 자세히 알아보고 싶은데, 어떤 정보를 먼저 확인하면 좋을까요?</p>
-<p>다안: 데이터를 처음 마주했을 때 가장 먼저 해야 할 일은 전반적인 특성을 파악하는 거야. pandas는 이를 위한 유용한 함수들을 제공해. 예를 들어, info() 함수를 사용하면 데이터의 기본 정보를 한눈에 볼 수 있지.</p>
-<p>코더블: info() 메서드로 확인해볼게요. 이 메서드는 데이터프레임의 요약 정보를 보여주는데, 컬럼 이름, 데이터 타입, 결측치 등을 확인할 수 있어요.</p>
+<p><strong>프롬:</strong> 데이터에 대해 좀 더 자세히 알아보고 싶은데, 어떤 정보를 먼저 확인하면 좋을까요?</p>
+<p><strong>다안:</strong> 데이터를 처음 마주했을 때 가장 먼저 해야 할 일은 전반적인 특성을 파악하는 거야. pandas는 이를 위한 유용한 함수들을 제공해. 예를 들어, info() 함수를 사용하면 데이터의 기본 정보를 한눈에 볼 수 있지.</p>
+<p><strong>코더블:</strong> info() 메서드로 확인해볼게요. 이 메서드는 데이터프레임의 요약 정보를 보여주는데, 컬럼 이름, 데이터 타입, 결측치 등을 확인할 수 있어요.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
@@ -460,23 +460,47 @@ memory usage: 83.7+ KB
 </div>
 </div>
 </div>
-<p>프롬: 코드가 간단하네요! info()만 쓰면 이렇게 많은 정보를 볼 수 있다니 신기해요.</p>
-<p>다안: 좋아, 이제 데이터의 구조가 더 명확해졌네. 출력 결과를 보면 몇 가지 중요한 사실을 알 수 있어:</p>
-<p>프롬: 총 891명의 승객 정보가 있고, 어떤 정보들은 누락되어 있네요. 특히 나이(Age)는 714명만 있고, 객실 번호(Cabin)는 거의 대부분 빠져있어요!</p>
-<p>다안: 잘 관찰했어! 나이(Age) 정보는 891명 중 714명만 있고, 177명의 정보가 빠져있어. 그리고 객실 번호(Cabin)는 더 심각해서, 891명 중 204명의 정보만 있지. 또 정보의 형태도 다양해. 숫자로 된 정보(나이, 요금, 동승자 수 등)와 글자로 된 정보(이름, 성별, 객실 번호 등)가 섞여있어.</p>
-<p>코더블: 이렇게 빠진 데이터를 결측치(missing value)라고 하죠? 나중에 모델을 만들 때 이런 결측치를 어떻게 처리할지도 고려해야 할 것 같아요.</p>
-<p>다안: 맞아! 이처럼 빠진 데이터(결측치)가 있다는 것은 나중에 특별한 처리가 필요하다는 신호야. 특히 나이 정보가 꽤 많이 빠져있네. 이 부분은 나중에 자세히 다루어보도록 하자.</p>
+<p><strong>프롬:</strong> 코드가 간단하네요! info()만 쓰면 이렇게 많은 정보를 볼 수 있다니 신기해요.</p>
+<p><strong>다안:</strong> 좋아, 이제 데이터의 구조가 더 명확해졌네. 출력 결과를 보면 몇 가지 중요한 사실을 알 수 있어:</p>
+<p><strong>프롬:</strong> 총 891명의 승객 정보가 있고, 어떤 정보들은 누락되어 있네요. 특히 나이(Age)는 714명만 있고, 객실 번호(Cabin)는 거의 대부분 빠져있어요!</p>
+<p><strong>다안:</strong> 잘 관찰했어! 나이(Age) 정보는 891명 중 714명만 있고, 177명의 정보가 빠져있어. 그리고 객실 번호(Cabin)는 더 심각해서, 891명 중 204명의 정보만 있지. 또 정보의 형태도 다양해. 숫자로 된 정보(나이, 요금, 동승자 수 등)와 글자로 된 정보(이름, 성별, 객실 번호 등)가 섞여있어.</p>
+<p><strong>코더블:</strong> 이렇게 빠진 데이터를 결측치(missing value)라고 하죠? 실제 분석을 위해서는 결측치 개수를 정확히 확인하는 게 중요하니, isnull().sum() 코드로 각 컬럼별 결측치를 확인해볼게요.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PassengerId      0
+Survived         0
+Pclass           0
+Name             0
+Sex              0
+Age            177
+SibSp            0
+Parch            0
+Ticket           0
+Fare             0
+Cabin          687
+Embarked         2
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>다안:</strong> 좋은 제안이야! 이렇게 각 컬럼별 결측치 개수를 정확히 파악하면 데이터 전처리 계획을 세우는 데 도움이 돼. 이러한 결측치가 있다는 것은 나중에 특별한 처리가 필요하다는 신호야. 특히 나이 정보가 꽤 많이 빠져있네. 이 부분은 나중에 자세히 다루어보도록 하자.</p>
 </section>
 <section id="id3">
 <h2>숫자로 된 정보들의 특징 파악<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
-<p>프롬: 이제 데이터의 기본 구조를 알았으니, 숫자로 된 정보들에 대해 좀 더 자세히 알아보고 싶어요. 어떤 통계 정보를 얻을 수 있을까요?</p>
-<p>다안: 좋은 질문이야! 숫자로 된 데이터는 평균, 최소값, 최대값 같은 통계적 특성을 계산할 수 있어. pandas에서는 describe() 함수를 사용하면 이런 정보를 한 번에 얻을 수 있지.</p>
-<p>프롬: 그럼 프롬프트로 확인해볼게요!</p>
+<p><strong>프롬:</strong> 이제 데이터의 기본 구조를 알았으니, 숫자로 된 정보들에 대해 좀 더 자세히 알아보고 싶어요. 어떤 통계 정보를 얻을 수 있을까요?</p>
+<p><strong>다안:</strong> 좋은 질문이야! 숫자로 된 데이터는 평균, 최소값, 최대값 같은 통계적 특성을 계산할 수 있어. pandas에서는 describe() 함수를 사용하면 이런 정보를 한 번에 얻을 수 있지.</p>
+<p><strong>프롬:</strong> 그럼 프롬프트로 확인해볼게요!</p>
 <div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="gh"># 프롬프트</span>
 train 데이터의 숫자로 된 정보들의 통계적 특성을 보여줘
 </pre></div>
 </div>
-<p>코더블: 저는 describe() 메서드를 사용해서 확인해볼게요.</p>
+<p><strong>코더블:</strong> 저는 describe() 메서드를 사용해서 확인해볼게요.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
@@ -596,19 +620,30 @@ train 데이터의 숫자로 된 정보들의 통계적 특성을 보여줘
 </table>
 </div></div></div>
 </div>
-<p>다안: 훌륭해! 이 결과에서 몇 가지 중요한 정보를 확인할 수 있어:</p>
-<p>프롬: 생존율이 38.4%네요. 약 3명 중 1명만 살아남았다는 의미인가요?</p>
-<p>다안: 맞아! Survived의 평균이 0.384라는 것은 전체 승객의 38.4%만 생존했다는 의미야. 약 3명 중 1명 정도만 생존한 셈이지. 침몰하는 배에서 살아남기 위한 절박한 상황이 얼마나 치열했을지 상상해봐. 891명의 승객 중 342명만 살아남고, 549명은 차가운 대서양에서 생을 마감했다는 거야. 수치 뒤에 숨겨진 인간 드라마를 생각하면 마음이 무거워지지.</p>
-<p>코더블: 나이 분포도 흥미롭네요. 가장 어린 승객은 아기(0세)였고, 가장 나이 많은 승객은 80세였어요. 그리고 요금은 정말 차이가 크군요, 무료부터 512파운드까지!</p>
-<p>다안: 좋은 관찰이야! 나이 분포를 보면, 평균 나이는 29.7세였고, 절반의 승객들이 20세에서 38세 사이였어. 그리고 요금 분포는 정말 넓지. 평균 요금은 32.2파운드였지만, 무료로 탑승한 승객부터 512.3파운드를 지불한 승객까지 있었어. 이런 큰 요금 차이는 객실 등급과 관련이 깊을 거야.</p>
-<p>프롬: 요금이 512파운드라니, 현재 가치로 얼마나 되는 걸까요?</p>
-<p>다안: 1912년 당시 512파운드는 현재 가치로 약 1억 3천만 원 정도 돼. 정말 엄청난 금액이지. 이렇게 통계 정보를 보면 데이터 속에 숨겨진 이야기들을 발견할 수 있어.</p>
+<p><strong>다안:</strong> 훌륭해! 이 결과에서 몇 가지 중요한 정보를 확인할 수 있어:</p>
+<p><strong>프롬:</strong> 생존율이 38.4%네요. 약 3명 중 1명만 살아남았다는 의미인가요?</p>
+<p><strong>코더블:</strong> 맞아요, describe() 결과를 보면 Survived 컬럼의 평균값이 0.384인데요. Survived가 생존=1, 사망=0으로 표시된 변수이니까, 이건 생존자 비율이 38.4%라는 의미예요. 정확하게 891명 중 342명이 생존했다는 계산이 나오네요.</p>
+<p><strong>다안:</strong> 정확해! 코더블이 잘 설명했어. Survived 값의 평균이 0.384라는 건 전체 승객의 38.4%가 생존했다는 의미야. 약 3명 중 1명 정도만 생존한 셈이지. 이건 침몰하는 배에서 살아남기가 얼마나 어려웠는지를 보여주는 중요한 통계야. 891명의 승객 중 342명만 살아남고, 549명은 바다에서 생을 마감했다는 거야.</p>
+<blockquote>
+<div><p>💡 <strong>describe() 결과 해석 요약</strong></p>
+<ul class="simple">
+<li><p><strong>생존율</strong>: 전체 승객의 38.4% 생존 (Survived mean: 0.384)</p></li>
+<li><p><strong>나이 분포</strong>: 평균 29.7세, 최소 0.42세(영아), 최대 80세(노인)</p></li>
+<li><p><strong>객실 등급</strong>: 평균 2.31로, 2등급과 3등급 승객이 더 많음</p></li>
+<li><p><strong>요금 분포</strong>: 평균 32.2파운드, 최대 512.3파운드</p></li>
+<li><p><strong>동승 가족수</strong>: 형제/배우자(SibSp) 평균 0.5명, 부모/자녀(Parch) 평균 0.38명</p></li>
+</ul>
+</div></blockquote>
+<p><strong>코더블:</strong> 나이 분포도 흥미롭네요. 가장 어린 승객은 아기(0.42세)였고, 가장 나이 많은 승객은 80세였어요. 그리고 요금은 정말 차이가 크군요, 무료부터 512파운드까지!</p>
+<p><strong>다안:</strong> 좋은 관찰이야! 나이 분포를 보면, 평균 나이는 29.7세였고, 절반의 승객들이 20세에서 38세 사이였어. 그리고 요금 분포는 정말 넓지. 평균 요금은 32.2파운드였지만, 무료로 탑승한 승객부터 512.3파운드를 지불한 승객까지 있었어. 이런 큰 요금 차이는 객실 등급과 관련이 깊을 거야.</p>
+<p><strong>프롬:</strong> 요금이 512파운드라니, 현재 가치로 얼마나 되는 걸까요?</p>
+<p><strong>다안:</strong> 1912년 당시 512파운드는 현재 가치로 약 1억 3천만 원 정도 돼. 이렇게 통계 정보를 보면 데이터 속에 숨겨진 이야기들을 발견할 수 있어.</p>
 </section>
 <section id="id4">
 <h2>글자로 된 정보들의 특징 파악<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
-<p>코더블: 그런데 데이터에는 숫자뿐만 아니라 문자형 데이터도 있잖아요. 이런 글자로 된 정보들은 어떻게 분석할 수 있을까요?</p>
-<p>다안: 좋은 질문이야! 문자열(object) 타입 컬럼들의 특성도 살펴볼 수 있어. describe() 함수에 include=’object’ 파라미터를 추가하면 문자열 데이터에 대한 기본 통계를 확인할 수 있지.</p>
-<p>코더블: describe() 메서드에 include=’object’ 파라미터를 추가해서 문자열 데이터를 확인해볼게요.</p>
+<p><strong>코더블:</strong> 그런데 데이터에는 숫자뿐만 아니라 문자형 데이터도 있잖아요. 이런 글자로 된 정보들은 어떻게 분석할 수 있을까요?</p>
+<p><strong>다안:</strong> 좋은 질문이야! 문자열(object) 타입 컬럼들의 특성도 살펴볼 수 있어. describe() 함수에 include=’object’ 파라미터를 추가하면 문자열 데이터에 대한 기본 통계를 확인할 수 있지.</p>
+<p><strong>코더블:</strong> describe() 메서드에 include=’object’ 파라미터를 추가해서 문자열 데이터를 확인해볼게요.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s1">&#39;object&#39;</span><span class="p">)</span>
@@ -678,18 +713,18 @@ train 데이터의 숫자로 된 정보들의 통계적 특성을 보여줘
 </table>
 </div></div></div>
 </div>
-<p>프롬: 숫자 데이터와는 다른 종류의 통계가 나오네요. 각 값이 무슨 의미인지 설명해주실 수 있나요?</p>
-<p>다안: 그럼! 문자열 데이터에 대해서는 다른 종류의 통계가 제공돼:</p>
+<p><strong>프롬:</strong> 숫자 데이터와는 다른 종류의 통계가 나오네요. 각 값이 무슨 의미인지 설명해주실 수 있나요?</p>
+<p><strong>다안:</strong> 그럼! 문자열 데이터에 대해서는 다른 종류의 통계가 제공돼:</p>
 <ul class="simple">
 <li><p>count: 결측치가 아닌 값의 개수</p></li>
 <li><p>unique: 고유한 값의 개수</p></li>
 <li><p>top: 가장 많이 등장하는 값</p></li>
 <li><p>freq: top 값의 등장 횟수</p></li>
 </ul>
-<p>프롬: 결과를 보니까, 성별(Sex)은 ‘male’과 ‘female’ 두 가지 값만 있고, ‘male’이 더 많네요. 그리고 승선 항구(Embarked)는 대부분 ‘S’인 것 같아요.</p>
-<p>다안: 맞아! 결과를 보면 성별(Sex)은 ‘male’과 ‘female’ 두 가지 값만 있고, 승선 항구(Embarked)는 대부분 ‘S’(Southampton)야. 객실 번호(Cabin)는 종류가 매우 다양하고, 같은 번호를 쓰는 경우도 거의 없네. 이름(Name)은 당연히 모두 다르고.</p>
-<p>코더블: 소름 돋아요. 실제 존재했던 사람들의 이름이잖아요…</p>
-<p>다안: 맞아, 그게 타이타닉 데이터의 특별한 점이야. 우리가 분석하는 건 단순한 숫자가 아니라 실제 역사 속 인물들의 이야기니까.</p>
+<p><strong>프롬:</strong> 결과를 보니까, 성별(Sex)은 ‘male’과 ‘female’ 두 가지 값만 있고, ‘male’이 더 많네요. 그리고 승선 항구(Embarked)는 대부분 ‘S’인 것 같아요.</p>
+<p><strong>다안:</strong> 맞아! 결과를 보면 성별(Sex)은 ‘male’과 ‘female’ 두 가지 값만 있고, 승선 항구(Embarked)는 대부분 ‘S’(Southampton)야. 객실 번호(Cabin)는 종류가 매우 다양하고, 같은 번호를 쓰는 경우도 거의 없네. 이름(Name)은 당연히 모두 다르고.</p>
+<p><strong>코더블:</strong> 소름 돋아요. 실제 존재했던 사람들의 이름이잖아요…</p>
+<p><strong>다안:</strong> 맞아, 그게 타이타닉 데이터의 특별한 점이야. 우리가 분석하는 건 단순한 숫자가 아니라 실제 역사 속 인물들의 이야기니까.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>코드 생성의 가변성에 대하여</strong></p>
@@ -711,14 +746,14 @@ train 데이터의 숫자로 된 정보들의 통계적 특성을 보여줘
 </section>
 <section id="id5">
 <h2>생존율 시각화하기<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
-<p>프롬: 지금까지는 숫자로 된 정보들을 보기만 했는데, 이걸 그래프로 시각화하면 더 이해하기 쉬울 것 같아요. 특히 생존자와 사망자의 비율을 그래프로 볼 수 있을까요?</p>
-<p>다안: 아주 좋은 생각이야! 시각화는 데이터 분석에서 매우 중요한 부분이지. 전체 승객 중 생존자의 비율을 파이그래프로 표현하면 한눈에 알아보기 쉬울 거야.</p>
-<p>프롬: 제가 프롬프트로 파이그래프를 만들어볼게요!</p>
+<p><strong>프롬:</strong> 지금까지는 숫자로 된 정보들을 보기만 했는데, 이걸 그래프로 시각화하면 더 이해하기 쉬울 것 같아요. 특히 생존자와 사망자의 비율을 그래프로 볼 수 있을까요?</p>
+<p><strong>다안:</strong> 아주 좋은 생각이야! 시각화는 데이터 분석에서 매우 중요한 부분이지. 전체 승객 중 생존자의 비율을 파이그래프로 표현하면 한눈에 알아보기 쉬울 거야.</p>
+<p><strong>프롬:</strong> 제가 프롬프트로 파이그래프를 만들어볼게요!</p>
 <div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="gh"># 프롬프트</span>
 전체 승객 중에서 생존자가 몇 명이나 되는지 파이그래프로 보여줘
 </pre></div>
 </div>
-<p>코더블: 저는 matplotlib 라이브러리를 사용해서 파이그래프를 만들어볼게요. 먼저 생존 여부를 카운트한 다음 파이그래프로 표현하면 돼요.</p>
+<p><strong>코더블:</strong> 저는 matplotlib 라이브러리를 사용해서 파이그래프를 만들어볼게요. 먼저 생존 여부를 카운트한 다음 파이그래프로 표현하면 돼요.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -735,31 +770,31 @@ train 데이터의 숫자로 된 정보들의 통계적 특성을 보여줘
 <img alt="../_images/c0fb1185a21bb1d35aff399a345caa18e39cd9cebd63a82dd65ef1c0096410c6.png" src="../_images/c0fb1185a21bb1d35aff399a345caa18e39cd9cebd63a82dd65ef1c0096410c6.png" />
 </div>
 </div>
-<p>다안: 훌륭해! 그래프를 통해 생존율을 더 직관적으로 이해할 수 있게 됐네. 파이그래프를 보면 승객들의 생존 여부를 한눈에 파악할 수 있어:</p>
+<p><strong>다안:</strong> 훌륭해! 그래프를 통해 생존율을 더 직관적으로 이해할 수 있게 됐네. 파이그래프를 보면 승객들의 생존 여부를 한눈에 파악할 수 있어:</p>
 <ul class="simple">
 <li><p>전체 승객 중 61.6%가 사망했어</p></li>
 <li><p>생존한 승객은 38.4%야</p></li>
 </ul>
-<p>프롬: 이렇게 그래프로 보니까 훨씬 이해가 잘 되네요! 정말 많은 사람들이 희생되었네요… 무려 60% 이상이 사망했다니 충격적이에요. 파이 그래프를 보니 거의 3분의 2에 가까운 승객들이 그날 밤 차가운 대서양에서 생을 마감했다는 사실이 실감이 나요. 생존자를 나타내는 작은 부분을 보면, 당시 얼마나 극심한 생존 경쟁이 있었을지 상상이 돼요.</p>
-<p>다안: 그래, 이는 앞서 describe() 함수로 확인했던 생존율과 정확히 일치해. 시각화를 통해 보니 생존자가 사망자보다 훨씬 적다는 것을 더 직관적으로 이해할 수 있네. 그날 밤 타이타닉호에서 벌어진 비극의 규모를 이 그래프가 잘 보여주고 있어.</p>
+<p><strong>프롬:</strong> 이렇게 그래프로 보니까 훨씬 이해가 잘 되네요! 많은 사망자가 있었군요… 61.6%가 사망했다는 건 약 3분의 2에 가까운 승객들이 그날 밤 배와 함께 가라앉았다는 의미네요.</p>
+<p><strong>다안:</strong> 그래, 이는 앞서 describe() 함수로 확인했던 생존율과 정확히 일치해. 시각화를 통해 보니 생존자가 사망자보다 훨씬 적다는 것을 더 직관적으로 이해할 수 있네. 그날 밤 타이타닉호에서 벌어진 비극의 규모를 이 그래프가 잘 보여주고 있어.</p>
 </section>
 <section id="id6">
 <h2>숫자로 된 정보들 사이의 관계 분석<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
-<p>프롬: 이제 각 변수들 사이의 관계를 알아보고 싶어요. 특히 어떤 변수가 생존과 가장 관련이 있는지 궁금해요.</p>
-<p>다안: 좋은 생각이야! 나이, 요금, 객실 등급 같은 숫자로 된 정보들이 서로 어떤 관계를 가지고 있는지 알아보는 것은 중요해. 이러한 관계를 시각화하는 좋은 방법 중 하나가 ‘히트맵(heatmap)’이야.</p>
-<p>프롬: 히트맵이 뭔가요? 어떻게 생겼나요?</p>
-<p>다안: 히트맵은 두 정보 사이의 상관관계를 색상으로 표현하는 그래프야.</p>
+<p><strong>프롬:</strong> 이제 각 변수들 사이의 관계를 알아보고 싶어요. 특히 어떤 변수가 생존과 가장 관련이 있는지 궁금해요.</p>
+<p><strong>다안:</strong> 좋은 생각이야! 나이, 요금, 객실 등급 같은 숫자로 된 정보들이 서로 어떤 관계를 가지고 있는지 알아보는 것은 중요해. 이러한 관계를 시각화하는 좋은 방법 중 하나가 ‘히트맵(heatmap)’이야.</p>
+<p><strong>프롬:</strong> 히트맵이 뭔가요? 어떻게 생겼나요?</p>
+<p><strong>다안:</strong> 히트맵은 두 정보 사이의 상관관계를 색상으로 표현하는 그래프야.</p>
 <ul class="simple">
 <li><p>1에 가까울수록 강한 양의 상관관계 (한 특성이 증가하면 다른 특성도 증가)</p></li>
 <li><p>-1에 가까울수록 강한 음의 상관관계 (한 특성이 증가하면 다른 특성은 감소)</p></li>
 <li><p>0에 가까울수록 상관관계가 약함 (두 특성이 거의 관련이 없음)</p></li>
 </ul>
-<p>프롬: 그럼 히트맵으로 변수들 사이의 관계를 확인해볼게요!</p>
+<p><strong>프롬:</strong> 그럼 히트맵으로 변수들 사이의 관계를 확인해볼게요!</p>
 <div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="gh"># 프롬프트</span>
 숫자로 된 정보들 사이의 관계를 보여주는 히트맵을 그려줘
 </pre></div>
 </div>
-<p>코더블: 저는 seaborn 라이브러리를 사용해서 히트맵을 만들어볼게요. 먼저 수치형 변수들만 선택한 다음, 상관계수를 계산하고 히트맵으로 표현할게요.</p>
+<p><strong>코더블:</strong> 저는 seaborn 라이브러리를 사용해서 히트맵을 만들어볼게요. 먼저 수치형 변수들만 선택한 다음, 상관계수를 계산하고 히트맵으로 표현할게요.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
@@ -785,23 +820,38 @@ train 데이터의 숫자로 된 정보들의 통계적 특성을 보여줘
 <img alt="../_images/8668b0faa5da5049195117bf0e96433e2f49fa24734c99b043082058bf209c84.png" src="../_images/8668b0faa5da5049195117bf0e96433e2f49fa24734c99b043082058bf209c84.png" />
 </div>
 </div>
-<p>프롬: 와, 이게 바로 히트맵이군요! 빨간색과 파란색이 서로 다른 관계를 나타내는 것 같은데, 어떻게 해석해야 할지 잘 모르겠어요.</p>
-<p>다안: 히트맵에서 색상은 관계의 강도와 방향을 나타내. 빨간색은 양의 상관관계(두 변수가 같이 증가하거나 감소), 파란색은 음의 상관관계(한 변수가 증가하면 다른 변수는 감소)를 의미해. 흰색에 가까울수록 관계가 약하다는 뜻이고.</p>
-<p>프롬: 생존(Survived)과 다른 변수들 사이의 관계를 보면 어떤 걸 알 수 있나요?</p>
-<p>다안: 좋은 질문이야! 생존(Survived)과 다른 정보들의 관계를 살펴보면:</p>
+<p><strong>프롬:</strong> 와, 이게 바로 히트맵이군요! 빨간색과 파란색이 서로 다른 관계를 나타내는 것 같은데, 어떻게 해석해야 할지 잘 모르겠어요. 0.26이나 -0.55 같은 숫자들이 정확히 무슨 의미인가요?</p>
+<p><strong>다안:</strong> 히트맵 해석에 대해 더 설명해줄게. 상관계수 값은 -1에서 1 사이의 숫자로 두 변수 간의 관계 강도를 나타내:</p>
+<blockquote>
+<div><p>💡 <strong>상관계수 해석 가이드</strong></p>
+<ul class="simple">
+<li><p>0.7 ~ 1.0: 매우 강한 양의 상관관계 (거의 비례)</p></li>
+<li><p>0.4 ~ 0.7: 상당한 양의 상관관계</p></li>
+<li><p>0.2 ~ 0.4: 약한 양의 상관관계</p></li>
+<li><p>-0.2 ~ 0.2: 거의 상관관계 없음</p></li>
+<li><p>-0.4 ~ -0.2: 약한 음의 상관관계</p></li>
+<li><p>-0.7 ~ -0.4: 상당한 음의 상관관계</p></li>
+<li><p>-1.0 ~ -0.7: 매우 강한 음의 상관관계 (거의 반비례)</p></li>
+</ul>
+</div></blockquote>
+<p>색상은 관계의 방향을 나타내는데, 빨간색은 양의 상관관계(함께 증가), 파란색은 음의 상관관계(하나 증가하면 다른 하나는 감소)를 의미해.</p>
+<p><strong>프롬:</strong> 아하! 이제 이해가 되네요. 그럼 생존(Survived)과 다른 변수들 사이의 관계를 보면 어떤 걸 알 수 있나요?</p>
+<p><strong>다안:</strong> 좋은 질문이야! 생존(Survived)과 다른 정보들의 관계를 살펴보면:</p>
 <ul class="simple">
 <li><p>객실 등급(Pclass)과는 뚜렷한 음의 관계(-0.34): 등급이 높을수록(숫자가 작을수록) 생존 확률이 높았어</p></li>
 <li><p>요금(Fare)과는 뚜렷한 양의 관계(0.26): 비싼 요금을 낸 승객일수록 생존 확률이 높았어</p></li>
 <li><p>나이(Age)와는 거의 관계가 없음(-0.07): 히트맵에서 흰색에 가까운 색상이 이를 잘 보여주지</p></li>
 </ul>
-<p>코더블: 다른 관계들도 흥미롭네요! 예를 들어, Pclass와 Fare 사이의 상관관계가 -0.55로 꽤 높은데, 이건 역시 1등석일수록 요금이 비쌌다는 걸 보여주는 거죠?</p>
-<p>다안: 맞아! 그 관계도 아주 흥미로워. Pclass와 Fare 사이의 음의 상관관계는 1등석(Pclass=1)일수록 요금이 비쌌다는 걸 통계적으로 증명하는 거지. 이런 관계들을 이해하는 것이 데이터 분석의 핵심이야.</p>
+<p><strong>코더블:</strong> 다른 관계들도 흥미롭네요! 예를 들어, Pclass와 Fare 사이의 상관관계가 -0.55로 꽤 높은데, 이건 역시 1등석일수록 요금이 비쌌다는 걸 보여주는 거죠?</p>
+<p><strong>다안:</strong> 맞아! 그 관계도 아주 흥미로워. Pclass와 Fare 사이의 음의 상관관계는 1등석(Pclass=1)일수록 요금이 비쌌다는 걸 통계적으로 증명하는 거지. 이런 관계들을 이해하는 것이 데이터 분석의 핵심이야.</p>
+<p><strong>프롬:</strong> 그럼 정리하자면, 객실 등급과 요금은 생존과 꽤 강한 관계가 있고, 나이는 별로 상관이 없다는 거군요. 그런데 왜 객실 등급과 요금이 생존과 관련이 있었을까요?</p>
+<p><strong>다안:</strong> 매우 통찰력 있는 질문이야! 이건 타이타닉호의 구조 및 당시 사회적 상황과 관련이 있어. 1등석은 배의 상층부에 위치해서 구명보트에 접근하기 쉬웠고, 승무원들의 안내도 더 많이 받았을 거야. 또한 당시 사회계층에 따라 구조 우선순위가 달랐을 가능성도 있지. 이런 역사적, 사회적 맥락을 데이터를 통해 확인할 수 있다는 게 데이터 사이언스의 매력이야.</p>
 </section>
 <section id="id7">
 <h2>객실 등급별 생존율 분석<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
-<p>프롬: 히트맵을 보니까 객실 등급과 생존이 관련이 있다고 했잖아요. 이걸 좀 더 직접적으로 볼 수 있는 방법은 없을까요? 각 등급별로 정확히 몇 퍼센트가 생존했는지 알고 싶어요.</p>
-<p>다안: 좋은 질문이야! 히트맵에서는 전체적인 경향성만 볼 수 있지만, 각 등급별 생존율을 직접 계산해서 시각화할 수도 있어. 막대그래프로 표현하면 좀 더 직관적으로 이해할 수 있을 거야.</p>
-<p>코더블: 이번에는 제가 먼저 코드로 만들어보겠습니다. 실제 구현 방법을 보면 프롬프트 작성에도 도움이 될 것 같아요.</p>
+<p><strong>프롬:</strong> 히트맵을 보니까 객실 등급과 생존이 관련이 있다고 했잖아요. 이걸 좀 더 직접적으로 볼 수 있는 방법은 없을까요? 각 등급별로 정확히 몇 퍼센트가 생존했는지 알고 싶어요.</p>
+<p><strong>다안:</strong> 좋은 질문이야! 히트맵에서는 전체적인 경향성만 볼 수 있지만, 각 등급별 생존율을 직접 계산해서 시각화할 수도 있어. 막대그래프로 표현하면 좀 더 직관적으로 이해할 수 있을 거야.</p>
+<p><strong>코더블:</strong> 이번에는 제가 먼저 코드로 만들어보겠습니다. 실제 구현 방법을 보면 프롬프트 작성에도 도움이 될 것 같아요.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pclass_survival</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Pclass&#39;</span><span class="p">)[</span><span class="s1">&#39;Survived&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
@@ -820,15 +870,15 @@ train 데이터의 숫자로 된 정보들의 통계적 특성을 보여줘
 <img alt="../_images/c31cab89a148c68375f9df9dae6335b8b723ef21380ded3403a6d3ffdfee7d07.png" src="../_images/c31cab89a148c68375f9df9dae6335b8b723ef21380ded3403a6d3ffdfee7d07.png" />
 </div>
 </div>
-<p>프롬: 우와, 막대그래프로 보니 차이가 확실히 보이네요! 저도 프롬프트로 만들어볼게요.</p>
+<p><strong>프롬:</strong> 우와, 막대그래프로 보니 차이가 확실히 보이네요! 저도 프롬프트로 만들어볼게요.</p>
 <div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="gh"># 프롬프트</span>
 객실 등급(1등석, 2등석, 3등석)에 따라 생존율이 어떻게 다른지 막대그래프로 보여줘
 </pre></div>
 </div>
-<p>다안: 좋아! 이제 객실 등급별 생존율을 시각적으로 비교할 수 있네. 하지만 정확한 수치를 알기는 좀 어렵지? 조금 더 정확한 값을 보려면 인터랙티브한 그래프가 도움이 될 거야.</p>
-<p>프롬: 인터랙티브한 그래프요? 그게 뭔가요?</p>
-<p>다안: 인터랙티브한 그래프는 마우스를 가져다 대면 정확한 수치를 보여주는 그래프야. Plotly라는 라이브러리를 사용하면 이런 그래프를 만들 수 있어.</p>
-<p>코더블: 제가 Plotly로 인터랙티브 그래프를 만들어볼게요. 이렇게 하면 각 막대에 마우스를 올렸을 때 정확한 생존율을 볼 수 있어요.</p>
+<p><strong>다안:</strong> 좋아! 이제 객실 등급별 생존율을 시각적으로 비교할 수 있네. 하지만 정확한 수치를 알기는 좀 어렵지? 조금 더 정확한 값을 보려면 인터랙티브한 그래프가 도움이 될 거야.</p>
+<p><strong>프롬:</strong> 인터랙티브한 그래프요? 그게 뭔가요?</p>
+<p><strong>다안:</strong> 인터랙티브한 그래프는 마우스를 가져다 대면 정확한 수치를 보여주는 그래프야. Plotly라는 라이브러리를 사용하면 이런 그래프를 만들 수 있어.</p>
+<p><strong>코더블:</strong> 제가 Plotly로 인터랙티브 그래프를 만들어볼게요. 이렇게 하면 각 막대에 마우스를 올렸을 때 정확한 생존율을 볼 수 있어요. 참고로 Plotly를 처음 사용하는 경우 ‘pip install plotly’로 설치가 필요할 수 있어요.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
@@ -874,9 +924,9 @@ train 데이터의 숫자로 된 정보들의 통계적 특성을 보여줘
         });
         }
         </script>
-        </div><div class="output text_html"><div>                            <div id="bd2744ea-d130-431d-be37-61c57d5026b9" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("bd2744ea-d130-431d-be37-61c57d5026b9")) {                    Plotly.newPlot(                        "bd2744ea-d130-431d-be37-61c57d5026b9",                        [{"alignmentgroup":"True","hovertemplate":"\uac1d\uc2e4 \ub4f1\uae09=%{x}\u003cbr\u003e\uc0dd\uc874\uc728=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"","marker":{"color":"#636efa","pattern":{"shape":""}},"name":"","offsetgroup":"","orientation":"v","showlegend":false,"textposition":"auto","x":[1,2,3],"xaxis":"x","y":[0.6296296296296297,0.47282608695652173,0.24236252545824846],"yaxis":"y","type":"bar"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"\uac1d\uc2e4 \ub4f1\uae09"},"type":"category"},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"\uc0dd\uc874\uc728"}},"legend":{"tracegroupgap":0},"title":{"text":"Pclass\ubcc4 \uc0dd\uc874\uc728"},"barmode":"relative"},                        {"responsive": true}                    ).then(function(){
+        </div><div class="output text_html"><div>                            <div id="f6872289-ec39-4b09-b236-b5082c8806c0" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("f6872289-ec39-4b09-b236-b5082c8806c0")) {                    Plotly.newPlot(                        "f6872289-ec39-4b09-b236-b5082c8806c0",                        [{"alignmentgroup":"True","hovertemplate":"\uac1d\uc2e4 \ub4f1\uae09=%{x}\u003cbr\u003e\uc0dd\uc874\uc728=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"","marker":{"color":"#636efa","pattern":{"shape":""}},"name":"","offsetgroup":"","orientation":"v","showlegend":false,"textposition":"auto","x":[1,2,3],"xaxis":"x","y":[0.6296296296296297,0.47282608695652173,0.24236252545824846],"yaxis":"y","type":"bar"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"\uac1d\uc2e4 \ub4f1\uae09"},"type":"category"},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"\uc0dd\uc874\uc728"}},"legend":{"tracegroupgap":0},"title":{"text":"Pclass\ubcc4 \uc0dd\uc874\uc728"},"barmode":"relative"},                        {"responsive": true}                    ).then(function(){
                             
-var gd = document.getElementById('bd2744ea-d130-431d-be37-61c57d5026b9');
+var gd = document.getElementById('f6872289-ec39-4b09-b236-b5082c8806c0');
 var x = new MutationObserver(function (mutations, observer) {{
         var display = window.getComputedStyle(gd).display;
         if (!display || display === 'none') {{
@@ -900,22 +950,22 @@ if (outputEl) {{
 
                         })                };                });            </script>        </div></div></div>
 </div>
-<p>프롬: 와! 정확한 숫자를 볼 수 있네요! 1등석은 63%, 2등석은 47%, 3등석은 24%라니… 1등석과 3등석의 생존율이 거의 3배 차이가 나네요! 왜 이렇게 차이가 많이 났을까요?</p>
-<p>다안: 여러 가지 이유가 있을 수 있어. 우선 1등석은 배의 상층부에 위치해서 구명보트에 접근하기 쉬웠을 거야. 또한 1등석 승객들은 선원들의 안내를 더 빨리 받았을 가능성도 높아. 그리고 앞서 히트맵에서 봤듯이, 객실 등급은 다른 특성들과도 관련이 있어. 예를 들어 1등석에는 여성 승객의 비율이 더 높았을 수도 있지.</p>
-<p>코더블: 타이타닉호의 구조도 영향을 미쳤을 것 같아요. 3등석은 배의 하부에 있어서 침수가 시작됐을 때 탈출하기 더 어려웠을 테니까요.</p>
-<p>다안: 맞아, 좋은 지적이야! 배의 구조와 위치도 중요한 요소였을 거야. 3등석은 배의 하부, 특히 물이 먼저 차오르는 곳에 위치했고, 복잡한 구조 때문에 탈출 경로도 더 복잡했을 거야.</p>
-<p>프롬: 와, 이제 데이터를 통해 타이타닉의 비극을 더 자세히 이해할 수 있게 된 것 같아요!</p>
-<p>다안: 그래, 지금까지 우리는 타이타닉 생존자 데이터를 다양한 방법으로 살펴봤어. 수치형 데이터의 분포와 관계를 파악하고, 특히 객실 등급과 생존율의 관계를 자세히 분석했지.</p>
-<p>다음 시간에는 이렇게 분석한 데이터를 바탕으로 첫 번째 생존자 예측 모델을 만들어볼 거야. 비록 단순한 모델이지만, 이를 통해 머신러닝의 기본적인 과정을 이해할 수 있을 거야. 또한 모델의 성능을 평가하고, 어떻게 하면 더 나은 예측을 할 수 있을지 고민해보는 시간도 가져보자.</p>
-<p>코더블: 다음 시간이 기대되네요! 이번에 배운 상관관계를 활용해서 모델을 만들면 성별만 고려했을 때보다 더 정확한 예측이 가능하지 않을까요?</p>
-<p>프롬: 저도 다른 변수들과 생존율의 관계도 더 살펴보고 싶어요. 특히 나이와 생존율, 요금과 생존율 같은 관계요!</p>
-<p>다안: 좋은 생각들이야! 맞아, 우리가 살펴본 것처럼, 다른 수치형 특성들도 생존율과 관련이 있을 수 있어. 다음 특성들에 대해서도 직접 시각화해보면 재미있는 패턴을 발견할 수 있을 거야:</p>
+<p><strong>프롬:</strong> 와! 정확한 숫자를 볼 수 있네요! 1등석은 63%, 2등석은 47%, 3등석은 24%라니… 1등석과 3등석의 생존율이 거의 3배 차이가 나네요! 왜 이렇게 차이가 많이 났을까요?</p>
+<p><strong>다안:</strong> 여러 가지 이유가 있을 수 있어. 우선 1등석은 배의 상층부에 위치해서 구명보트에 접근하기 쉬웠을 거야. 또한 1등석 승객들은 선원들의 안내를 더 빨리 받았을 가능성도 높아. 그리고 앞서 히트맵에서 봤듯이, 객실 등급은 다른 특성들과도 관련이 있어. 예를 들어 1등석에는 여성 승객의 비율이 더 높았을 수도 있지.</p>
+<p><strong>코더블:</strong> 타이타닉호의 구조도 영향을 미쳤을 것 같아요. 3등석은 배의 하부에 있어서 침수가 시작됐을 때 탈출하기 더 어려웠을 테니까요.</p>
+<p><strong>다안:</strong> 맞아, 좋은 지적이야! 배의 구조와 위치도 중요한 요소였을 거야. 3등석은 배의 하부, 특히 물이 먼저 차오르는 곳에 위치했고, 복잡한 구조 때문에 탈출 경로도 더 복잡했을 거야.</p>
+<p><strong>프롬:</strong> 데이터를 통해 타이타닉의 비극을 더 자세히 이해할 수 있게 된 것 같아요! 객실 등급별 생존율 차이가 이렇게 극명하다니 놀랍네요.</p>
+<p><strong>다안:</strong> 그래, 지금까지 우리는 타이타닉 생존자 데이터를 다양한 방법으로 살펴봤어. 수치형 데이터의 분포와 관계를 파악하고, 특히 객실 등급과 생존율의 관계를 자세히 분석했지.</p>
+<p>다음 시간에는 이렇게 분석한 데이터를 바탕으로 첫 번째 생존자 예측 모델을 만들어볼 거야. 이 모델은 오늘 발견한 패턴들을 학습하여 앞으로 어떤 특성을 가진 승객이 생존했을지 예측하게 될 거야. 비록 단순한 모델이지만, 이를 통해 머신러닝의 기본적인 과정을 이해할 수 있을 거야.</p>
+<p><strong>코더블:</strong> 다음 시간이 기대되네요! 이번에 배운 상관관계를 활용해서 모델을 만들면 성별만 고려했을 때보다 더 정확한 예측이 가능하지 않을까요?</p>
+<p><strong>프롬:</strong> 저도 다른 변수들과 생존율의 관계도 더 살펴보고 싶어요. 특히 나이와 생존율, 요금과 생존율 같은 관계요!</p>
+<p><strong>다안:</strong> 좋은 생각들이야! 맞아, 우리가 살펴본 것처럼, 다른 수치형 특성들도 생존율과 관련이 있을 수 있어. 다음 특성들에 대해서도 직접 시각화해보면 재미있는 패턴을 발견할 수 있을 거야:</p>
 <ul class="simple">
 <li><p>SibSp(형제자매 수)와 생존율의 관계</p></li>
 <li><p>Parch(부모자녀 수)와 생존율의 관계</p></li>
 </ul>
-<p>프롬: 집에 가서 직접 해볼게요! 이제 프롬프트로 그래프도 만들 수 있으니까 재미있을 것 같아요!</p>
-<p>코더블: 저는 각 변수별로 시각화하는 함수를 만들어서 코드를 더 효율적으로 작성해볼게요. 다음 시간에 공유할게요!</p>
+<p><strong>프롬:</strong> 집에 가서 직접 해볼게요! 이제 프롬프트로 그래프도 만들 수 있으니까 재미있을 것 같아요!</p>
+<p><strong>코더블:</strong> 저는 각 변수별로 시각화하는 함수를 만들어서 코드를 더 효율적으로 작성해볼게요. 다음 시간에 공유할게요!</p>
 <div class="note admonition">
 <p class="admonition-title">데이터 속 숨은 이야기</p>
 <p><strong>타이타닉호의 최고가 승객: Charlotte Cardeza</strong></p>
