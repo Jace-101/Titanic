@@ -11,8 +11,50 @@ kernelspec:
   language: python
   name: python3
 ---
+💻 **준비 코드**
 
-# 3. 이름 속에도 힌트가 있을까? Title 이야기
+```{code-cell}
+:tags: ["hide-input"]
+
+import pandas as pd
+
+train = pd.read_csv('train.csv')
+test = pd.read_csv('test.csv')
+submission = pd.read_csv('gender_submission.csv')
+
+# Section 2.1
+for df in [train, test]:
+    df['Gender'] = df['Sex'].map({'male': 0, 'female': 1})
+
+# Section 2.2
+train.loc[train['Embarked'].isnull(), 'Embarked'] = 'S'
+train = pd.concat([train, pd.get_dummies(train['Embarked'], prefix='Embarked')], axis=1)
+test = pd.concat([test, pd.get_dummies(test['Embarked'], prefix='Embarked')], axis=1)
+
+# Section 2.3
+median_fare = train[(train['Pclass'] == 3) & (train['Embarked'] == 'S')]['Fare'].median()
+test['Fare'] = test['Fare'].fillna(median_fare)
+
+# Section 2.5
+age_by_pclass = train.groupby('Pclass')['Age'].median()
+for pclass in [1, 2, 3]:
+    train.loc[(train['Age'].isnull()) & (train['Pclass'] == pclass), 'Age'] = age_by_pclass[pclass]
+for pclass in [1, 2, 3]:
+    test.loc[(test['Age'].isnull()) & (test['Pclass'] == pclass), 'Age'] = age_by_pclass[pclass]
+
+inc_fts = ['Pclass', 'Age', 'SibSp', 'Parch', 'Fare']
+inc_fts += ['Gender']
+inc_fts += ['Embarked_C', 'Embarked_Q', 'Embarked_S']
+```
+
+```{code-cell}
+:tags: ["hide-input"]
+!pip install catboost
+```
+
+<br>
+
+# 1. 에이, 이름이 생존 여부에 영향을 줄 리 없잖아...
 
 *데이터 과학 동아리 - 아홉 번째 모임*
 
@@ -30,7 +72,7 @@ for df in [train, test]:
     df['Title'] = df['Name'].apply(lambda x: x.split(',')[1].split('.')[0].strip())
 
 train['Title'].value_counts()
-```
+````
 
 프롬: 와, 정말 다양한 호칭이 있네요! 'Mr', 'Miss', 'Mrs' 말고도 'Don', 'Dr', 'Lady' 같은 건 처음 봤어요.
 
@@ -88,6 +130,7 @@ train.groupby('Title')['Survived'].mean().sort_values(ascending=False)
 코더블: 네, 저도 한번 해볼게요. 먼저 라이브러리부터 설치하고 함수를 만들어 볼게요.
 
 ```{code-cell}
+
 from catboost import CatBoostClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
